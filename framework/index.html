@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Framework · Teaching Inside the Thread</title>
+  <meta name="description" content="An AI-Centered Pedagogy presented in three slides. AMCIS 2026 Workshop.">
+  <link rel="stylesheet" href="../assets/shared.css">
+  <style>
+    .frame-wrap {
+      padding: var(--space-8) 0 var(--space-12);
+    }
+    .slide-stage {
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+    }
+    .slide-stage img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+    .slide-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 50vh;
+      background: #ffffff;
+      border: 2px dashed var(--border-strong);
+      border-radius: var(--radius-md);
+      color: var(--fg-muted);
+      text-align: center;
+      padding: var(--space-8);
+    }
+    .slide-placeholder strong {
+      color: var(--fg);
+      font-size: var(--fs-lg);
+      margin-bottom: var(--space-2);
+    }
+    .slide-caption {
+      margin-top: var(--space-5);
+      color: var(--fg-muted);
+      font-size: var(--fs-sm);
+      text-align: center;
+    }
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .nav-row__counter {
+      font-size: var(--fs-sm);
+      color: var(--fg-muted);
+    }
+    .nav-row__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .frame-home-cta {
+      display: flex;
+      justify-content: center;
+      margin-top: var(--space-8);
+    }
+    .slide {
+      display: none;
+    }
+    .slide.is-active {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+  <header class="page-header">
+    <div class="page-header__title"><a href="../">Teaching Inside the Thread</a></div>
+    <a class="page-header__home" href="../">Home</a>
+  </header>
+
+  <main class="container frame-wrap">
+    <h1 class="visually-hidden">The Framework</h1>
+
+    <section class="slide" id="slide-1" data-slide="1" aria-label="Slide 1 of 3">
+      <div class="slide-stage">
+        <img src="../assets/slide1.png" alt="From AI as Tool to Learning Inside the Thread" data-fallback="slide1.png">
+      </div>
+      <p class="slide-caption">Slide 1 of 3: From AI as Tool to Learning Inside the Thread</p>
+    </section>
+
+    <section class="slide" id="slide-2" data-slide="2" aria-label="Slide 2 of 3">
+      <div class="slide-stage">
+        <img src="../assets/slide2.png" alt="The Three-Phase Curricular Progression" data-fallback="slide2.png">
+      </div>
+      <p class="slide-caption">Slide 2 of 3: The Three-Phase Curricular Progression</p>
+    </section>
+
+    <section class="slide" id="slide-3" data-slide="3" aria-label="Slide 3 of 3">
+      <div class="slide-stage">
+        <img src="../assets/slide3.png" alt="The Human and AI Collaboration Loop" data-fallback="slide3.png">
+      </div>
+      <p class="slide-caption">Slide 3 of 3: The Human and AI Collaboration Loop</p>
+    </section>
+
+    <nav class="nav-row" aria-label="Slide navigation">
+      <span class="nav-row__counter" id="slideCounter">1 of 3</span>
+      <div class="nav-row__actions">
+        <button class="btn btn-secondary" id="prevBtn" type="button">Previous</button>
+        <button class="btn btn-primary" id="nextBtn" type="button">Next</button>
+      </div>
+    </nav>
+
+    <div class="frame-home-cta" id="finalHomeCta" hidden>
+      <a class="btn btn-primary" href="../">Back to home</a>
+    </div>
+  </main>
+
+  <div class="plib-aria-live" id="ariaLive" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const counterEl = document.getElementById('slideCounter');
+      const finalCta = document.getElementById('finalHomeCta');
+      const aria = document.getElementById('ariaLive');
+
+      function parseHash() {
+        const m = (location.hash || '').match(/^#(\d+)$/);
+        if (!m) return 1;
+        const n = parseInt(m[1], 10);
+        if (isNaN(n) || n < 1 || n > totalSlides) return 1;
+        return n;
+      }
+
+      function setSlide(n, updateHash) {
+        if (n < 1) n = 1;
+        if (n > totalSlides) n = totalSlides;
+        slides.forEach(s => s.classList.toggle('is-active', parseInt(s.dataset.slide, 10) === n));
+        counterEl.textContent = n + ' of ' + totalSlides;
+        prevBtn.disabled = n === 1;
+        nextBtn.disabled = n === totalSlides;
+        finalCta.hidden = n !== totalSlides;
+        if (updateHash) {
+          history.replaceState(null, '', '#' + n);
+        }
+        aria.textContent = 'Showing slide ' + n + ' of ' + totalSlides;
+      }
+
+      prevBtn.addEventListener('click', () => setSlide(getCurrent() - 1, true));
+      nextBtn.addEventListener('click', () => setSlide(getCurrent() + 1, true));
+
+      function getCurrent() {
+        const active = slides.find(s => s.classList.contains('is-active'));
+        return active ? parseInt(active.dataset.slide, 10) : 1;
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          setSlide(getCurrent() + 1, true);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          setSlide(getCurrent() - 1, true);
+        }
+      });
+
+      window.addEventListener('hashchange', () => setSlide(parseHash(), false));
+
+      // Graceful image fallback when slide assets are not yet placed
+      document.querySelectorAll('.slide img').forEach(img => {
+        img.addEventListener('error', () => {
+          const parent = img.parentElement;
+          const captionText = img.getAttribute('data-fallback') || 'Slide image';
+          const placeholder = document.createElement('div');
+          placeholder.className = 'slide-placeholder';
+          placeholder.innerHTML =
+            '<strong>Slide image not yet placed</strong>' +
+            '<span>Expected file: <code>assets/' + captionText + '</code></span>';
+          parent.replaceChild(placeholder, img);
+        });
+      });
+
+      setSlide(parseHash(), true);
+    })();
+  </script>
+</body>
+</html>

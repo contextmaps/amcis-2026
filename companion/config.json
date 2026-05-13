@@ -1,0 +1,180 @@
+{
+  "title": "Teaching Inside the Thread",
+  "agent_url": "https://chatgpt.com/g/g-6a04e57a41208191ac7ef63d967053f8-amcis-teaching-companion",
+  "form": {
+    "submission_url": "https://docs.google.com/forms/d/e/1FAIpQLSfr1k5pksXMujds0RpFEdpc8bTVxk5aWaZVyQANSuMn71j5GA/formResponse",
+    "entry_type": "entry.1850646152",
+    "entry_session_id": "entry.560367375",
+    "entry_timestamp": "entry.1473660026",
+    "entry_payload": "entry.1114220693"
+  },
+  "step1": {
+    "heading": "Step 1. What is your teaching goal today?",
+    "subhead": "Pick the area that best matches what you want to work on. You can refine the focus on the next screen.",
+    "categories": [
+      {
+        "id": "course_design",
+        "label": "Course design and architecture",
+        "description": "AI-aware syllabi, curriculum mapping, and course planning at the architectural level."
+      },
+      {
+        "id": "technical_content",
+        "label": "Teaching technical content",
+        "description": "Databases, systems analysis, programming, analytics, and ML pedagogy with AI in the room."
+      },
+      {
+        "id": "cases_examples",
+        "label": "Cases, examples, and applications",
+        "description": "Case-method teaching, discipline-specific examples, and applied scenarios for IS classrooms."
+      },
+      {
+        "id": "engagement",
+        "label": "Engagement and interaction",
+        "description": "Discussion design, in-class AI activities, and student and AI exchange protocols."
+      },
+      {
+        "id": "assessment",
+        "label": "Assessment in the AI era",
+        "description": "Assignment design under AI access, rubric revision, and integrity strategy."
+      },
+      {
+        "id": "doctoral",
+        "label": "Doctoral training and supervision",
+        "description": "Qualifying exams, dissertation work, research methods training, and mentorship with AI."
+      },
+      {
+        "id": "artifacts",
+        "label": "Building learning artifacts",
+        "description": "Custom GPTs for class, AI study companions, and agentic tools students can use."
+      },
+      {
+        "id": "other",
+        "label": "Other",
+        "description": "Something else. Describe it on the next screen.",
+        "isOther": true
+      }
+    ]
+  },
+  "step2": {
+    "heading": "Step 2. What is the specific focus?",
+    "subhead": "Pick a focus area to narrow the conversation. Real options arrive in the next content cycle.",
+    "items_by_category": {
+      "course_design":   [{ "id": "ph_course_design",   "label": "Sample focus area for Course design and architecture (placeholder)" }],
+      "technical_content":[{ "id": "ph_technical",      "label": "Sample focus area for Teaching technical content (placeholder)" }],
+      "cases_examples":  [{ "id": "ph_cases",           "label": "Sample focus area for Cases, examples, and applications (placeholder)" }],
+      "engagement":      [{ "id": "ph_engagement",      "label": "Sample focus area for Engagement and interaction (placeholder)" }],
+      "assessment":      [{ "id": "ph_assessment",      "label": "Sample focus area for Assessment in the AI era (placeholder)" }],
+      "doctoral":        [{ "id": "ph_doctoral",        "label": "Sample focus area for Doctoral training and supervision (placeholder)" }],
+      "artifacts":       [{ "id": "ph_artifacts",       "label": "Sample focus area for Building learning artifacts (placeholder)" }],
+      "other":           [{ "id": "ph_other",           "label": "Sample focus area (placeholder)" }]
+    },
+    "other_option": { "id": "other", "label": "Other", "isOther": true }
+  },
+  "step3": {
+    "heading": "Step 3. Teaching context",
+    "subhead": "A few details so the prompt fits your situation.",
+    "fields": [
+      {
+        "id": "course_topic",
+        "type": "text",
+        "label": "Course topic",
+        "placeholder": "For example: Database Management, IS Strategy, ML for Business",
+        "required": true
+      },
+      {
+        "id": "student_level",
+        "type": "select",
+        "label": "Student level",
+        "options": ["Undergraduate", "Master's", "Doctoral", "Mixed"],
+        "required": true
+      },
+      {
+        "id": "class_format",
+        "type": "select",
+        "label": "Class format",
+        "options": ["In-person", "Online", "Hybrid"],
+        "required": true
+      },
+      {
+        "id": "current_approach",
+        "type": "textarea",
+        "label": "Current approach (optional)",
+        "placeholder": "How are you currently teaching this, if at all? If you are designing from scratch, leave blank.",
+        "required": false
+      },
+      {
+        "id": "institution_type",
+        "type": "select",
+        "label": "Institution type (optional)",
+        "options": ["R1", "R2", "Regional", "Liberal arts", "Professional", "Other"],
+        "required": false
+      }
+    ]
+  },
+  "step4": {
+    "heading": "Step 4. What materials can you build on?",
+    "subhead": "Pick anything you have available. You can also add your own.",
+    "placeholder_item": { "id": "ph_material", "label": "Sample material option (placeholder)" },
+    "other_option": { "id": "other_material", "label": "Other", "isOther": true }
+  },
+  "review": {
+    "heading": "Review and continue",
+    "subhead": "Confirm your selections. The Companion will copy your prompt and open the agent in a new tab.",
+    "primary_button": "Copy prompt and open the Companion",
+    "edit_label": "Edit"
+  },
+  "bridge": {
+    "heading": "The agent is opening",
+    "confirmation": "Your prompt is on your clipboard. The AMCIS Teaching Companion should have opened in a new tab.",
+    "m_open_framing": "This prompt is your M-Open, the start of a multi-turn exchange. When you finish, you can paste an M-Close into the thread or close the tab.",
+    "copy_again_label": "Copy the prompt again",
+    "return_button": "I'm back, share a reflection",
+    "agent_link_label": "Open the AMCIS Teaching Companion"
+  },
+  "reflection": {
+    "heading": "Reflection",
+    "subhead": "Three small blocks. Each one is short. None are required.",
+    "r_block": {
+      "prompt": "Share a short reflection on what changed for you.",
+      "placeholder": "A few sentences. What shifted, what you noticed, what you might try next.",
+      "min_suggested": 50,
+      "max_suggested": 250
+    },
+    "q_block": {
+      "prompt": "Which of these AI-in-teaching practices feels most likely to change something about your teaching this fall?",
+      "options": [
+        "Custom agents for course-specific tasks",
+        "Assignment redesign under AI access",
+        "Multi-turn coaching for students",
+        "AI-assisted assessment",
+        "Doctoral student supervision tools"
+      ]
+    },
+    "o_block": {
+      "prompt": "Rank these dimensions of AI-assisted teaching by how much they concern you.",
+      "items": [
+        "Academic integrity",
+        "Student dependence",
+        "Equity of access",
+        "Quality of feedback",
+        "Faculty workload",
+        "Curriculum drift"
+      ]
+    },
+    "name_field_label": "Your name (optional)",
+    "save_button": "Save reflection",
+    "saved_message": "Thanks. Your reflection was saved.",
+    "next_actions": {
+      "try_x": "Try an X block, open exploration",
+      "restart": "Start another path"
+    }
+  },
+  "x_block": {
+    "heading": "Exploration block",
+    "orienting_text": "If you have time, try an X block. Open a free exploration with the agent. Type ### X as your first line and ask anything the workshop did not address. The thread captures it. We do not grade it.",
+    "copy_prefix_label": "Copy ### X prefix",
+    "reopen_agent_label": "Re-open the Companion in a new tab",
+    "done_label": "Done, start another path"
+  },
+  "prompt_template": "I am an information systems faculty member preparing teaching work for the term ahead. I just used the AMCIS Teaching Companion triage and here is what I picked.\n\nTeaching focus area: {step1_label}\nSpecific focus: {step2_label}\n\nCourse context:\n- Course topic: {course_topic}\n- Student level: {student_level}\n- Class format: {class_format}\n- Current approach: {current_approach}\n- Institution type: {institution_type}\n\nMaterials I have available: {step4_label}\n\nPlease respond with a single, complete message structured in these seven sections, using the exact section headers below:\n\n1. Framing of the goal\n2. Core design moves\n3. A concrete activity or prompt I can use this week\n4. Assessment considerations under AI access\n5. Pitfalls to watch for\n6. Adjacent threads worth exploring\n7. One small experiment for the next session\n\nStay within the IS faculty audience. Be direct and specific. Keep the full response in one message."
+}
