@@ -7,7 +7,7 @@
   <meta name="description" content="The hands-on artifact for the AMCIS 2026 workshop on an AI-Centered Pedagogy.">
   <link rel="stylesheet" href="../assets/shared.css">
   <style>
-    /* ---------- Companion-specific layout ---------- */
+    /* ---------- Companion layout ---------- */
     .companion-wrap {
       padding: var(--space-8) 0 var(--space-16);
       max-width: 1280px;
@@ -27,94 +27,176 @@
       to   { opacity: 1; transform: translateY(0); }
     }
 
-    .screen-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: var(--space-4);
-      margin-bottom: var(--space-2);
-    }
-    .screen-head h2 {
+    .tri-step-prompt {
       font-size: var(--fs-2xl);
-      margin: 0;
+      font-weight: 600;
+      margin: 0 0 var(--space-2);
       color: var(--fg);
+      line-height: 1.3;
     }
-    .screen-subhead {
-      color: var(--fg-muted);
-      margin-bottom: var(--space-6);
+    .tri-step-sub {
       font-size: var(--fs-base);
-    }
-    .screen-actions {
-      display: flex;
-      justify-content: space-between;
-      gap: var(--space-3);
-      margin-top: var(--space-8);
-      flex-wrap: wrap;
-    }
-    .screen-actions__right {
-      display: flex;
-      gap: var(--space-3);
-      margin-left: auto;
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-6);
     }
 
-    /* Step 1 grid */
-    .grid-cards {
+    /* ---------- Step 1: 4 x 2 grid of group panels ----------
+       Lifted pattern: each category becomes a .tri-group card with
+       a label header and a single radio "card" inside. The 8th cell
+       is the .tri-group-other peer panel with always-visible textarea. */
+    .tri-groups {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: 1fr;
       gap: var(--space-4);
+      margin-bottom: var(--space-4);
+      align-items: stretch;
     }
-    @media (max-width: 1023px) { .grid-cards { grid-template-columns: repeat(2, 1fr); } }
-    @media (max-width: 600px)  { .grid-cards { grid-template-columns: 1fr; } }
+    @media (min-width: 720px) {
+      .tri-groups { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (min-width: 1100px) {
+      .tri-groups { grid-template-columns: repeat(4, 1fr); }
+    }
 
-    .card-choice {
-      display: flex;
-      flex-direction: column;
-      text-align: left;
-      padding: var(--space-5);
-      background: #ffffff;
+    .tri-group {
+      background: var(--bg-soft);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      cursor: pointer;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease, transform 0.05s ease;
-      font: inherit;
-      color: var(--fg);
-      min-height: 120px;
-    }
-    .card-choice:hover {
-      border-color: var(--accent);
-      box-shadow: var(--shadow-md);
-    }
-    .card-choice.is-selected {
-      border-color: var(--accent);
-      background: var(--accent-soft);
-      box-shadow: var(--shadow-md);
-    }
-    .card-choice__title {
-      font-weight: 600;
-      color: var(--accent);
-      margin-bottom: var(--space-2);
-    }
-    .card-choice__desc {
-      font-size: var(--fs-sm);
-      color: var(--fg-muted);
-      line-height: 1.5;
-    }
-
-    /* Step 2 list (single column with placeholders) */
-    .list-choices {
+      padding: var(--space-4);
       display: flex;
       flex-direction: column;
-      gap: var(--space-3);
+      gap: var(--space-2);
+    }
+    /* Amber-tan tint for the Other peer panel — lifted token spirit from
+       Pamplin's --c-r-bg / --c-r-border / --c-r-id. */
+    .tri-group-other {
+      background: #fff8f0;
+      border-color: #d0a040;
+    }
+    .tri-group-label {
+      font-size: var(--fs-xs);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 0 0 var(--space-1);
+    }
+    .tri-group-other .tri-group-label {
+      color: #6b3e00;
+    }
+    .tri-group-desc {
+      font-size: var(--fs-sm);
+      color: var(--fg-muted);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .tri-group-boundary {
+      font-size: var(--fs-xs);
+      color: var(--fg-muted);
+      font-style: italic;
+      margin: 0;
+      line-height: 1.4;
     }
 
-    /* Step 3 form */
+    .tri-choice {
+      display: flex;
+      align-items: flex-start;
+      gap: var(--space-2);
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      padding: var(--space-3);
+      background: #ffffff;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      font: inherit;
+      font-size: var(--fs-sm);
+      line-height: 1.4;
+      color: var(--fg);
+      transition: background 0.12s ease, border-color 0.12s ease;
+      margin-top: auto;
+    }
+    .tri-choice:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+    .tri-choice.selected {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .tri-choice-radio {
+      flex: 0 0 auto;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      border: 2px solid var(--border-strong);
+      margin-top: 2px;
+      position: relative;
+      background: #ffffff;
+    }
+    .tri-choice.selected .tri-choice-radio {
+      border-color: var(--accent);
+    }
+    .tri-choice.selected .tri-choice-radio::after {
+      content: "";
+      position: absolute;
+      top: 2px; left: 2px;
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+    .tri-choice-check {
+      flex: 0 0 auto;
+      width: 18px; height: 18px;
+      border-radius: 3px;
+      border: 2px solid var(--border-strong);
+      margin-top: 2px;
+      position: relative;
+      background: #ffffff;
+    }
+    .tri-choice.selected .tri-choice-check {
+      border-color: var(--accent);
+      background: var(--accent);
+    }
+    .tri-choice.selected .tri-choice-check::after {
+      content: "";
+      position: absolute;
+      top: 0px; left: 4px;
+      width: 6px; height: 11px;
+      border: solid #ffffff;
+      border-width: 0 2.5px 2.5px 0;
+      transform: rotate(45deg);
+    }
+    .tri-choice-text { flex: 1; }
+
+    /* ---------- Step 2 and Step 4 vertical list + Other reveal ---------- */
+    .tri-list {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+    .tri-other-input-wrap {
+      margin-top: var(--space-3);
+    }
+    .tri-other-input-wrap.hidden { display: none; }
+
+    /* The .plib-textarea and .plib-counter primitives live in shared.css
+       (defined in HANDOFF_01). They cover the Pamplin behavior here. */
+
+    /* ---------- Step 3 form ---------- */
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: var(--space-5);
     }
     @media (max-width: 720px) { .form-grid { grid-template-columns: 1fr; } }
-    .form-field { display: flex; flex-direction: column; gap: var(--space-2); }
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
     .form-field--full { grid-column: 1 / -1; }
     .form-field label {
       font-weight: 500;
@@ -140,19 +222,17 @@
       box-shadow: 0 0 0 3px rgba(99, 0, 49, 0.15);
     }
     .form-field textarea { min-height: 90px; resize: vertical; }
-
-    /* Step 4 reuses list-choices + add-your-own */
-    .other-input {
-      margin-top: var(--space-3);
-      display: none;
+    .form-field .field-hint {
+      font-size: var(--fs-xs);
+      color: var(--fg-muted);
     }
-    .other-input.is-visible { display: block; }
 
-    /* Review */
+    /* ---------- Review ---------- */
     .review-rows {
       display: flex;
       flex-direction: column;
       gap: var(--space-2);
+      margin-bottom: var(--space-6);
     }
     .review-row {
       display: grid;
@@ -177,8 +257,30 @@
       white-space: pre-wrap;
       word-break: break-word;
     }
+    .review-row__value ul {
+      margin: 0;
+      padding-left: 1.25rem;
+    }
+    .review-prompt-label {
+      font-weight: 500;
+      font-size: var(--fs-sm);
+      margin-bottom: var(--space-2);
+    }
+    .review-prompt-preview {
+      width: 100%;
+      min-height: 200px;
+      padding: var(--space-3);
+      font-family: var(--font-mono);
+      font-size: var(--fs-sm);
+      line-height: 1.5;
+      color: var(--fg);
+      background: var(--bg-soft);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      resize: vertical;
+    }
 
-    /* Bridge */
+    /* ---------- Bridge ---------- */
     .bridge-callout {
       background: var(--accent-soft);
       border: 1px solid var(--accent);
@@ -225,8 +327,36 @@
       font-size: var(--fs-sm);
       color: var(--fg-muted);
     }
+    .output-schema {
+      margin-top: var(--space-5);
+      padding: var(--space-5);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      background: var(--bg-soft);
+    }
+    .output-schema__title {
+      font-size: var(--fs-sm);
+      font-weight: 600;
+      color: var(--fg);
+      margin: 0 0 var(--space-2);
+    }
+    .output-schema__hint {
+      font-size: var(--fs-xs);
+      color: var(--fg-muted);
+      margin: 0 0 var(--space-3);
+    }
+    .output-schema__list {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--fg);
+      font-size: var(--fs-sm);
+      line-height: 1.7;
+    }
+    .output-schema__list li {
+      padding: 0;
+    }
 
-    /* Reflection sub-blocks */
+    /* ---------- Reflection sub-blocks ---------- */
     .reflect-stack {
       display: flex;
       flex-direction: column;
@@ -249,7 +379,6 @@
     .reflect-block--r::before { background: var(--block-r); }
     .reflect-block--q::before { background: var(--block-q); }
     .reflect-block--o::before { background: var(--block-o); }
-
     .reflect-block__header {
       display: flex;
       align-items: center;
@@ -276,7 +405,7 @@
       cursor: pointer;
       line-height: 1.45;
     }
-    .checkbox-list label:hover { background: rgba(0,0,0,0.03); }
+    .checkbox-list label:hover { background: rgba(0, 0, 0, 0.03); }
     .checkbox-list input { margin-top: 0.2rem; }
 
     .ranked-list {
@@ -301,8 +430,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      width: 1.75rem;
-      height: 1.75rem;
+      width: 1.75rem; height: 1.75rem;
       border-radius: 50%;
       background: var(--block-o);
       color: #ffffff;
@@ -310,16 +438,10 @@
       font-size: var(--fs-sm);
       flex-shrink: 0;
     }
-    .ranked-item__label {
-      flex: 1;
-    }
-    .ranked-item__controls {
-      display: flex;
-      gap: var(--space-1);
-    }
+    .ranked-item__label { flex: 1; }
+    .ranked-item__controls { display: flex; gap: var(--space-1); }
     .ranked-item__btn {
-      width: 32px;
-      height: 32px;
+      width: 32px; height: 32px;
       padding: 0;
       border: 1px solid var(--border-strong);
       background: #ffffff;
@@ -328,7 +450,7 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-family: inherit;
+      font: inherit;
       font-size: 1rem;
       color: var(--fg);
     }
@@ -348,14 +470,25 @@
       margin-top: var(--space-4);
       flex-wrap: wrap;
     }
-
     .name-field {
       margin-top: var(--space-6);
       max-width: 24rem;
     }
 
-    /* Block top accent on each screen via shared .block-accent;
-       we just hoist the label onto a row with the heading. */
+    /* Screen actions row */
+    .screen-actions {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-3);
+      margin-top: var(--space-8);
+      flex-wrap: wrap;
+    }
+    .screen-actions__right {
+      display: flex;
+      gap: var(--space-3);
+      margin-left: auto;
+    }
+
     .screen .block-label { margin-bottom: var(--space-2); }
   </style>
 </head>
@@ -368,18 +501,11 @@
   <main class="container container--prose companion-wrap" id="companionMain">
     <h1 class="visually-hidden">The Companion</h1>
 
-    <!-- ========== Step 1 ========== -->
-    <section class="screen block-accent block-accent--r0" id="screen-step1" aria-labelledby="step1-h">
+    <section class="screen block-accent block-accent--r0" id="screen-step1">
       <span class="block-label block-label--r0"><span class="block-label__dot"></span>Session opener</span>
-      <div class="screen-head">
-        <h2 id="step1-h"></h2>
-      </div>
-      <p class="screen-subhead" id="step1-sub"></p>
-      <div class="grid-cards" id="step1-grid" role="radiogroup" aria-labelledby="step1-h"></div>
-      <div class="other-input" id="step1-other-wrap">
-        <label for="step1-other-text" class="visually-hidden">Describe other</label>
-        <input type="text" id="step1-other-text" placeholder="Describe your teaching goal in a phrase">
-      </div>
+      <h2 class="tri-step-prompt" id="step1-prompt"></h2>
+      <p class="tri-step-sub" id="step1-sub"></p>
+      <div class="tri-groups" id="step1-groups"></div>
       <div class="screen-actions">
         <span></span>
         <div class="screen-actions__right">
@@ -388,17 +514,11 @@
       </div>
     </section>
 
-    <!-- ========== Step 2 ========== -->
-    <section class="screen block-accent block-accent--r0" id="screen-step2" aria-labelledby="step2-h">
+    <section class="screen block-accent block-accent--r0" id="screen-step2">
       <span class="block-label block-label--r0"><span class="block-label__dot"></span>Session opener</span>
-      <div class="screen-head">
-        <h2 id="step2-h"></h2>
-      </div>
-      <p class="screen-subhead" id="step2-sub"></p>
-      <div class="list-choices" id="step2-list" role="radiogroup" aria-labelledby="step2-h"></div>
-      <div class="other-input" id="step2-other-wrap">
-        <input type="text" id="step2-other-text" placeholder="Describe a different focus in a phrase">
-      </div>
+      <h2 class="tri-step-prompt" id="step2-prompt"></h2>
+      <p class="tri-step-sub" id="step2-sub"></p>
+      <div id="step2-body"></div>
       <div class="screen-actions">
         <button class="btn btn-tertiary" data-back="step1" type="button">Back</button>
         <div class="screen-actions__right">
@@ -407,13 +527,10 @@
       </div>
     </section>
 
-    <!-- ========== Step 3 ========== -->
-    <section class="screen block-accent block-accent--r0" id="screen-step3" aria-labelledby="step3-h">
+    <section class="screen block-accent block-accent--r0" id="screen-step3">
       <span class="block-label block-label--r0"><span class="block-label__dot"></span>Session opener</span>
-      <div class="screen-head">
-        <h2 id="step3-h"></h2>
-      </div>
-      <p class="screen-subhead" id="step3-sub"></p>
+      <h2 class="tri-step-prompt" id="step3-prompt"></h2>
+      <p class="tri-step-sub" id="step3-sub"></p>
       <div class="form-grid" id="step3-form"></div>
       <div class="screen-actions">
         <button class="btn btn-tertiary" data-back="step2" type="button">Back</button>
@@ -423,17 +540,11 @@
       </div>
     </section>
 
-    <!-- ========== Step 4 ========== -->
-    <section class="screen block-accent block-accent--r0" id="screen-step4" aria-labelledby="step4-h">
+    <section class="screen block-accent block-accent--r0" id="screen-step4">
       <span class="block-label block-label--r0"><span class="block-label__dot"></span>Session opener</span>
-      <div class="screen-head">
-        <h2 id="step4-h"></h2>
-      </div>
-      <p class="screen-subhead" id="step4-sub"></p>
-      <div class="list-choices" id="step4-list" role="radiogroup" aria-labelledby="step4-h"></div>
-      <div class="other-input" id="step4-other-wrap">
-        <input type="text" id="step4-other-text" placeholder="Describe another material in a phrase">
-      </div>
+      <h2 class="tri-step-prompt" id="step4-prompt"></h2>
+      <p class="tri-step-sub" id="step4-sub"></p>
+      <div id="step4-body"></div>
       <div class="screen-actions">
         <button class="btn btn-tertiary" data-back="step3" type="button">Back</button>
         <div class="screen-actions__right">
@@ -442,14 +553,13 @@
       </div>
     </section>
 
-    <!-- ========== Review ========== -->
-    <section class="screen block-accent block-accent--r0" id="screen-review" aria-labelledby="review-h">
+    <section class="screen block-accent block-accent--r0" id="screen-review">
       <span class="block-label block-label--r0"><span class="block-label__dot"></span>Session opener</span>
-      <div class="screen-head">
-        <h2 id="review-h"></h2>
-      </div>
-      <p class="screen-subhead" id="review-sub"></p>
+      <h2 class="tri-step-prompt" id="review-prompt"></h2>
+      <p class="tri-step-sub" id="review-sub"></p>
       <div class="review-rows" id="review-rows"></div>
+      <div class="review-prompt-label">Prompt to be copied</div>
+      <textarea class="review-prompt-preview" id="prompt-preview" readonly aria-label="Assembled prompt preview"></textarea>
       <div class="screen-actions">
         <button class="btn btn-tertiary" data-back="step4" type="button">Back</button>
         <div class="screen-actions__right">
@@ -458,19 +568,24 @@
       </div>
     </section>
 
-    <!-- ========== Bridge ========== -->
-    <section class="screen block-accent block-accent--s" id="screen-bridge" aria-labelledby="bridge-h">
+    <section class="screen block-accent block-accent--s" id="screen-bridge">
       <span class="block-label block-label--s"><span class="block-label__dot"></span>Prompt block</span>
-      <div class="screen-head">
-        <h2 id="bridge-h"></h2>
-      </div>
+      <h2 class="tri-step-prompt" id="bridge-h"></h2>
       <div class="bridge-callout" id="bridge-confirmation"></div>
       <div class="agent-link-box">
         <a href="#" id="bridge-agent-link" target="_blank" rel="noopener"></a>
         <button class="btn btn-secondary plib-copy-btn" id="bridge-copy-again" type="button" data-copied-label="Copied"></button>
       </div>
+      <div class="review-prompt-label" id="bridge-prompt-label"></div>
       <textarea class="read-only-prompt" id="bridge-prompt" readonly aria-label="Assembled prompt"></textarea>
       <div class="framing-line" id="bridge-framing"></div>
+
+      <div class="output-schema" aria-labelledby="output-schema-title">
+        <p class="output-schema__title" id="output-schema-title">What the agent will produce</p>
+        <p class="output-schema__hint">A structured response with these seven sections, in one message.</p>
+        <ol class="output-schema__list" id="output-schema-list"></ol>
+      </div>
+
       <div class="screen-actions">
         <span></span>
         <div class="screen-actions__right">
@@ -479,16 +594,13 @@
       </div>
     </section>
 
-    <!-- ========== Reflection ========== -->
-    <section class="screen block-accent block-accent--r" id="screen-reflection" aria-labelledby="reflect-h">
+    <section class="screen block-accent block-accent--r" id="screen-reflection">
       <span class="block-label block-label--r"><span class="block-label__dot"></span>Reflection block</span>
-      <div class="screen-head">
-        <h2 id="reflect-h"></h2>
-      </div>
-      <p class="screen-subhead" id="reflect-sub"></p>
+      <h2 class="tri-step-prompt" id="reflect-h"></h2>
+      <p class="tri-step-sub" id="reflect-sub"></p>
 
       <div class="reflect-stack" id="reflect-stack">
-        <div class="reflect-block reflect-block--r" id="reflect-r-block">
+        <div class="reflect-block reflect-block--r">
           <div class="reflect-block__header">
             <span class="reflect-block__prompt" id="reflect-r-prompt"></span>
             <span class="block-label block-label--r"><span class="block-label__dot"></span>R</span>
@@ -497,7 +609,7 @@
           <div class="plib-counter" id="reflect-r-counter">0 words</div>
         </div>
 
-        <div class="reflect-block reflect-block--q" id="reflect-q-block">
+        <div class="reflect-block reflect-block--q">
           <div class="reflect-block__header">
             <span class="reflect-block__prompt" id="reflect-q-prompt"></span>
             <span class="block-label block-label--q"><span class="block-label__dot"></span>Q</span>
@@ -505,7 +617,7 @@
           <div class="checkbox-list" id="reflect-q-list"></div>
         </div>
 
-        <div class="reflect-block reflect-block--o" id="reflect-o-block">
+        <div class="reflect-block reflect-block--o">
           <div class="reflect-block__header">
             <span class="reflect-block__prompt" id="reflect-o-prompt"></span>
             <span class="block-label block-label--o"><span class="block-label__dot"></span>O</span>
@@ -515,8 +627,8 @@
       </div>
 
       <div class="name-field">
-        <label for="reflect-name" id="reflect-name-label"></label>
-        <input type="text" id="reflect-name" class="form-field" placeholder="">
+        <label for="reflect-name" id="reflect-name-label">Your name (optional)</label>
+        <input type="text" id="reflect-name" placeholder="">
       </div>
 
       <div class="screen-actions">
@@ -535,13 +647,10 @@
       </div>
     </section>
 
-    <!-- ========== X ========== -->
-    <section class="screen block-accent block-accent--x" id="screen-x" aria-labelledby="x-h">
+    <section class="screen block-accent block-accent--x" id="screen-x">
       <span class="block-label block-label--x"><span class="block-label__dot"></span>Exploration block</span>
-      <div class="screen-head">
-        <h2 id="x-h"></h2>
-      </div>
-      <p class="screen-subhead" id="x-orient"></p>
+      <h2 class="tri-step-prompt" id="x-h"></h2>
+      <p class="tri-step-sub" id="x-orient"></p>
       <div class="screen-actions">
         <button class="btn btn-secondary plib-copy-btn" id="x-copy-prefix" type="button" data-copied-label="Copied"></button>
         <div class="screen-actions__right">
@@ -551,11 +660,9 @@
       </div>
     </section>
 
-    <!-- ========== Loading / error fallback ========== -->
     <section class="screen is-active" id="screen-loading">
       <p>Loading the Companion...</p>
     </section>
-
   </main>
 
   <div class="plib-aria-live" id="ariaLive" aria-live="polite"></div>
@@ -565,7 +672,7 @@
     'use strict';
 
     let CONFIG = null;
-    let companionState = null;
+    let state = null;
     let oOrder = [];
 
     function generateUUID() {
@@ -576,9 +683,12 @@
         return v.toString(16);
       });
     }
-
     function isoNow() { return new Date().toISOString(); }
-
+    function esc(s) {
+      return String(s == null ? '' : s)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    }
     function announce(msg) {
       const live = document.getElementById('ariaLive');
       if (live) live.textContent = msg;
@@ -588,10 +698,10 @@
       return {
         sessionId: generateUUID(),
         committed: false,
-        step1: { id: null, label: '', isOther: false, otherText: '' },
-        step2: { id: null, label: '', isOther: false, otherText: '' },
+        step1: { id: null, label: null, other_text: null },
+        step2: { id: null, label: null, other_text: null },
         step3: {},
-        step4: { id: null, label: '', isOther: false, otherText: '' },
+        step4: { materials: [], other_text: null },
         assembledPrompt: '',
         reflection: { text: '', q_responses: [], o_responses: [], optional_name: '' }
       };
@@ -607,107 +717,214 @@
       }
     }
 
-    // ---------- Rendering helpers ----------
+    // ====================================================================
+    // Step 1 — 7 categories + Other peer panel (always-visible textarea)
+    // ====================================================================
     function renderStep1() {
-      document.getElementById('step1-h').textContent = CONFIG.step1.heading;
-      document.getElementById('step1-sub').textContent = CONFIG.step1.subhead;
-      const grid = document.getElementById('step1-grid');
-      grid.innerHTML = '';
-      CONFIG.step1.categories.forEach((cat) => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'card-choice';
-        btn.setAttribute('role', 'radio');
-        btn.setAttribute('aria-checked', 'false');
-        btn.dataset.id = cat.id;
-        btn.dataset.label = cat.label;
-        btn.dataset.isOther = cat.isOther ? '1' : '0';
-        btn.innerHTML =
-          '<span class="card-choice__title"></span>' +
-          '<span class="card-choice__desc"></span>';
-        btn.querySelector('.card-choice__title').textContent = cat.label;
-        btn.querySelector('.card-choice__desc').textContent = cat.description;
-        btn.addEventListener('click', () => selectStep1(cat, btn));
-        grid.appendChild(btn);
+      document.getElementById('step1-prompt').textContent = CONFIG.copy.step1_prompt;
+      document.getElementById('step1-sub').textContent = CONFIG.copy.step1_subtext;
+
+      const grid = document.getElementById('step1-groups');
+      let html = '';
+      CONFIG.step1.order.forEach((catId) => {
+        const item = CONFIG.step1.items[catId];
+        const boundary = (CONFIG.step1.boundary_statements || {})[catId];
+        const sel = state.step1.id === catId ? ' selected' : '';
+        html += '<div class="tri-group" data-group-id="' + esc(catId) + '" role="group" aria-labelledby="grp-' + esc(catId) + '">';
+        html += '  <div class="tri-group-label" id="grp-' + esc(catId) + '">' + esc(item.label) + '</div>';
+        html += '  <p class="tri-group-desc">' + esc(item.description) + '</p>';
+        if (boundary) {
+          html += '  <p class="tri-group-boundary">' + esc(boundary) + '</p>';
+        }
+        html += '  <button type="button" class="tri-choice' + sel + '" data-step1-id="' + esc(catId) + '" role="radio" aria-checked="' + (sel ? 'true' : 'false') + '">';
+        html += '    <span class="tri-choice-radio" aria-hidden="true"></span>';
+        html += '    <span class="tri-choice-text">Pick this area</span>';
+        html += '  </button>';
+        html += '</div>';
       });
-      // Restore selection
-      if (companionState.step1.id) {
-        const sel = grid.querySelector('[data-id="' + companionState.step1.id + '"]');
-        if (sel) sel.classList.add('is-selected');
-        const wrap = document.getElementById('step1-other-wrap');
-        wrap.classList.toggle('is-visible', companionState.step1.isOther);
-        document.getElementById('step1-other-text').value = companionState.step1.otherText || '';
+      // Other peer panel — always-visible textarea
+      const otherId = CONFIG.step1.other.id;
+      const otherMax = CONFIG.step1.other.max_chars || 200;
+      const otherText = state.step1.other_text || '';
+      html += '<div class="tri-group tri-group-other" data-group-id="' + esc(otherId) + '" role="group" aria-labelledby="grp-' + esc(otherId) + '">';
+      html += '  <div class="tri-group-label" id="grp-' + esc(otherId) + '">' + esc(CONFIG.copy.step1_other_label) + '</div>';
+      html += '  <p class="tri-group-desc">A different teaching goal in your own words. Selects on type.</p>';
+      html += '  <textarea class="plib-textarea" id="step1-other-input" maxlength="' + otherMax + '" placeholder="' + esc(CONFIG.copy.step1_other_placeholder) + '" aria-label="Other (describe briefly)">' + esc(otherText) + '</textarea>';
+      html += '  <div class="plib-counter"><span id="step1-other-count">' + otherText.length + '</span> / ' + otherMax + ' characters</div>';
+      html += '</div>';
+      grid.innerHTML = html;
+
+      // Bind category radio buttons
+      grid.querySelectorAll('[data-step1-id]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-step1-id');
+          const item = CONFIG.step1.items[id];
+          if (state.step1.id !== id) {
+            state.step2 = { id: null, label: null, other_text: null };
+            state.step4 = { materials: [], other_text: null };
+          }
+          state.step1 = { id: id, label: item.label, other_text: null };
+          // Clear Other input
+          const oti = document.getElementById('step1-other-input');
+          if (oti) oti.value = '';
+          const otc = document.getElementById('step1-other-count');
+          if (otc) otc.textContent = '0';
+          paintStep1Selection();
+        });
+      });
+      // Bind Other textarea (type-to-select)
+      const otherTa = document.getElementById('step1-other-input');
+      otherTa.addEventListener('input', () => {
+        const v = otherTa.value;
+        const cnt = document.getElementById('step1-other-count');
+        if (cnt) cnt.textContent = v.length;
+        if (v.trim()) {
+          if (state.step1.id !== otherId) {
+            state.step2 = { id: null, label: null, other_text: null };
+            state.step4 = { materials: [], other_text: null };
+          }
+          state.step1 = { id: otherId, label: 'Other', other_text: v };
+        } else if (state.step1.id === otherId) {
+          state.step1 = { id: null, label: null, other_text: null };
+        }
+        paintStep1Selection();
+      });
+      // Click anywhere in Other panel focuses the textarea
+      const otherPanel = grid.querySelector('[data-group-id="' + otherId + '"]');
+      otherPanel.addEventListener('click', (e) => {
+        if (e.target === otherTa) return;
+        otherTa.focus();
+      });
+      paintStep1Selection();
+    }
+
+    function paintStep1Selection() {
+      const otherId = CONFIG.step1.other.id;
+      document.querySelectorAll('#step1-groups .tri-choice').forEach((btn) => {
+        const id = btn.getAttribute('data-step1-id');
+        const sel = state.step1.id === id;
+        btn.classList.toggle('selected', sel);
+        btn.setAttribute('aria-checked', sel ? 'true' : 'false');
+      });
+      const otherPanel = document.querySelector('#step1-groups [data-group-id="' + otherId + '"]');
+      if (otherPanel) {
+        otherPanel.classList.toggle('selected', state.step1.id === otherId);
       }
+      document.getElementById('step1-next').disabled = !step1Valid();
     }
 
-    function selectStep1(cat, btn) {
-      document.querySelectorAll('#step1-grid .card-choice').forEach(c => {
-        c.classList.remove('is-selected');
-        c.setAttribute('aria-checked', 'false');
-      });
-      btn.classList.add('is-selected');
-      btn.setAttribute('aria-checked', 'true');
-      companionState.step1 = {
-        id: cat.id,
-        label: cat.label,
-        isOther: !!cat.isOther,
-        otherText: companionState.step1.otherText
-      };
-      const wrap = document.getElementById('step1-other-wrap');
-      wrap.classList.toggle('is-visible', !!cat.isOther);
+    function step1Valid() {
+      if (!state.step1.id) return false;
+      if (state.step1.id === CONFIG.step1.other.id) {
+        return !!(state.step1.other_text && state.step1.other_text.trim());
+      }
+      return true;
     }
 
+    // ====================================================================
+    // Step 2 — list of items OR free-text elaboration when Step 1 is Other
+    // ====================================================================
     function renderStep2() {
-      document.getElementById('step2-h').textContent = CONFIG.step2.heading;
-      document.getElementById('step2-sub').textContent = CONFIG.step2.subhead;
-      const list = document.getElementById('step2-list');
-      list.innerHTML = '';
-      const items = (CONFIG.step2.items_by_category[companionState.step1.id] || []).slice();
-      items.push(CONFIG.step2.other_option);
-      items.forEach(item => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'card-choice';
-        btn.setAttribute('role', 'radio');
-        btn.setAttribute('aria-checked', 'false');
-        btn.dataset.id = item.id;
-        btn.dataset.label = item.label;
-        btn.dataset.isOther = item.isOther ? '1' : '0';
-        btn.innerHTML = '<span class="card-choice__title"></span>';
-        btn.querySelector('.card-choice__title').textContent = item.label;
-        btn.addEventListener('click', () => selectStep2(item, btn));
-        list.appendChild(btn);
-      });
-      if (companionState.step2.id) {
-        const sel = list.querySelector('[data-id="' + companionState.step2.id + '"]');
-        if (sel) sel.classList.add('is-selected');
-        document.getElementById('step2-other-wrap').classList.toggle('is-visible', companionState.step2.isOther);
-        document.getElementById('step2-other-text').value = companionState.step2.otherText || '';
+      document.getElementById('step2-prompt').textContent = CONFIG.copy.step2_prompt;
+      document.getElementById('step2-sub').textContent = CONFIG.copy.step2_subtext;
+      const body = document.getElementById('step2-body');
+
+      if (state.step1.id === CONFIG.step1.other.id) {
+        // Elaboration screen — single textarea
+        let html = '';
+        html += '<div class="form-field form-field--full">';
+        html += '<label for="step2-free-input">Tell us a bit more about what version of this you have in mind.</label>';
+        html += '<textarea id="step2-free-input" class="plib-textarea" maxlength="400" placeholder="' + esc(CONFIG.copy.step2_other_placeholder) + '" aria-label="Specific focus (free text)">' + esc(state.step2.other_text || '') + '</textarea>';
+        html += '</div>';
+        body.innerHTML = html;
+        const ta = document.getElementById('step2-free-input');
+        ta.addEventListener('input', () => {
+          const v = ta.value;
+          if (v.trim()) {
+            state.step2 = { id: 'other', label: 'Other', other_text: v };
+          } else {
+            state.step2 = { id: null, label: null, other_text: null };
+          }
+          state.step4 = { materials: [], other_text: state.step4.other_text };
+          document.getElementById('step2-next').disabled = !step2Valid();
+        });
+        document.getElementById('step2-next').disabled = !step2Valid();
+        return;
       }
-    }
 
-    function selectStep2(item, btn) {
-      document.querySelectorAll('#step2-list .card-choice').forEach(c => {
-        c.classList.remove('is-selected');
-        c.setAttribute('aria-checked', 'false');
+      const options = (CONFIG.step2 && CONFIG.step2[state.step1.id]) || [];
+      let html = '<div class="tri-list">';
+      options.forEach((opt) => {
+        const sel = state.step2.id === opt.id ? ' selected' : '';
+        html += '<button type="button" class="tri-choice' + sel + '" data-step2-id="' + esc(opt.id) + '" role="radio" aria-checked="' + (sel ? 'true' : 'false') + '">';
+        html += '<span class="tri-choice-radio" aria-hidden="true"></span>';
+        html += '<span class="tri-choice-text">' + esc(opt.label) + '</span>';
+        html += '</button>';
       });
-      btn.classList.add('is-selected');
-      btn.setAttribute('aria-checked', 'true');
-      companionState.step2 = {
-        id: item.id,
-        label: item.label,
-        isOther: !!item.isOther,
-        otherText: companionState.step2.otherText
-      };
-      document.getElementById('step2-other-wrap').classList.toggle('is-visible', !!item.isOther);
+      html += '</div>';
+      // Other reveal
+      const otherShown = state.step2.id === 'other';
+      html += '<div class="tri-other-input-wrap' + (otherShown ? '' : ' hidden') + '" id="step2-other-wrap">';
+      html += '<label for="step2-other-input" style="display:block;font-weight:500;font-size:var(--fs-sm);margin-bottom:var(--space-2);">Describe in your own words</label>';
+      html += '<textarea id="step2-other-input" class="plib-textarea" maxlength="400" placeholder="' + esc(CONFIG.copy.step2_other_placeholder) + '">' + esc(state.step2.other_text || '') + '</textarea>';
+      html += '</div>';
+      body.innerHTML = html;
+
+      body.querySelectorAll('[data-step2-id]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const id = btn.getAttribute('data-step2-id');
+          const opt = options.find((o) => o.id === id);
+          if (state.step2.id !== id) {
+            state.step4 = { materials: [], other_text: null };
+          }
+          state.step2 = {
+            id: id,
+            label: opt ? opt.label : id,
+            other_text: id === 'other' ? (state.step2.other_text || '') : null
+          };
+          if (id !== 'other') {
+            const oti = document.getElementById('step2-other-input');
+            if (oti) oti.value = '';
+            state.step2.other_text = null;
+          }
+          document.getElementById('step2-other-wrap').classList.toggle('hidden', id !== 'other');
+          body.querySelectorAll('.tri-choice').forEach((b) => {
+            const bsel = b.getAttribute('data-step2-id') === id;
+            b.classList.toggle('selected', bsel);
+            b.setAttribute('aria-checked', bsel ? 'true' : 'false');
+          });
+          document.getElementById('step2-next').disabled = !step2Valid();
+        });
+      });
+      const otherTa = document.getElementById('step2-other-input');
+      if (otherTa) {
+        otherTa.addEventListener('input', () => {
+          if (state.step2.id !== 'other') return;
+          state.step2.other_text = otherTa.value || '';
+          document.getElementById('step2-next').disabled = !step2Valid();
+        });
+      }
+      document.getElementById('step2-next').disabled = !step2Valid();
     }
 
+    function step2Valid() {
+      if (state.step1.id === CONFIG.step1.other.id) {
+        return !!(state.step2.other_text && state.step2.other_text.trim());
+      }
+      if (!state.step2.id) return false;
+      if (state.step2.id === 'other') return !!(state.step2.other_text && state.step2.other_text.trim());
+      return true;
+    }
+
+    // ====================================================================
+    // Step 3 — context form
+    // ====================================================================
     function renderStep3() {
-      document.getElementById('step3-h').textContent = CONFIG.step3.heading;
-      document.getElementById('step3-sub').textContent = CONFIG.step3.subhead;
+      document.getElementById('step3-prompt').textContent = CONFIG.copy.step3_prompt;
+      document.getElementById('step3-sub').textContent = CONFIG.copy.step3_subtext;
       const form = document.getElementById('step3-form');
       form.innerHTML = '';
-      CONFIG.step3.fields.forEach(f => {
+      CONFIG.step3.fields.forEach((f) => {
         const wrap = document.createElement('div');
         wrap.className = 'form-field' + (f.type === 'textarea' ? ' form-field--full' : '');
         const lbl = document.createElement('label');
@@ -721,7 +938,7 @@
           blank.value = '';
           blank.textContent = 'Choose one';
           input.appendChild(blank);
-          f.options.forEach(o => {
+          f.options.forEach((o) => {
             const opt = document.createElement('option');
             opt.value = o;
             opt.textContent = o;
@@ -730,16 +947,24 @@
         } else if (f.type === 'textarea') {
           input = document.createElement('textarea');
           if (f.placeholder) input.placeholder = f.placeholder;
+          if (f.max_chars) input.maxLength = f.max_chars;
         } else {
           input = document.createElement('input');
           input.type = 'text';
           if (f.placeholder) input.placeholder = f.placeholder;
+          if (f.max_chars) input.maxLength = f.max_chars;
         }
         input.id = 'f3-' + f.id;
         input.dataset.fieldId = f.id;
         input.dataset.required = f.required ? '1' : '0';
-        if (companionState.step3[f.id]) input.value = companionState.step3[f.id];
+        if (state.step3[f.id]) input.value = state.step3[f.id];
         wrap.appendChild(input);
+        if (f.max_chars && (f.type === 'text' || f.type === 'textarea')) {
+          const hint = document.createElement('div');
+          hint.className = 'field-hint';
+          hint.textContent = 'Up to ' + f.max_chars + ' characters.';
+          wrap.appendChild(hint);
+        }
         form.appendChild(wrap);
       });
     }
@@ -749,13 +974,13 @@
       const inputs = form.querySelectorAll('[data-field-id]');
       const out = {};
       let missing = null;
-      inputs.forEach(inp => {
+      inputs.forEach((inp) => {
         const id = inp.dataset.fieldId;
         const val = (inp.value || '').trim();
         out[id] = val;
         if (inp.dataset.required === '1' && !val && !missing) missing = inp;
       });
-      companionState.step3 = out;
+      state.step3 = out;
       if (missing) {
         missing.focus();
         return false;
@@ -763,169 +988,361 @@
       return true;
     }
 
+    // ====================================================================
+    // Step 4 — materials per step1 x step2 path, plus appended Other reveal
+    // ====================================================================
+    function getStep4Materials() {
+      if (state.step1.id === CONFIG.step1.other.id) {
+        return CONFIG.step4.default || [];
+      }
+      const branch = CONFIG.step4[state.step1.id];
+      if (!branch) return CONFIG.step4.default || [];
+      const path = branch[state.step2.id];
+      if (path && path.length) return path;
+      return CONFIG.step4.default || [];
+    }
+
     function renderStep4() {
-      document.getElementById('step4-h').textContent = CONFIG.step4.heading;
-      document.getElementById('step4-sub').textContent = CONFIG.step4.subhead;
-      const list = document.getElementById('step4-list');
-      list.innerHTML = '';
-      const items = [CONFIG.step4.placeholder_item, CONFIG.step4.other_option];
-      items.forEach(item => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'card-choice';
-        btn.setAttribute('role', 'radio');
-        btn.dataset.id = item.id;
-        btn.dataset.label = item.label;
-        btn.dataset.isOther = item.isOther ? '1' : '0';
-        btn.innerHTML = '<span class="card-choice__title"></span>';
-        btn.querySelector('.card-choice__title').textContent = item.label;
-        btn.addEventListener('click', () => selectStep4(item, btn));
-        list.appendChild(btn);
+      document.getElementById('step4-prompt').textContent = CONFIG.copy.step4_prompt;
+      document.getElementById('step4-sub').textContent = CONFIG.copy.step4_subtext;
+      const body = document.getElementById('step4-body');
+      const options = getStep4Materials();
+
+      let html = '<div class="tri-list">';
+      options.forEach((opt) => {
+        const sel = state.step4.materials.indexOf(opt.label) !== -1 ? ' selected' : '';
+        html += '<button type="button" class="tri-choice' + sel + '" data-step4-id="' + esc(opt.id) + '" data-step4-label="' + esc(opt.label) + '" role="checkbox" aria-checked="' + (sel ? 'true' : 'false') + '">';
+        html += '<span class="tri-choice-check" aria-hidden="true"></span>';
+        html += '<span class="tri-choice-text">' + esc(opt.label) + '</span>';
+        html += '</button>';
       });
-      if (companionState.step4.id) {
-        const sel = list.querySelector('[data-id="' + companionState.step4.id + '"]');
-        if (sel) sel.classList.add('is-selected');
-        document.getElementById('step4-other-wrap').classList.toggle('is-visible', companionState.step4.isOther);
-        document.getElementById('step4-other-text').value = companionState.step4.otherText || '';
+      // Always-appended Other checkbox + reveal textarea
+      const otherSel = state.step4.other_text != null;
+      const otherMax = (CONFIG.step4_other && CONFIG.step4_other.max_chars) || 200;
+      const otherLabel = (CONFIG.step4_other && CONFIG.step4_other.label) || 'Other (describe briefly)';
+      html += '<button type="button" class="tri-choice' + (otherSel ? ' selected' : '') + '" data-step4-other="1" role="checkbox" aria-checked="' + (otherSel ? 'true' : 'false') + '">';
+      html += '<span class="tri-choice-check" aria-hidden="true"></span>';
+      html += '<span class="tri-choice-text">' + esc(otherLabel) + '</span>';
+      html += '</button>';
+      html += '</div>';
+      html += '<div class="tri-other-input-wrap' + (otherSel ? '' : ' hidden') + '" id="step4-other-wrap">';
+      html += '<label for="step4-other-input" style="display:block;font-weight:500;font-size:var(--fs-sm);margin-bottom:var(--space-2);">What else?</label>';
+      html += '<textarea id="step4-other-input" class="plib-textarea" maxlength="' + otherMax + '" placeholder="' + esc(CONFIG.copy.step4_other_placeholder) + '">' + esc(state.step4.other_text || '') + '</textarea>';
+      html += '</div>';
+      body.innerHTML = html;
+
+      body.querySelectorAll('[data-step4-id]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const label = btn.getAttribute('data-step4-label');
+          const idx = state.step4.materials.indexOf(label);
+          if (idx === -1) state.step4.materials.push(label);
+          else state.step4.materials.splice(idx, 1);
+          const sel = state.step4.materials.indexOf(label) !== -1;
+          btn.classList.toggle('selected', sel);
+          btn.setAttribute('aria-checked', sel ? 'true' : 'false');
+          document.getElementById('step4-next').disabled = !step4Valid();
+        });
+      });
+      const otherBtn = body.querySelector('[data-step4-other]');
+      otherBtn.addEventListener('click', () => {
+        const wrap = document.getElementById('step4-other-wrap');
+        const turningOn = state.step4.other_text == null;
+        if (turningOn) {
+          state.step4.other_text = '';
+          wrap.classList.remove('hidden');
+          const ti = document.getElementById('step4-other-input');
+          if (ti) ti.focus();
+        } else {
+          state.step4.other_text = null;
+          wrap.classList.add('hidden');
+          const ti2 = document.getElementById('step4-other-input');
+          if (ti2) ti2.value = '';
+        }
+        otherBtn.classList.toggle('selected', state.step4.other_text != null);
+        otherBtn.setAttribute('aria-checked', state.step4.other_text != null ? 'true' : 'false');
+        document.getElementById('step4-next').disabled = !step4Valid();
+      });
+      const otherTa = document.getElementById('step4-other-input');
+      if (otherTa) {
+        otherTa.addEventListener('input', () => {
+          state.step4.other_text = otherTa.value;
+          document.getElementById('step4-next').disabled = !step4Valid();
+        });
       }
+      document.getElementById('step4-next').disabled = !step4Valid();
     }
 
-    function selectStep4(item, btn) {
-      document.querySelectorAll('#step4-list .card-choice').forEach(c => {
-        c.classList.remove('is-selected');
-        c.setAttribute('aria-checked', 'false');
-      });
-      btn.classList.add('is-selected');
-      btn.setAttribute('aria-checked', 'true');
-      companionState.step4 = {
-        id: item.id,
-        label: item.label,
-        isOther: !!item.isOther,
-        otherText: companionState.step4.otherText
-      };
-      document.getElementById('step4-other-wrap').classList.toggle('is-visible', !!item.isOther);
+    function step4Valid() {
+      return state.step4.materials.length > 0 ||
+        (state.step4.other_text != null && state.step4.other_text.trim().length > 0);
     }
 
-    function effectiveLabel(stateSlice) {
-      if (!stateSlice || !stateSlice.id) return '';
-      if (stateSlice.isOther) {
-        return (stateSlice.otherText || '').trim() || 'Other';
+    // ====================================================================
+    // Review
+    // ====================================================================
+    function effectiveStep1Display() {
+      if (state.step1.id === CONFIG.step1.other.id) {
+        return 'Other: ' + (state.step1.other_text || '');
       }
-      return stateSlice.label || '';
+      return state.step1.label || '';
+    }
+    function effectiveStep2Display() {
+      if (state.step1.id === CONFIG.step1.other.id) {
+        return 'Other: ' + (state.step2.other_text || '');
+      }
+      if (state.step2.id === 'other') {
+        return 'Other: ' + (state.step2.other_text || '');
+      }
+      return state.step2.label || '';
+    }
+    function step3Display() {
+      const s = state.step3;
+      const parts = [];
+      if (s.course_topic) parts.push({ label: 'Course topic', value: s.course_topic });
+      if (s.student_level) parts.push({ label: 'Student level', value: s.student_level });
+      if (s.class_size) parts.push({ label: 'Class size', value: s.class_size });
+      if (s.class_format) parts.push({ label: 'Class format', value: s.class_format });
+      if (s.teaching_context) parts.push({ label: 'Teaching context', value: s.teaching_context });
+      return parts;
+    }
+    function step4Display() {
+      const out = state.step4.materials.slice();
+      if (state.step4.other_text) out.push('Other: ' + state.step4.other_text);
+      return out;
     }
 
     function renderReview() {
-      document.getElementById('review-h').textContent = CONFIG.review.heading;
-      document.getElementById('review-sub').textContent = CONFIG.review.subhead;
-      document.getElementById('review-commit').textContent = CONFIG.review.primary_button;
+      document.getElementById('review-prompt').textContent = CONFIG.copy.review_prompt;
+      document.getElementById('review-sub').textContent = CONFIG.copy.review_subtext;
+      document.getElementById('review-commit').textContent = CONFIG.copy.copy_button_label;
+
       const rows = document.getElementById('review-rows');
       rows.innerHTML = '';
+      addReviewRow(rows, 'Goal', effectiveStep1Display(), 'step1');
+      addReviewRow(rows, 'Specific focus', effectiveStep2Display(), 'step2');
+      const s3parts = step3Display();
+      if (s3parts.length) {
+        const inner = s3parts.map(p => '<li><strong>' + esc(p.label) + ':</strong> ' + esc(p.value) + '</li>').join('');
+        addReviewRow(rows, 'Context', '<ul>' + inner + '</ul>', 'step3', true);
+      } else {
+        addReviewRow(rows, 'Context', '(none provided)', 'step3');
+      }
+      const s4 = step4Display();
+      if (s4.length) {
+        const inner = s4.map(m => '<li>' + esc(m) + '</li>').join('');
+        addReviewRow(rows, 'Materials', '<ul>' + inner + '</ul>', 'step4', true);
+      } else {
+        addReviewRow(rows, 'Materials', esc(CONFIG.copy.no_materials_text), 'step4');
+      }
 
-      const items = [
-        { back: 'step1', label: 'Teaching focus area', value: effectiveLabel(companionState.step1) },
-        { back: 'step2', label: 'Specific focus', value: effectiveLabel(companionState.step2) },
-        { back: 'step3', label: 'Course topic', value: companionState.step3.course_topic || '' },
-        { back: 'step3', label: 'Student level', value: companionState.step3.student_level || '' },
-        { back: 'step3', label: 'Class format', value: companionState.step3.class_format || '' },
-        { back: 'step3', label: 'Current approach', value: companionState.step3.current_approach || '(blank)' },
-        { back: 'step3', label: 'Institution type', value: companionState.step3.institution_type || '(blank)' },
-        { back: 'step4', label: 'Materials', value: effectiveLabel(companionState.step4) }
-      ];
-      items.forEach(it => {
-        const row = document.createElement('div');
-        row.className = 'review-row';
-        const lbl = document.createElement('div');
-        lbl.className = 'review-row__label';
-        lbl.textContent = it.label;
-        const val = document.createElement('div');
-        val.className = 'review-row__value';
-        val.textContent = it.value;
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'btn btn-tertiary';
-        btn.textContent = CONFIG.review.edit_label;
-        btn.addEventListener('click', () => showScreen(it.back));
-        row.appendChild(lbl);
-        row.appendChild(val);
-        row.appendChild(btn);
-        rows.appendChild(row);
-      });
+      document.getElementById('prompt-preview').value = assemblePrompt();
+    }
+
+    function addReviewRow(rowsEl, label, value, backStep, isHtml) {
+      const row = document.createElement('div');
+      row.className = 'review-row';
+      const lbl = document.createElement('div');
+      lbl.className = 'review-row__label';
+      lbl.textContent = label;
+      const val = document.createElement('div');
+      val.className = 'review-row__value';
+      if (isHtml) val.innerHTML = value;
+      else val.textContent = value;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'btn btn-tertiary';
+      btn.textContent = 'Edit';
+      btn.addEventListener('click', () => showScreen(backStep));
+      row.appendChild(lbl);
+      row.appendChild(val);
+      row.appendChild(btn);
+      rowsEl.appendChild(row);
+    }
+
+    // ====================================================================
+    // Prompt assembly — handlebars-conditional + single-brace slot substitution
+    // ====================================================================
+
+    // Grammar helpers
+    function studentLevelArticleAndText(level) {
+      const map = {
+        'Undergraduate': { article: 'an', text: 'undergraduate' },
+        "Master's":      { article: 'a',  text: "Master's" },
+        'Doctoral':      { article: 'a',  text: 'doctoral' },
+        'Mixed':         { article: 'a',  text: 'mixed-level' }
+      };
+      return map[level] || null;
+    }
+    function classFormatPhrase(fmt) {
+      const map = {
+        'In-person':              'in-person',
+        'Online (synchronous)':   'in a synchronous online format',
+        'Online (asynchronous)':  'in an asynchronous online format',
+        'Hybrid':                 'in a hybrid format'
+      };
+      return map[fmt] || fmt || '';
+    }
+    function classSizePhrase(size) {
+      if (!size) return null;
+      // Lowercase first character so "More than 150" renders cleanly.
+      return size.charAt(0).toLowerCase() + size.slice(1);
     }
 
     function assemblePrompt() {
-      const slots = {
-        step1_label: effectiveLabel(companionState.step1) || '(unspecified)',
-        step2_label: effectiveLabel(companionState.step2) || '(unspecified)',
-        course_topic: companionState.step3.course_topic || '(unspecified)',
-        student_level: companionState.step3.student_level || '(unspecified)',
-        class_format: companionState.step3.class_format || '(unspecified)',
-        current_approach: companionState.step3.current_approach || '(not specified, designing from scratch or unsure)',
-        institution_type: companionState.step3.institution_type || '(unspecified)',
-        step4_label: effectiveLabel(companionState.step4) || '(unspecified)'
-      };
       let tpl = CONFIG.prompt_template || '';
-      Object.keys(slots).forEach(k => {
-        tpl = tpl.split('{' + k + '}').join(slots[k]);
+
+      // 1) Conditional blocks first ({{#if name}}...{{/if}})
+      const cond = {
+        teaching_context: state.step3.teaching_context,
+        materials_other: state.step4.other_text
+      };
+      tpl = tpl.replace(/\{\{#if (\w+)\}\}([\s\S]*?)\{\{\/if\}\}\n?/g, (_m, key, body) => {
+        return cond[key] && String(cond[key]).trim() ? body : '';
       });
-      return tpl;
+
+      // 2) Student level — adjust article and text in the opening line
+      const lvl = studentLevelArticleAndText(state.step3.student_level);
+      if (lvl) {
+        tpl = tpl.replace(/I am a \{student_level\} instructor/, 'I am ' + lvl.article + ' ' + lvl.text + ' instructor');
+      } else {
+        // No student level provided: drop the slot and adjust article
+        tpl = tpl.replace(/I am a \{student_level\} instructor/, 'I am an instructor');
+      }
+
+      // 3) Class format — blank value strips the "teaching ..." clause entirely
+      if (!state.step3.class_format) {
+        tpl = tpl.replace(/ teaching \{class_format\}/, '');
+      }
+
+      // 4) Class size — "Not applicable" or blank strips the entire clause
+      const sizeRaw = state.step3.class_size;
+      if (!sizeRaw || sizeRaw === 'Not applicable') {
+        tpl = tpl.replace(/ in a class of \{class_size\} students/, '');
+      }
+
+      // 4) Build the slot map
+      const goalLabel = state.step1.id === CONFIG.step1.other.id
+        ? (state.step1.other_text || 'a goal I described in my own words')
+        : (state.step1.label || 'Not specified');
+
+      let focusLabel;
+      if (state.step1.id === CONFIG.step1.other.id) {
+        focusLabel = state.step2.other_text || 'as described above';
+      } else if (state.step2.id === 'other') {
+        focusLabel = state.step2.other_text || 'Other';
+      } else {
+        focusLabel = state.step2.label || 'Not specified';
+      }
+
+      let matsLines;
+      if (state.step4.materials && state.step4.materials.length > 0) {
+        matsLines = state.step4.materials.map(m => '- ' + m).join('\n');
+      } else if (state.step4.other_text && state.step4.other_text.trim()) {
+        matsLines = '- (see Other materials note below)';
+      } else {
+        matsLines = (CONFIG.copy && CONFIG.copy.no_materials_text) || 'No specific materials yet, starting from scratch.';
+      }
+
+      const slots = {
+        course_topic: state.step3.course_topic || 'Not specified',
+        student_level: state.step3.student_level || '',
+        class_size: classSizePhrase(sizeRaw) || '',
+        class_format: classFormatPhrase(state.step3.class_format),
+        teaching_context: state.step3.teaching_context || '',
+        step1_goal: goalLabel,
+        step2_focus: focusLabel,
+        materials_list: matsLines,
+        materials_other: state.step4.other_text || ''
+      };
+
+      // 5) Single-brace slot substitution
+      Object.keys(slots).forEach((k) => {
+        tpl = tpl.split('{' + k + '}').join(String(slots[k]));
+      });
+
+      // 6) Collapse extra newlines
+      tpl = tpl.replace(/\n{3,}/g, '\n\n');
+      return tpl.replace(/^\n+/, '').replace(/\n+$/, '\n');
     }
 
-    // ---------- Bridge ----------
+    // ====================================================================
+    // Bridge
+    // ====================================================================
     function renderBridge() {
-      document.getElementById('bridge-h').textContent = CONFIG.bridge.heading;
-      document.getElementById('bridge-confirmation').textContent = CONFIG.bridge.confirmation;
-      document.getElementById('bridge-framing').textContent = CONFIG.bridge.m_open_framing;
-      document.getElementById('bridge-copy-again').textContent = CONFIG.bridge.copy_again_label;
-      document.getElementById('bridge-return').textContent = CONFIG.bridge.return_button;
+      document.getElementById('bridge-h').textContent = CONFIG.copy.bridge_header;
+      document.getElementById('bridge-confirmation').textContent = CONFIG.copy.bridge_confirmation;
+      document.getElementById('bridge-framing').textContent = CONFIG.copy.bridge_m_open_note;
+      document.getElementById('bridge-copy-again').textContent = CONFIG.copy.bridge_copy_again_label;
+      document.getElementById('bridge-return').textContent = CONFIG.copy.bridge_continue_label;
+      document.getElementById('bridge-prompt-label').textContent = CONFIG.copy.bridge_prompt_textarea_label;
       const link = document.getElementById('bridge-agent-link');
       link.href = CONFIG.agent_url;
-      link.textContent = CONFIG.bridge.agent_link_label || CONFIG.agent_url;
-      document.getElementById('bridge-prompt').value = companionState.assembledPrompt;
+      link.textContent = CONFIG.copy.bridge_agent_link_label || CONFIG.agent_url;
+      document.getElementById('bridge-prompt').value = state.assembledPrompt;
+
+      // Output schema list
+      const list = document.getElementById('output-schema-list');
+      list.innerHTML = '';
+      (CONFIG.output_schema || []).forEach((section) => {
+        const li = document.createElement('li');
+        // Strip leading "N. " if present so the <ol> handles numbering.
+        li.textContent = String(section).replace(/^\d+\.\s*/, '');
+        list.appendChild(li);
+      });
     }
 
-    // ---------- Reflection ----------
+    // ====================================================================
+    // Reflection
+    // ====================================================================
     function renderReflection() {
-      document.getElementById('reflect-h').textContent = CONFIG.reflection.heading;
-      document.getElementById('reflect-sub').textContent = CONFIG.reflection.subhead;
-      document.getElementById('reflect-r-prompt').textContent = CONFIG.reflection.r_block.prompt;
+      document.getElementById('reflect-h').textContent = CONFIG.copy.reflection_prompt;
+      document.getElementById('reflect-sub').textContent = CONFIG.copy.reflection_subtext;
       const rText = document.getElementById('reflect-r-text');
-      rText.placeholder = CONFIG.reflection.r_block.placeholder || '';
-      rText.value = companionState.reflection.text || '';
+      rText.placeholder = CONFIG.copy.reflection_textarea_placeholder || '';
+      rText.value = state.reflection.text || '';
+      const rMax = (CONFIG.reflection && CONFIG.reflection.textarea_max_chars) || 2000;
+      rText.maxLength = rMax;
       updateWordCount();
 
-      document.getElementById('reflect-q-prompt').textContent = CONFIG.reflection.q_block.prompt;
+      document.getElementById('reflect-r-prompt').textContent = 'Reflection';
+      const qBlock = CONFIG.reflection && CONFIG.reflection.q_block;
+      const oBlock = CONFIG.reflection && CONFIG.reflection.o_block;
+      document.getElementById('reflect-q-prompt').textContent = qBlock ? qBlock.label : '';
+      document.getElementById('reflect-o-prompt').textContent = oBlock ? oBlock.label : '';
+
       const qList = document.getElementById('reflect-q-list');
       qList.innerHTML = '';
-      CONFIG.reflection.q_block.options.forEach((opt, i) => {
-        const id = 'q-' + i;
-        const lab = document.createElement('label');
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.id = id;
-        cb.value = opt;
-        if (companionState.reflection.q_responses.indexOf(opt) !== -1) cb.checked = true;
-        lab.appendChild(cb);
-        const span = document.createElement('span');
-        span.textContent = opt;
-        lab.appendChild(span);
-        qList.appendChild(lab);
-      });
+      if (qBlock && qBlock.options) {
+        qBlock.options.forEach((opt, i) => {
+          const lab = document.createElement('label');
+          const cb = document.createElement('input');
+          cb.type = 'checkbox';
+          cb.id = 'q-' + i;
+          cb.value = opt.label;
+          cb.dataset.optionId = opt.id;
+          if (state.reflection.q_responses.indexOf(opt.label) !== -1) cb.checked = true;
+          lab.appendChild(cb);
+          const span = document.createElement('span');
+          span.textContent = opt.label;
+          lab.appendChild(span);
+          qList.appendChild(lab);
+        });
+      }
 
-      document.getElementById('reflect-o-prompt').textContent = CONFIG.reflection.o_block.prompt;
-      if (!oOrder.length) {
-        oOrder = (companionState.reflection.o_responses.length
-          ? companionState.reflection.o_responses.slice()
-          : CONFIG.reflection.o_block.items.slice());
+      if (!oOrder.length && oBlock && oBlock.items) {
+        oOrder = state.reflection.o_responses.length
+          ? state.reflection.o_responses.slice()
+          : oBlock.items.map(i => i.label);
       }
       renderOList();
 
-      document.getElementById('reflect-name-label').textContent = CONFIG.reflection.name_field_label;
-      document.getElementById('reflect-name').value = companionState.reflection.optional_name || '';
-      document.getElementById('reflect-save').textContent = CONFIG.reflection.save_button;
-      document.getElementById('reflect-saved-msg').textContent = CONFIG.reflection.saved_message;
-      document.getElementById('reflect-try-x').textContent = CONFIG.reflection.next_actions.try_x;
-      document.getElementById('reflect-restart').textContent = CONFIG.reflection.next_actions.restart;
+      document.getElementById('reflect-name').value = state.reflection.optional_name || '';
+      document.getElementById('reflect-save').textContent = CONFIG.copy.save_reflection_label;
+      document.getElementById('reflect-saved-msg').textContent = CONFIG.copy.reflection_confirmation;
+      document.getElementById('reflect-try-x').textContent = CONFIG.copy.try_x_label;
+      document.getElementById('reflect-restart').textContent = CONFIG.copy.new_route_label;
       document.getElementById('reflect-saved').hidden = true;
+      document.getElementById('reflect-save').removeAttribute('aria-disabled');
     }
 
     function renderOList() {
@@ -966,24 +1383,28 @@
     function updateWordCount() {
       const t = document.getElementById('reflect-r-text').value || '';
       const words = t.trim().length ? t.trim().split(/\s+/).length : 0;
-      const min = CONFIG.reflection.r_block.min_suggested;
-      const max = CONFIG.reflection.r_block.max_suggested;
-      const counter = document.getElementById('reflect-r-counter');
-      counter.textContent = words + ' words  (suggested ' + min + ' to ' + max + ')';
+      const minW = (CONFIG.reflection && CONFIG.reflection.textarea_suggested_min_words) || 50;
+      const maxW = (CONFIG.reflection && CONFIG.reflection.textarea_suggested_max_words) || 250;
+      document.getElementById('reflect-r-counter').textContent =
+        words + ' words  (suggested ' + minW + ' to ' + maxW + ')';
     }
 
-    // ---------- X ----------
+    // ====================================================================
+    // X screen
+    // ====================================================================
     function renderX() {
-      document.getElementById('x-h').textContent = CONFIG.x_block.heading;
-      document.getElementById('x-orient').textContent = CONFIG.x_block.orienting_text;
-      document.getElementById('x-copy-prefix').textContent = CONFIG.x_block.copy_prefix_label;
+      document.getElementById('x-h').textContent = CONFIG.copy.x_prompt;
+      document.getElementById('x-orient').textContent = CONFIG.copy.x_subtext;
+      document.getElementById('x-copy-prefix').textContent = CONFIG.copy.x_copy_prefix_label;
       const reopen = document.getElementById('x-reopen-agent');
       reopen.href = CONFIG.agent_url;
-      reopen.textContent = CONFIG.x_block.reopen_agent_label;
-      document.getElementById('x-done').textContent = CONFIG.x_block.done_label;
+      reopen.textContent = CONFIG.copy.x_reopen_label;
+      document.getElementById('x-done').textContent = CONFIG.copy.x_done_label;
     }
 
-    // ---------- Clipboard ----------
+    // ====================================================================
+    // Clipboard
+    // ====================================================================
     function copyToClipboard(text) {
       if (navigator.clipboard && navigator.clipboard.writeText) {
         return navigator.clipboard.writeText(text).catch(() => fallbackCopy(text));
@@ -1005,7 +1426,9 @@
       setTimeout(() => { delete btn.dataset.copied; }, 1200);
     }
 
-    // ---------- Submission ----------
+    // ====================================================================
+    // Submission
+    // ====================================================================
     function submitToGoogleForm(type, sessionId, timestamp, payload) {
       try {
         const fd = new FormData();
@@ -1026,35 +1449,36 @@
       }
     }
 
-    // ---------- Commit (Review -> Bridge) ----------
+    // ====================================================================
+    // Commit, save, restart
+    // ====================================================================
     function commitReview() {
-      companionState.assembledPrompt = assemblePrompt();
+      state.assembledPrompt = assemblePrompt();
       const timestamp = isoNow();
       const payload = {
         type: 'triage',
-        session_id: companionState.sessionId,
+        session_id: state.sessionId,
         timestamp: timestamp,
-        step1: { id: companionState.step1.id, label: effectiveLabel(companionState.step1) },
-        step2: { id: companionState.step2.id, label: effectiveLabel(companionState.step2) },
-        step3: companionState.step3,
-        step4: { id: companionState.step4.id, label: effectiveLabel(companionState.step4) },
-        assembled_prompt: companionState.assembledPrompt
+        step1: { id: state.step1.id, label: state.step1.label, other_text: state.step1.other_text },
+        step2: { id: state.step2.id, label: state.step2.label, other_text: state.step2.other_text },
+        step3: state.step3,
+        step4: { materials: state.step4.materials, other_text: state.step4.other_text },
+        assembled_prompt: state.assembledPrompt
       };
-      copyToClipboard(companionState.assembledPrompt);
+      copyToClipboard(state.assembledPrompt);
       window.open(CONFIG.agent_url, '_blank', 'noopener');
-      submitToGoogleForm('triage', companionState.sessionId, timestamp, payload);
-      companionState.committed = true;
+      submitToGoogleForm('triage', state.sessionId, timestamp, payload);
+      state.committed = true;
       renderBridge();
       showScreen('bridge');
     }
 
-    // ---------- Save reflection ----------
     function saveReflection() {
       const text = document.getElementById('reflect-r-text').value.trim();
       const checks = Array.from(document.querySelectorAll('#reflect-q-list input[type="checkbox"]'))
         .filter(c => c.checked).map(c => c.value);
       const name = document.getElementById('reflect-name').value.trim();
-      companionState.reflection = {
+      state.reflection = {
         text: text,
         q_responses: checks,
         o_responses: oOrder.slice(),
@@ -1063,89 +1487,57 @@
       const timestamp = isoNow();
       const payload = {
         type: 'reflection',
-        session_id: companionState.sessionId,
+        session_id: state.sessionId,
         timestamp: timestamp,
         reflection_text: text,
         q_responses: checks,
         o_responses: oOrder.slice(),
         optional_name: name || null
       };
-      submitToGoogleForm('reflection', companionState.sessionId, timestamp, payload);
+      submitToGoogleForm('reflection', state.sessionId, timestamp, payload);
       document.getElementById('reflect-saved').hidden = false;
       document.getElementById('reflect-save').setAttribute('aria-disabled', 'true');
       announce('Reflection saved.');
     }
 
-    // ---------- Restart ----------
     function restart() {
-      companionState = freshState();
+      state = freshState();
       oOrder = [];
-      document.getElementById('reflect-save').removeAttribute('aria-disabled');
       renderStep1();
-      renderStep2();
       renderStep3();
-      renderStep4();
-      renderReview();
+      // step2 and step4 will render lazily when reached
       renderReflection();
       showScreen('step1');
     }
 
-    // ---------- Validation ----------
-    function validateStep1() {
-      if (!companionState.step1.id) return false;
-      if (companionState.step1.isOther) {
-        companionState.step1.otherText = document.getElementById('step1-other-text').value.trim();
-        if (!companionState.step1.otherText) {
-          document.getElementById('step1-other-text').focus();
-          return false;
-        }
-      }
-      return true;
-    }
-    function validateStep2() {
-      if (!companionState.step2.id) return false;
-      if (companionState.step2.isOther) {
-        companionState.step2.otherText = document.getElementById('step2-other-text').value.trim();
-        if (!companionState.step2.otherText) {
-          document.getElementById('step2-other-text').focus();
-          return false;
-        }
-      }
-      return true;
-    }
-    function validateStep4() {
-      if (!companionState.step4.id) return false;
-      if (companionState.step4.isOther) {
-        companionState.step4.otherText = document.getElementById('step4-other-text').value.trim();
-        if (!companionState.step4.otherText) {
-          document.getElementById('step4-other-text').focus();
-          return false;
-        }
-      }
-      return true;
-    }
-
-    // ---------- Wiring ----------
+    // ====================================================================
+    // Wiring
+    // ====================================================================
     function wire() {
       document.getElementById('step1-next').addEventListener('click', () => {
-        if (validateStep1()) { renderStep2(); showScreen('step2'); }
+        if (step1Valid()) { renderStep2(); showScreen('step2'); }
       });
       document.getElementById('step2-next').addEventListener('click', () => {
-        if (validateStep2()) { renderStep3(); showScreen('step3'); }
+        if (step2Valid()) { renderStep3(); showScreen('step3'); }
       });
       document.getElementById('step3-next').addEventListener('click', () => {
         if (captureStep3()) { renderStep4(); showScreen('step4'); }
       });
       document.getElementById('step4-next').addEventListener('click', () => {
-        if (validateStep4()) { renderReview(); showScreen('review'); }
+        if (step4Valid()) { renderReview(); showScreen('review'); }
       });
-      document.querySelectorAll('[data-back]').forEach(b => {
-        b.addEventListener('click', () => showScreen(b.dataset.back));
+      document.querySelectorAll('[data-back]').forEach((b) => {
+        b.addEventListener('click', () => {
+          const target = b.dataset.back;
+          if (target === 'step2') renderStep2();
+          else if (target === 'step4') renderStep4();
+          showScreen(target);
+        });
       });
       document.getElementById('review-commit').addEventListener('click', commitReview);
 
       document.getElementById('bridge-copy-again').addEventListener('click', (e) => {
-        copyToClipboard(companionState.assembledPrompt);
+        copyToClipboard(state.assembledPrompt);
         flashCopy(e.currentTarget);
       });
       document.getElementById('bridge-return').addEventListener('click', () => {
@@ -1170,12 +1562,9 @@
 
     function init(cfg) {
       CONFIG = cfg;
-      companionState = freshState();
+      state = freshState();
       renderStep1();
-      renderStep2();
       renderStep3();
-      renderStep4();
-      renderReview();
       renderReflection();
       renderX();
       wire();
@@ -1192,8 +1581,8 @@
         console.error('[companion] failed to load config', err);
         const loader = document.getElementById('screen-loading');
         loader.innerHTML =
-          '<h2>The Companion could not load</h2>' +
-          '<p class="screen-subhead">Configuration failed to load. If you are viewing this directly from disk, serve the directory through a local web server so config.json can be fetched.</p>';
+          '<h2 class="tri-step-prompt">The Companion could not load</h2>' +
+          '<p class="tri-step-sub">Configuration failed to load. If you are viewing this directly from disk, serve the directory through a local web server so config.json can be fetched.</p>';
       });
   })();
   </script>
