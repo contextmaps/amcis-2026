@@ -1,0 +1,1309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pamplin AI Teaching Workshop — Triage</title>
+<style>
+:root {
+  --c-text:#1a1a1a; --c-muted:#4a4a4a;
+  --c-bg:#ffffff; --c-page-bg:#f7f8fa;
+  --c-meta-bg:#f4f6f9; --c-meta-border:#d0d7e2;
+  --c-obj-bg:#eef4fb; --c-obj-accent:#1a5da0;
+  --c-ctx-bg:#fffbf0; --c-ctx-border:#e8d8a0; --c-ctx-label:#5c4400;
+  --c-ctx-s-bg:#f0f7ff; --c-ctx-s-border:#a0c8f0; --c-ctx-s-label:#1a4a80;
+  --c-nar-bg:#f9f9f9; --c-nar-border:#bbb;
+  --c-r-bg:#fff8f0; --c-r-border:#d0a040; --c-r-id:#6b3e00;
+  --c-btn-r:#6b3e00;
+  --c-primary:#1a5da0; --c-primary-hover:#144878; --c-primary-fg:#ffffff;
+  --c-secondary:#4a4a4a; --c-secondary-hover:#1a1a1a;
+  --c-accent:#14552f;
+  --c-error:#b00020; --c-warn:#8a4a00; --c-ok:#14552f;
+  --c-focus:#005fcc;
+  --radius:8px;
+  --font:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--c-page-bg); }
+body { font-family: var(--font); color: var(--c-text); margin: 0; padding: 0; font-size: 17px; line-height: 1.55; }
+.plib-skip-link { position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden; }
+.plib-skip-link:focus { position:static;width:auto;height:auto;background:var(--c-focus);color:#fff;padding:8px 16px;font-size:14px;font-weight:600;border-radius:4px;text-decoration:none;display:inline-block;margin:8px; }
+.visually-hidden { position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden; }
+
+.plib-wrap { max-width:760px; margin:0 auto; padding:1.5rem 1rem 4rem; }
+/* Step 1 needs more horizontal room than the other screens because it
+   renders the 3-column group grid. Other screens stay at 760px so text-
+   heavy content (Step 3 form, Review, Reflection) reads comfortably. */
+@media (min-width: 1024px) {
+  body.tri-screen-step1 .plib-wrap { max-width: 1120px; }
+}
+
+/* Page header — suppressible via body.suppress-header for iframe deployment.
+   Header markup stays in DOM; only the rendered display is hidden. */
+.plib-page-header { padding: 1rem 0 0.5rem; border-bottom:1px solid var(--c-meta-border); margin-bottom: 1.5rem; }
+.plib-page-header .tri-header-course { font-size:12px;text-transform:uppercase;letter-spacing:.08em;color:var(--c-muted); }
+.plib-page-header .tri-header-title { font-size:22px;font-weight:600;margin:4px 0 4px; color: var(--c-obj-accent); }
+.plib-page-header .tri-header-sub { font-size:13px;color:var(--c-muted); }
+body.suppress-header .plib-page-header { display: none; }
+body.suppress-header .plib-wrap { padding-top: 1rem; }
+
+.tri-breadcrumb { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin: 0 0 1.25rem; min-height: 32px; }
+.tri-crumb { display:inline-flex; align-items:center; padding:5px 12px; font-size:13px; line-height:1.3;
+  border-radius: 999px; background:#fff; border:1px solid var(--c-meta-border); color: var(--c-muted);
+  cursor:pointer; max-width: 280px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.tri-crumb:hover { background: var(--c-meta-bg); color: var(--c-text); }
+.tri-crumb.active { background: var(--c-obj-bg); border-color: var(--c-obj-accent); color: var(--c-obj-accent); font-weight:600; }
+.tri-crumb:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; }
+.tri-crumb-sep { color: #aaa; font-size: 12px; }
+
+.screen { background:#fff; border:1px solid var(--c-meta-border); border-radius: var(--radius); padding: 1.5rem 1.5rem 1.25rem; margin-bottom:1rem; }
+.screen.hidden { display:none; }
+
+.tri-step-prompt { font-size:21px; font-weight:600; margin:0 0 6px; color: var(--c-text); line-height:1.35; }
+.tri-step-sub { font-size:14px; color: var(--c-muted); margin: 0 0 1.5rem; }
+
+/* Step 1 group grid. Three responsive layouts:
+   - Narrow (<720px):    single column, natural DOM order.
+   - Medium (720-1023px): 2 columns x 3 rows (safety layout for narrow tablets).
+   - Wide (>=1024px):     3 columns x 2 rows (primary deployment target — fits
+                           the iframe horizontally without scrolling).
+   Visual placement is set per data-group-id so the DOM order (which mirrors
+   the config order) stays untouched. Cards stretch within rows so groups with
+   fewer items don't read as "shorter" than their row partner. */
+.tri-groups { display:grid; grid-template-columns: 1fr; gap: 0.9rem; margin-bottom: 0.9rem; align-items: stretch; }
+@media (min-width: 720px) {
+  .tri-groups { grid-template-columns: 1fr 1fr; grid-template-rows: repeat(3, auto); }
+  .tri-group[data-group-id="course_design"]       { grid-row: 1; grid-column: 1; }
+  .tri-group[data-group-id="lecture_explanation"] { grid-row: 1; grid-column: 2; }
+  .tri-group[data-group-id="engagement"]          { grid-row: 2; grid-column: 1; }
+  .tri-group[data-group-id="assessment"]          { grid-row: 2; grid-column: 2; }
+  .tri-group[data-group-id="ai_integration"]      { grid-row: 3; grid-column: 1; }
+  .tri-group[data-group-id="other"]               { grid-row: 3; grid-column: 2; }
+}
+@media (min-width: 1024px) {
+  .tri-groups { grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(2, auto); }
+  .tri-group[data-group-id="course_design"]       { grid-row: 1; grid-column: 1; }
+  .tri-group[data-group-id="lecture_explanation"] { grid-row: 1; grid-column: 2; }
+  .tri-group[data-group-id="assessment"]          { grid-row: 1; grid-column: 3; }
+  .tri-group[data-group-id="engagement"]          { grid-row: 2; grid-column: 1; }
+  .tri-group[data-group-id="ai_integration"]      { grid-row: 2; grid-column: 2; }
+  .tri-group[data-group-id="other"]               { grid-row: 2; grid-column: 3; }
+}
+.tri-group { background: var(--c-meta-bg); border:1px solid var(--c-meta-border); border-radius: var(--radius); padding: 0.9rem 1rem; }
+.tri-group-other { background: var(--c-r-bg); border:1px solid var(--c-r-border); }
+.tri-group-label { font-size:13px; text-transform:uppercase; letter-spacing:.06em; color: var(--c-obj-accent); font-weight:700; margin-bottom: 10px; }
+.tri-group-other .tri-group-label { color: var(--c-r-id); }
+.tri-group-items { display:flex; flex-direction:column; gap: 6px; }
+
+.tri-choice { display:flex; align-items:flex-start; gap: 10px;
+  width: 100%; text-align:left; cursor:pointer; padding: 10px 12px;
+  background: #fff; border: 1.5px solid var(--c-meta-border); border-radius: 6px;
+  font-family: var(--font); font-size: 16px; line-height: 1.4; color: var(--c-text);
+  transition: background .12s, border-color .12s; }
+.tri-choice:hover { background: var(--c-obj-bg); border-color: var(--c-obj-accent); }
+.tri-choice:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; }
+.tri-choice.selected { background: var(--c-obj-bg); border-color: var(--c-obj-accent); color: var(--c-obj-accent); font-weight: 600; }
+.tri-choice-radio { flex: 0 0 auto; width:18px; height:18px; border-radius:50%; border: 2px solid var(--c-meta-border); margin-top: 2px; position: relative; background:#fff; }
+.tri-choice.selected .tri-choice-radio { border-color: var(--c-obj-accent); }
+.tri-choice.selected .tri-choice-radio::after { content:""; position:absolute; top:2px; left:2px; width:10px; height:10px; border-radius:50%; background: var(--c-obj-accent); }
+.tri-choice-check { flex: 0 0 auto; width:18px; height:18px; border-radius:3px; border: 2px solid var(--c-meta-border); margin-top: 2px; position: relative; background:#fff; }
+.tri-choice.selected .tri-choice-check { border-color: var(--c-obj-accent); background: var(--c-obj-accent); }
+.tri-choice.selected .tri-choice-check::after { content:""; position:absolute; top:0px; left:4px; width:6px; height:11px; border:solid #fff; border-width:0 2.5px 2.5px 0; transform: rotate(45deg); }
+.tri-choice-text { flex:1; }
+
+.tri-other-input-wrap { margin-top: 8px; }
+.tri-other-input-wrap.hidden { display: none; }
+
+.plib-textarea { display:block; width:100%; box-sizing:border-box; padding:10px 12px; font-size:15px; font-family:var(--font); line-height:1.6; border:1.5px solid var(--c-meta-border); border-radius:6px; margin-bottom:6px; background:#fff; color:var(--c-text); resize:vertical; min-height: 70px; }
+.plib-textarea:focus { outline:3px solid var(--c-focus); outline-offset:2px; border-color:var(--c-focus); }
+.plib-textarea-large { min-height: 130px; }
+.plib-counter { font-size:13px;color:var(--c-muted);margin-bottom:8px;font-variant-numeric:tabular-nums; }
+.plib-counter.at-limit { color: var(--c-error); font-weight:600; }
+.plib-counter .plib-count-ok { color: var(--c-ok); }
+.plib-counter .plib-count-warn { color: var(--c-warn); }
+.plib-counter .plib-count-bad { color: var(--c-error); font-weight:600; }
+.plib-warn { font-size:13px; color: var(--c-error); font-weight:600; margin: 4px 0 8px; min-height: 18px; }
+
+.tri-form-row { margin-bottom: 1.1rem; }
+.tri-form-label { display:block; font-size:14px; font-weight:600; margin-bottom: 6px; color: var(--c-text); }
+.tri-form-input, .tri-form-select {
+  width: 100%; box-sizing:border-box; padding:10px 12px; font-size:16px; font-family:var(--font);
+  border:1.5px solid var(--c-meta-border); border-radius:6px; background:#fff; color: var(--c-text);
+}
+.tri-form-input:focus, .tri-form-select:focus { outline: 3px solid var(--c-focus); outline-offset: 2px; border-color: var(--c-focus); }
+.tri-radios { display: flex; flex-wrap: wrap; gap: 14px; }
+.tri-radio-opt { display:inline-flex; align-items:center; gap: 6px; font-size:15px; cursor:pointer; padding: 4px 8px; border-radius:4px; }
+.tri-radio-opt:has(input:checked) { background: var(--c-obj-bg); color: var(--c-obj-accent); font-weight:600; }
+.tri-radio-opt input { transform: scale(1.1); }
+
+.tri-actions { display:flex; gap: 12px; align-items:center; justify-content:space-between; margin-top: 1.5rem; padding-top:1rem; border-top:1px solid var(--c-meta-border); }
+.tri-btn { display: inline-flex; align-items: center; justify-content:center; gap: 8px;
+  padding: 12px 22px; font-size: 17px; font-weight: 600; border-radius: 6px; cursor: pointer;
+  font-family: var(--font); border: 1.5px solid transparent; transition: background .15s, color .15s, border-color .15s; }
+.tri-btn-primary { background: var(--c-primary); color: var(--c-primary-fg); border-color: var(--c-primary); }
+.tri-btn-primary:hover:not([disabled]) { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+.tri-btn-secondary { background: #fff; color: var(--c-secondary); border-color: var(--c-meta-border); }
+.tri-btn-secondary:hover:not([disabled]) { background: var(--c-meta-bg); color: var(--c-secondary-hover); border-color: var(--c-secondary); }
+.tri-btn[disabled] { opacity: 0.45; cursor: not-allowed; }
+.tri-btn:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 2px; }
+.tri-btn-large { font-size: 18px; padding: 14px 28px; }
+.tri-btn-action { background: var(--c-accent); color: #fff; border-color: var(--c-accent); }
+.tri-btn-action:hover:not([disabled]) { background: #0e3d20; border-color: #0e3d20; }
+.tri-btn-action.copied { background: #333; border-color: #333; }
+
+.tri-review-block { background: var(--c-meta-bg); border:1px solid var(--c-meta-border); border-radius: var(--radius); padding: 0.9rem 1.1rem; margin-bottom: 0.8rem; }
+.tri-review-head { display:flex; align-items: baseline; justify-content:space-between; gap: 12px; margin-bottom: 6px; }
+.tri-review-label { font-size:12px; text-transform:uppercase; letter-spacing:.06em; color: var(--c-muted); font-weight:700; }
+.tri-review-edit { background:none; border:none; color: var(--c-primary); font-size:13px; cursor:pointer; padding: 2px 4px; font-family: var(--font); text-decoration: underline; }
+.tri-review-edit:hover { color: var(--c-primary-hover); }
+.tri-review-edit:focus-visible { outline: 2px solid var(--c-focus); outline-offset: 2px; }
+.tri-review-body { font-size: 15px; color: var(--c-text); }
+.tri-review-body ul { margin: 4px 0 0; padding-left: 1.2rem; }
+.tri-review-body li { margin-bottom: 2px; }
+.tri-review-empty { font-style: italic; color: var(--c-muted); }
+
+.tri-prompt-preview-label { font-size: 12px; text-transform: uppercase; letter-spacing:.06em; color: var(--c-muted); font-weight:700; margin-top: 1.2rem; margin-bottom: 6px; }
+.tri-prompt-preview { width:100%; box-sizing:border-box; padding: 12px 14px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 13px; line-height: 1.55; border:1.5px solid var(--c-meta-border); border-radius: 6px;
+  background: #fafbfc; color: var(--c-text); resize: vertical; min-height: 240px; }
+.tri-prompt-preview:focus { outline: 3px solid var(--c-focus); outline-offset: 2px; }
+
+.tri-confirmation { display:none; margin-top: 12px; padding: 10px 12px; background: #f0faf4; border:1px solid #a0d8b6; border-radius:6px; font-size: 14px; color: var(--c-ok); }
+.tri-confirmation.visible { display: block; }
+
+.tri-reflection-actions { display:flex; gap: 12px; flex-wrap: wrap; margin-top: 1rem; padding-top:1rem; border-top:1px solid var(--c-meta-border); }
+
+/* Bridge screen — waypoint, not destination. Generous whitespace. */
+#screen-bridge { padding: 2.25rem 1.75rem 2rem; }
+.tri-bridge-mark { font-size: 30px; color: var(--c-obj-accent); opacity: 0.5; line-height: 1; margin-bottom: 0.75rem; font-weight: 300; }
+.tri-bridge-confirmation { font-size: 16px; line-height: 1.65; color: var(--c-text); margin: 0.5rem 0 1.75rem; max-width: 60ch; }
+.tri-bridge-link { display: inline-flex; align-items: center; gap: 10px; padding: 18px 28px;
+  font-size: 19px; font-weight: 600; line-height: 1.3;
+  background: var(--c-primary); color: var(--c-primary-fg); border-radius: 8px;
+  text-decoration: none; border: 2px solid var(--c-primary); margin-bottom: 0.75rem;
+  transition: background .15s, border-color .15s, transform .08s; word-break: break-word; }
+.tri-bridge-link:hover { background: var(--c-primary-hover); border-color: var(--c-primary-hover); }
+.tri-bridge-link:focus-visible { outline: 3px solid var(--c-focus); outline-offset: 3px; }
+.tri-bridge-link:active { transform: translateY(1px); }
+.tri-bridge-copyrow { margin: 0.75rem 0 1.5rem; }
+.tri-bridge-textarea-label { display: block; font-size: 13px; color: var(--c-muted); font-weight: 500; margin-bottom: 6px; }
+#screen-bridge .tri-prompt-preview { min-height: 200px; }
+.tri-bridge-spacer { height: 1.25rem; }
+.tri-bridge-actions { display: flex; justify-content: flex-end; padding-top: 0.75rem; }
+
+.tri-meta-foot { font-size: 11px; color: var(--c-muted); text-align: center; margin-top: 1.5rem; padding: 0 1rem; }
+</style>
+</head>
+<body>
+<a href="#main-content" class="plib-skip-link">Skip to main content</a>
+
+<main id="main-content">
+<div class="plib-wrap">
+
+  <header class="plib-page-header" id="page-header">
+    <div class="tri-header-course">Pamplin AI Teaching Workshop · 2026-05-07</div>
+    <h1 class="tri-header-title">Course Design and Delivery — Triage</h1>
+    <div class="tri-header-sub">Tell us a little about what you'd like to do, and we'll route you to the AI tool that fits best.</div>
+  </header>
+
+  <nav class="tri-breadcrumb" id="breadcrumb" aria-label="Steps completed"></nav>
+
+  <section id="screen-step1" class="screen" aria-labelledby="step1-prompt"></section>
+  <section id="screen-step2" class="screen hidden" aria-labelledby="step2-prompt"></section>
+  <section id="screen-step3" class="screen hidden" aria-labelledby="step3-prompt"></section>
+  <section id="screen-step4" class="screen hidden" aria-labelledby="step4-prompt"></section>
+  <section id="screen-review" class="screen hidden" aria-labelledby="review-prompt"></section>
+  <section id="screen-bridge" class="screen hidden" aria-labelledby="bridge-prompt"></section>
+  <section id="screen-reflection" class="screen hidden" aria-labelledby="reflection-prompt"></section>
+
+  <div class="tri-meta-foot" id="session-foot"></div>
+</div>
+</main>
+
+<div id="plib-live" class="visually-hidden" aria-live="polite" aria-atomic="true"></div>
+
+<script>
+(function() {
+'use strict';
+
+// =====================================================================
+// State
+// =====================================================================
+
+var SCREENS = ['step1', 'step2', 'step3', 'step4', 'review', 'bridge', 'reflection'];
+
+var config = null;
+var promptTemplate = '';
+
+function blankState() {
+  return {
+    session_id: uuidv4(),
+    step1: { id: null, label: null, other_text: null },
+    step2: { id: null, label: null, other_text: null },
+    step3: {
+      department: null, department_other: null,
+      course_topic: '', student_level: null,
+      class_format: null, current_approach: ''
+    },
+    step4: { materials: [], other_text: null }
+  };
+}
+var state = blankState();
+var pendingTriagePayload = null;
+
+function uuidv4() {
+  if (window.crypto && typeof window.crypto.randomUUID === 'function') {
+    return window.crypto.randomUUID();
+  }
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = (Math.random() * 16) | 0;
+    var v = c === 'x' ? r : ((r & 0x3) | 0x8);
+    return v.toString(16);
+  });
+}
+
+// =====================================================================
+// Boot
+// =====================================================================
+
+function boot() {
+  loadConfigAndPrompt().then(function() {
+    init();
+  }).catch(function() {
+    // The loader already logged a single, faculty-actionable message.
+    // No error UI is shown to the faculty member; this only matters during dev testing.
+  });
+}
+
+function loadConfigAndPrompt() {
+  return Promise.all([
+    fetch('config.json').then(function(r) {
+      if (!r.ok) throw new Error('config.json HTTP ' + r.status);
+      return r.json();
+    }),
+    fetch('PROMPT_AGENT.md').then(function(r) {
+      if (!r.ok) throw new Error('PROMPT_AGENT.md HTTP ' + r.status);
+      return r.text();
+    })
+  ]).then(function(results) {
+    config = results[0];
+    promptTemplate = results[1];
+  }).catch(function(err) {
+    console.log('This platform requires a local server to run. Open a terminal here and run: python -m http.server, then open http://localhost:8000/');
+    throw err;
+  });
+}
+
+function init() {
+  // Iframe-deployed contexts hide the page header (config.suppress_header).
+  // Standalone testing leaves it visible. The header markup stays in the DOM
+  // either way; only the rendered display changes.
+  if (config.suppress_header) {
+    document.body.classList.add('suppress-header');
+  } else {
+    document.body.classList.remove('suppress-header');
+  }
+  document.getElementById('session-foot').textContent = 'Session ' + state.session_id;
+  setScreen('step1');
+  // Expose a minimal API for the smoke harness.
+  window.__triage = {
+    getState: function() { return state; },
+    setState: function(patch) {
+      Object.keys(patch || {}).forEach(function(k) {
+        if (typeof patch[k] === 'object' && patch[k] !== null && !Array.isArray(patch[k])) {
+          state[k] = Object.assign({}, state[k], patch[k]);
+        } else {
+          state[k] = patch[k];
+        }
+      });
+    },
+    setScreen: setScreen,
+    assemblePrompt: assemblePrompt,
+    commit: handleCopyAndCommit,
+    resetSession: resetSession,
+    isReady: true
+  };
+  document.dispatchEvent(new Event('triage-ready'));
+}
+
+function announce(msg) {
+  var el = document.getElementById('plib-live');
+  if (!el) return;
+  el.textContent = '';
+  setTimeout(function() { el.textContent = msg; }, 50);
+}
+
+// =====================================================================
+// Navigation + breadcrumb
+// =====================================================================
+
+function setScreen(name) {
+  if (SCREENS.indexOf(name) === -1) return;
+  // Render the destination screen with current state
+  switch (name) {
+    case 'step1': renderStep1(); break;
+    case 'step2': renderStep2(); break;
+    case 'step3': renderStep3(); break;
+    case 'step4': renderStep4(); break;
+    case 'review': renderReview(); break;
+    case 'bridge': renderBridge(); break;
+    case 'reflection': renderReflection(); break;
+  }
+  SCREENS.forEach(function(s) {
+    var el = document.getElementById('screen-' + s);
+    if (el) el.classList.toggle('hidden', s !== name);
+  });
+  // Reflect the active screen on <body> so screen-specific CSS hooks (e.g.,
+  // wider .plib-wrap on Step 1) can target it without traversing the DOM.
+  var body = document.body;
+  if (body) {
+    var cls = body.className.split(/\s+/).filter(function(c) { return c && c.indexOf('tri-screen-') !== 0; });
+    cls.push('tri-screen-' + name);
+    body.className = cls.join(' ');
+  }
+  renderBreadcrumb(name);
+  // Move focus to the screen heading for keyboard / SR users
+  var headEl = document.querySelector('#screen-' + name + ' .tri-step-prompt');
+  if (headEl) {
+    headEl.setAttribute('tabindex', '-1');
+    try { headEl.focus({ preventScroll: false }); } catch (e) { headEl.focus(); }
+  }
+  window.scrollTo(0, 0);
+}
+
+function renderBreadcrumb(currentScreen) {
+  var bc = document.getElementById('breadcrumb');
+  bc.innerHTML = '';
+  // Per SPEC v0.5 §5: breadcrumb is visible only on Steps 2/3/4 and Review.
+  // Step 1 has nothing to show; Bridge and Reflection are post-commit (session
+  // closed; triage history no longer editable).
+  if (currentScreen === 'step1' || currentScreen === 'bridge' || currentScreen === 'reflection') {
+    return;
+  }
+  var segments = [];
+  if (state.step1.id) {
+    segments.push({ screen: 'step1', label: shorten(state.step1.label || state.step1.other_text || 'Step 1', 36) });
+  }
+  if (state.step2.id && (currentScreen !== 'step2')) {
+    segments.push({ screen: 'step2', label: shorten(state.step2.label || state.step2.other_text || 'Step 2', 36) });
+  } else if (state.step2.id && currentScreen === 'step2') {
+    // omit the active step's crumb to avoid redundancy
+  }
+  if ((currentScreen === 'step4' || currentScreen === 'review') && (state.step3.department || state.step3.course_topic)) {
+    var ctxLabel = state.step3.course_topic
+      ? state.step3.course_topic
+      : (state.step3.department === 'Other' && state.step3.department_other ? state.step3.department_other : state.step3.department);
+    segments.push({ screen: 'step3', label: shorten('Context · ' + (ctxLabel || ''), 36) });
+  }
+  if (currentScreen === 'review' && (state.step4.materials.length || state.step4.other_text)) {
+    var mlbl = state.step4.materials.length === 1 ? '1 material' : (state.step4.materials.length + ' materials');
+    if (state.step4.other_text && !state.step4.materials.length) mlbl = 'Other materials';
+    segments.push({ screen: 'step4', label: shorten('Materials · ' + mlbl, 36) });
+  }
+  // Add the active crumb at the end
+  var labels = { step2: 'Step 2', step3: 'Context', step4: 'Materials', review: 'Review' };
+  segments.push({ screen: currentScreen, label: labels[currentScreen] || currentScreen, active: true });
+
+  segments.forEach(function(seg, idx) {
+    if (idx > 0) {
+      var sep = document.createElement('span');
+      sep.className = 'tri-crumb-sep';
+      sep.textContent = '›';
+      bc.appendChild(sep);
+    }
+    var crumb;
+    if (seg.active) {
+      crumb = document.createElement('span');
+      crumb.className = 'tri-crumb active';
+      crumb.textContent = seg.label;
+      crumb.setAttribute('aria-current', 'step');
+    } else {
+      crumb = document.createElement('button');
+      crumb.type = 'button';
+      crumb.className = 'tri-crumb';
+      crumb.textContent = seg.label;
+      crumb.setAttribute('aria-label', 'Return to ' + seg.label);
+      crumb.addEventListener('click', function() { setScreen(seg.screen); });
+    }
+    bc.appendChild(crumb);
+  });
+}
+
+function shorten(s, n) {
+  if (!s) return '';
+  s = String(s);
+  return s.length > n ? s.substring(0, n - 1) + '…' : s;
+}
+
+// =====================================================================
+// Step 1 — five functional groups + Other panel
+// =====================================================================
+
+function renderStep1() {
+  var screen = document.getElementById('screen-step1');
+  var copy = config.copy;
+  var html = '';
+  html += '<h2 id="step1-prompt" class="tri-step-prompt">' + esc(copy.step1_prompt) + '</h2>';
+  html += '<p class="tri-step-sub">' + esc(copy.step1_subtext) + '</p>';
+  html += '<div class="tri-groups">';
+  config.step1.groups.forEach(function(g) {
+    html += '<div class="tri-group" data-group-id="' + esc(g.id) + '" role="group" aria-labelledby="grp-' + g.id + '">';
+    html += '  <div class="tri-group-label" id="grp-' + g.id + '">' + esc(g.label) + '</div>';
+    html += '  <div class="tri-group-items">';
+    g.items.forEach(function(itemId) {
+      var item = config.step1.items[itemId];
+      var sel = state.step1.id === itemId ? ' selected' : '';
+      html += '<button type="button" class="tri-choice' + sel + '" data-step1-id="' + itemId + '" role="radio" aria-checked="' + (sel ? 'true' : 'false') + '">';
+      html += '<span class="tri-choice-radio" aria-hidden="true"></span>';
+      html += '<span class="tri-choice-text">' + esc(item.label) + '</span>';
+      html += '</button>';
+    });
+    html += '  </div>';
+    html += '</div>';
+  });
+  // Other panel
+  var otherSel = state.step1.id === config.step1.other.id;
+  html += '<div class="tri-group tri-group-other" data-group-id="other" role="group" aria-labelledby="grp-other">';
+  html += '  <div class="tri-group-label" id="grp-other">' + esc(copy.step1_other_label) + '</div>';
+  html += '  <textarea class="plib-textarea" id="step1-other-input" maxlength="' + config.step1.other.max_chars + '" placeholder="' + esc(copy.step1_other_placeholder) + '" aria-label="Other (describe briefly)">' + esc(state.step1.other_text || '') + '</textarea>';
+  html += '  <div class="plib-counter"><span id="step1-other-count">' + (state.step1.other_text ? state.step1.other_text.length : 0) + '</span> / ' + config.step1.other.max_chars + ' characters</div>';
+  html += '</div>';
+  html += '</div>'; // tri-groups
+  html += stepActionsHtml({ canBack: false, nextDisabled: !step1Valid() });
+  screen.innerHTML = html;
+
+  // Bind item buttons
+  screen.querySelectorAll('[data-step1-id]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('data-step1-id');
+      var item = config.step1.items[id];
+      // If different than previously, reset step2 as it depends on step1
+      if (state.step1.id !== id) {
+        state.step2 = { id: null, label: null, other_text: null };
+        state.step4 = { materials: [], other_text: null };
+      }
+      state.step1 = { id: id, label: item.label, other_text: null };
+      // Clear Other input
+      var oti = document.getElementById('step1-other-input');
+      if (oti) oti.value = '';
+      var otc = document.getElementById('step1-other-count');
+      if (otc) otc.textContent = '0';
+      renderStep1Selection();
+      updateNextEnabled(step1Valid());
+    });
+  });
+  // Bind Other textarea
+  var otherTa = document.getElementById('step1-other-input');
+  otherTa.addEventListener('input', function() {
+    var v = otherTa.value;
+    var cnt = document.getElementById('step1-other-count');
+    if (cnt) cnt.textContent = v.length;
+    if (v.trim()) {
+      if (state.step1.id !== config.step1.other.id) {
+        state.step2 = { id: null, label: null, other_text: null };
+        state.step4 = { materials: [], other_text: null };
+      }
+      state.step1 = { id: config.step1.other.id, label: 'Other', other_text: v };
+    } else {
+      // If user clears Other and nothing else selected, deselect
+      if (state.step1.id === config.step1.other.id) {
+        state.step1 = { id: null, label: null, other_text: null };
+      }
+    }
+    renderStep1Selection();
+    updateNextEnabled(step1Valid());
+  });
+  // Bind nav
+  bindStepActions(screen, { onNext: function() { setScreen('step2'); } });
+}
+
+function renderStep1Selection() {
+  document.querySelectorAll('#screen-step1 .tri-choice').forEach(function(btn) {
+    var id = btn.getAttribute('data-step1-id');
+    var sel = state.step1.id === id;
+    btn.classList.toggle('selected', sel);
+    btn.setAttribute('aria-checked', sel ? 'true' : 'false');
+  });
+}
+
+function step1Valid() {
+  if (!state.step1.id) return false;
+  if (state.step1.id === config.step1.other.id) return !!(state.step1.other_text && state.step1.other_text.trim());
+  return true;
+}
+
+// =====================================================================
+// Step 2 — adaptive list
+// =====================================================================
+
+function renderStep2() {
+  var screen = document.getElementById('screen-step2');
+  var copy = config.copy;
+  var html = '';
+  html += '<h2 id="step2-prompt" class="tri-step-prompt">' + esc(copy.step2_prompt) + '</h2>';
+  html += '<p class="tri-step-sub">' + esc(copy.step2_subtext) + '</p>';
+
+  if (state.step1.id === config.step1.other.id) {
+    // Free-text Step 2
+    html += '<div class="tri-form-row">';
+    html += '<label for="step2-free-input" class="tri-form-label">Tell us a bit more about what version of this you have in mind.</label>';
+    html += '<textarea id="step2-free-input" class="plib-textarea plib-textarea-large" maxlength="400" placeholder="' + esc(copy.step2_other_placeholder) + '" aria-label="Specific focus (free text)">' + esc(state.step2.other_text || '') + '</textarea>';
+    html += '</div>';
+    html += stepActionsHtml({ nextDisabled: !step2Valid() });
+    screen.innerHTML = html;
+    var ta = document.getElementById('step2-free-input');
+    ta.addEventListener('input', function() {
+      var v = ta.value;
+      if (v.trim()) {
+        state.step2 = { id: 'other', label: 'Other', other_text: v };
+      } else {
+        state.step2 = { id: null, label: null, other_text: null };
+      }
+      // Reset step4 when step2 changes meaningfully
+      state.step4 = { materials: [], other_text: state.step4.other_text };
+      updateNextEnabled(step2Valid());
+    });
+  } else {
+    var options = (config.step2 && config.step2[state.step1.id]) || [];
+    html += '<div class="tri-group" style="background:#fff;">';
+    html += '<div class="tri-group-items">';
+    options.forEach(function(opt) {
+      var sel = state.step2.id === opt.id ? ' selected' : '';
+      html += '<button type="button" class="tri-choice' + sel + '" data-step2-id="' + esc(opt.id) + '" role="radio" aria-checked="' + (sel ? 'true' : 'false') + '">';
+      html += '<span class="tri-choice-radio" aria-hidden="true"></span>';
+      html += '<span class="tri-choice-text">' + esc(opt.label) + '</span>';
+      html += '</button>';
+    });
+    html += '</div>';
+    // Other input revealed when "other" selected
+    var otherShown = state.step2.id === 'other';
+    html += '<div class="tri-other-input-wrap' + (otherShown ? '' : ' hidden') + '" id="step2-other-wrap">';
+    html += '<label for="step2-other-input" class="tri-form-label">Describe in your own words</label>';
+    html += '<textarea id="step2-other-input" class="plib-textarea" maxlength="400" placeholder="' + esc(copy.step2_other_placeholder) + '">' + esc(state.step2.other_text || '') + '</textarea>';
+    html += '</div>';
+    html += '</div>';
+    html += stepActionsHtml({ nextDisabled: !step2Valid() });
+    screen.innerHTML = html;
+
+    screen.querySelectorAll('[data-step2-id]').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        var id = btn.getAttribute('data-step2-id');
+        var opt = options.find(function(o) { return o.id === id; });
+        // Reset step4 when step2 changes
+        if (state.step2.id !== id) {
+          state.step4 = { materials: [], other_text: null };
+        }
+        state.step2 = { id: id, label: opt ? opt.label : id, other_text: id === 'other' ? (state.step2.other_text || '') : null };
+        // Clear other_text if not selecting "other"
+        if (id !== 'other') {
+          var oti = document.getElementById('step2-other-input');
+          if (oti) oti.value = '';
+          state.step2.other_text = null;
+        }
+        document.getElementById('step2-other-wrap').classList.toggle('hidden', id !== 'other');
+        screen.querySelectorAll('.tri-choice').forEach(function(b) {
+          var bsel = b.getAttribute('data-step2-id') === id;
+          b.classList.toggle('selected', bsel);
+          b.setAttribute('aria-checked', bsel ? 'true' : 'false');
+        });
+        updateNextEnabled(step2Valid());
+      });
+    });
+    var otherTa = document.getElementById('step2-other-input');
+    if (otherTa) {
+      otherTa.addEventListener('input', function() {
+        if (state.step2.id !== 'other') return;
+        state.step2.other_text = otherTa.value || '';
+        updateNextEnabled(step2Valid());
+      });
+    }
+  }
+  bindStepActions(screen, {
+    onBack: function() { setScreen('step1'); },
+    onNext: function() { setScreen('step3'); }
+  });
+}
+
+function step2Valid() {
+  if (state.step1.id === config.step1.other.id) {
+    return !!(state.step2.other_text && state.step2.other_text.trim());
+  }
+  if (!state.step2.id) return false;
+  if (state.step2.id === 'other') return !!(state.step2.other_text && state.step2.other_text.trim());
+  return true;
+}
+
+// =====================================================================
+// Step 3 — Context form
+// =====================================================================
+
+function renderStep3() {
+  var screen = document.getElementById('screen-step3');
+  var copy = config.copy;
+  var s3 = config.step3;
+  var html = '';
+  html += '<h2 id="step3-prompt" class="tri-step-prompt">' + esc(copy.step3_prompt) + '</h2>';
+  html += '<p class="tri-step-sub">' + esc(copy.step3_subtext) + '</p>';
+
+  // Department
+  html += '<div class="tri-form-row">';
+  html += '<label for="step3-department" class="tri-form-label">Department</label>';
+  html += '<select id="step3-department" class="tri-form-select">';
+  html += '<option value="">— Select —</option>';
+  s3.departments.forEach(function(d) {
+    var sel = state.step3.department === d ? ' selected' : '';
+    html += '<option value="' + esc(d) + '"' + sel + '>' + esc(d) + '</option>';
+  });
+  html += '</select>';
+  var deptOtherShown = state.step3.department === 'Other';
+  html += '<div class="tri-other-input-wrap' + (deptOtherShown ? '' : ' hidden') + '" id="dept-other-wrap" style="margin-top:8px;">';
+  html += '<label for="step3-department-other" class="tri-form-label" style="font-weight:500;">Department name</label>';
+  html += '<input id="step3-department-other" class="tri-form-input" type="text" maxlength="80" value="' + esc(state.step3.department_other || '') + '" placeholder="e.g., Hospitality and Tourism Management">';
+  html += '</div>';
+  html += '</div>';
+
+  // Course topic
+  html += '<div class="tri-form-row">';
+  html += '<label for="step3-topic" class="tri-form-label">Course title or topic</label>';
+  html += '<input id="step3-topic" class="tri-form-input" type="text" maxlength="120" value="' + esc(state.step3.course_topic || '') + '" placeholder="e.g., Consumer Behavior">';
+  html += '</div>';
+
+  // Student level
+  html += '<div class="tri-form-row" role="group" aria-labelledby="lbl-level">';
+  html += '<span id="lbl-level" class="tri-form-label">Student level</span>';
+  html += '<div class="tri-radios">';
+  s3.student_levels.forEach(function(lv) {
+    var ck = state.step3.student_level === lv ? ' checked' : '';
+    html += '<label class="tri-radio-opt"><input type="radio" name="student_level" value="' + esc(lv) + '"' + ck + '><span>' + esc(lv) + '</span></label>';
+  });
+  html += '</div></div>';
+
+  // Class format
+  html += '<div class="tri-form-row" role="group" aria-labelledby="lbl-format">';
+  html += '<span id="lbl-format" class="tri-form-label">Class format</span>';
+  html += '<div class="tri-radios">';
+  s3.class_formats.forEach(function(f) {
+    var ck = state.step3.class_format === f ? ' checked' : '';
+    html += '<label class="tri-radio-opt"><input type="radio" name="class_format" value="' + esc(f) + '"' + ck + '><span>' + esc(f) + '</span></label>';
+  });
+  html += '</div></div>';
+
+  // Current approach
+  var maxc = s3.current_approach_max_chars;
+  html += '<div class="tri-form-row">';
+  html += '<label for="step3-approach" class="tri-form-label">One sentence about how you currently teach this</label>';
+  html += '<textarea id="step3-approach" class="plib-textarea" data-maxchars="' + maxc + '" placeholder="e.g., Lecture with case discussions">' + esc(state.step3.current_approach || '') + '</textarea>';
+  html += '<div class="plib-counter" id="step3-approach-counter"><span id="step3-approach-count">' + (state.step3.current_approach || '').length + '</span> / ' + maxc + ' characters</div>';
+  html += '</div>';
+
+  html += stepActionsHtml({ nextDisabled: false });
+  screen.innerHTML = html;
+
+  // Bind Department
+  var dept = document.getElementById('step3-department');
+  dept.addEventListener('change', function() {
+    state.step3.department = dept.value || null;
+    var wrap = document.getElementById('dept-other-wrap');
+    if (state.step3.department === 'Other') {
+      wrap.classList.remove('hidden');
+    } else {
+      wrap.classList.add('hidden');
+      state.step3.department_other = null;
+      var di = document.getElementById('step3-department-other');
+      if (di) di.value = '';
+    }
+  });
+  var deptOther = document.getElementById('step3-department-other');
+  deptOther.addEventListener('input', function() {
+    state.step3.department_other = deptOther.value || null;
+  });
+  // Course topic
+  document.getElementById('step3-topic').addEventListener('input', function(e) {
+    state.step3.course_topic = e.target.value || '';
+  });
+  // Student level
+  screen.querySelectorAll('input[name="student_level"]').forEach(function(r) {
+    r.addEventListener('change', function() {
+      if (r.checked) state.step3.student_level = r.value;
+    });
+  });
+  // Class format
+  screen.querySelectorAll('input[name="class_format"]').forEach(function(r) {
+    r.addEventListener('change', function() {
+      if (r.checked) state.step3.class_format = r.value;
+    });
+  });
+  // Approach textarea with counter + color states
+  var ta = document.getElementById('step3-approach');
+  function updateApproachCounter() {
+    var v = ta.value;
+    if (v.length > maxc) { ta.value = v.substring(0, maxc); v = ta.value; }
+    state.step3.current_approach = v;
+    var counter = document.getElementById('step3-approach-counter');
+    var countEl = document.getElementById('step3-approach-count');
+    if (countEl) countEl.textContent = v.length;
+    var pct = v.length / maxc;
+    var cls = pct >= 1.0 ? 'bad' : (pct >= 0.8 ? 'warn' : 'ok');
+    counter.className = 'plib-counter' + (pct >= 1.0 ? ' at-limit' : '');
+    countEl.className = 'plib-count-' + cls;
+  }
+  ta.addEventListener('input', updateApproachCounter);
+  updateApproachCounter();
+
+  bindStepActions(screen, {
+    onBack: function() { setScreen('step2'); },
+    onNext: function() { setScreen('step4'); }
+  });
+}
+
+// =====================================================================
+// Step 4 — adaptive materials checklist
+// =====================================================================
+
+function getStep4Options() {
+  var s1 = state.step1.id;
+  var s2 = state.step2.id;
+  if (s1 && s2 && config.step4[s1] && config.step4[s1][s2]) {
+    return config.step4[s1][s2];
+  }
+  return config.step4.default || [];
+}
+
+function renderStep4() {
+  var screen = document.getElementById('screen-step4');
+  var copy = config.copy;
+  var html = '';
+  html += '<h2 id="step4-prompt" class="tri-step-prompt">' + esc(copy.step4_prompt) + '</h2>';
+  html += '<p class="tri-step-sub">' + esc(copy.step4_subtext) + '</p>';
+  var options = getStep4Options();
+  html += '<div class="tri-group" style="background:#fff;">';
+  html += '<div class="tri-group-items">';
+  options.forEach(function(opt) {
+    var sel = state.step4.materials.indexOf(opt.id) !== -1 ? ' selected' : '';
+    html += '<button type="button" class="tri-choice' + sel + '" data-step4-id="' + esc(opt.id) + '" data-step4-label="' + esc(opt.label) + '" role="checkbox" aria-checked="' + (sel ? 'true' : 'false') + '">';
+    html += '<span class="tri-choice-check" aria-hidden="true"></span>';
+    html += '<span class="tri-choice-text">' + esc(opt.label) + '</span>';
+    html += '</button>';
+  });
+  // Always include an "Other" checkbox (free text). Step 4 sub-trees in
+  // config.json must NOT include their own "other" entry — this renderer
+  // appends one unconditionally, and a config-level entry would duplicate it.
+  var otherSel = state.step4.other_text != null;
+  html += '<button type="button" class="tri-choice' + (otherSel ? ' selected' : '') + '" data-step4-other="1" role="checkbox" aria-checked="' + (otherSel ? 'true' : 'false') + '">';
+  html += '<span class="tri-choice-check" aria-hidden="true"></span>';
+  html += '<span class="tri-choice-text">Other (describe briefly)</span>';
+  html += '</button>';
+  html += '</div>';
+  html += '<div class="tri-other-input-wrap' + (otherSel ? '' : ' hidden') + '" id="step4-other-wrap" style="margin-top:8px;">';
+  html += '<label for="step4-other-input" class="tri-form-label" style="font-weight:500;">What else?</label>';
+  html += '<textarea id="step4-other-input" class="plib-textarea" maxlength="300" placeholder="' + esc(copy.step4_other_placeholder) + '">' + esc(state.step4.other_text || '') + '</textarea>';
+  html += '</div>';
+  html += '</div>';
+
+  html += stepActionsHtml({ nextDisabled: !step4Valid() });
+  screen.innerHTML = html;
+
+  screen.querySelectorAll('[data-step4-id]').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var id = btn.getAttribute('data-step4-id');
+      var label = btn.getAttribute('data-step4-label');
+      var idx = state.step4.materials.indexOf(label);
+      // Store labels (used in prompt). Track selection by label.
+      if (idx === -1) {
+        state.step4.materials.push(label);
+      } else {
+        state.step4.materials.splice(idx, 1);
+      }
+      var sel = state.step4.materials.indexOf(label) !== -1;
+      btn.classList.toggle('selected', sel);
+      btn.setAttribute('aria-checked', sel ? 'true' : 'false');
+      updateNextEnabled(step4Valid());
+    });
+  });
+  var otherBtn = screen.querySelector('[data-step4-other]');
+  otherBtn.addEventListener('click', function() {
+    var wrap = document.getElementById('step4-other-wrap');
+    var nowOn = state.step4.other_text == null;
+    if (nowOn) {
+      state.step4.other_text = '';
+      wrap.classList.remove('hidden');
+      var ti = document.getElementById('step4-other-input');
+      if (ti) ti.focus();
+    } else {
+      state.step4.other_text = null;
+      wrap.classList.add('hidden');
+      var ti2 = document.getElementById('step4-other-input');
+      if (ti2) ti2.value = '';
+    }
+    otherBtn.classList.toggle('selected', state.step4.other_text != null);
+    otherBtn.setAttribute('aria-checked', state.step4.other_text != null ? 'true' : 'false');
+    updateNextEnabled(step4Valid());
+  });
+  var otherTa = document.getElementById('step4-other-input');
+  if (otherTa) {
+    otherTa.addEventListener('input', function() {
+      state.step4.other_text = otherTa.value;
+      updateNextEnabled(step4Valid());
+    });
+  }
+  bindStepActions(screen, {
+    onBack: function() { setScreen('step3'); },
+    onNext: function() { setScreen('review'); }
+  });
+}
+
+function step4Valid() {
+  return state.step4.materials.length > 0 || (state.step4.other_text != null && state.step4.other_text.trim().length > 0);
+}
+
+// =====================================================================
+// Review
+// =====================================================================
+
+function renderReview() {
+  var screen = document.getElementById('screen-review');
+  var copy = config.copy;
+  var html = '';
+  html += '<h2 id="review-prompt" class="tri-step-prompt">' + esc(copy.review_prompt) + '</h2>';
+  html += '<p class="tri-step-sub">' + esc(copy.review_subtext) + '</p>';
+
+  html += reviewBlockHtml('Goal', formatStep1Review(), 'step1');
+  html += reviewBlockHtml('Specific focus', formatStep2Review(), 'step2');
+  html += reviewBlockHtml('Context', formatStep3Review(), 'step3');
+  html += reviewBlockHtml('Materials', formatStep4Review(), 'step4');
+
+  html += '<div class="tri-prompt-preview-label">Prompt to be copied</div>';
+  html += '<textarea class="tri-prompt-preview" id="prompt-preview" readonly aria-label="Assembled prompt preview"></textarea>';
+
+  html += '<div class="tri-actions">';
+  html += '<button type="button" class="tri-btn tri-btn-secondary" data-action="back">' + esc(copy.back_label) + '</button>';
+  html += '<button type="button" class="tri-btn tri-btn-action tri-btn-large" id="btn-copy-commit" aria-label="' + esc(copy.copy_button_label) + '">';
+  html += '<span aria-hidden="true">📋</span> ' + esc(copy.copy_button_label);
+  html += '</button>';
+  html += '</div>';
+
+  screen.innerHTML = html;
+  document.getElementById('prompt-preview').value = assemblePrompt();
+
+  screen.querySelectorAll('.tri-review-edit').forEach(function(b) {
+    b.addEventListener('click', function() { setScreen(b.getAttribute('data-edit-step')); });
+  });
+  screen.querySelector('[data-action="back"]').addEventListener('click', function() { setScreen('step4'); });
+  document.getElementById('btn-copy-commit').addEventListener('click', handleCopyAndCommit);
+}
+
+function reviewBlockHtml(label, body, editStep) {
+  var html = '<div class="tri-review-block">';
+  html += '<div class="tri-review-head">';
+  html += '<span class="tri-review-label">' + esc(label) + '</span>';
+  html += '<button type="button" class="tri-review-edit" data-edit-step="' + editStep + '" aria-label="Edit ' + esc(label) + '">Edit</button>';
+  html += '</div>';
+  html += '<div class="tri-review-body">' + body + '</div>';
+  html += '</div>';
+  return html;
+}
+
+function formatStep1Review() {
+  if (state.step1.id === config.step1.other.id) {
+    return '<strong>Other:</strong> ' + esc(state.step1.other_text || '');
+  }
+  if (state.step1.label) return esc(state.step1.label);
+  return '<span class="tri-review-empty">Not yet selected.</span>';
+}
+function formatStep2Review() {
+  if (state.step1.id === config.step1.other.id) {
+    return '<strong>Other:</strong> ' + esc(state.step2.other_text || '');
+  }
+  if (state.step2.id === 'other') {
+    return '<strong>Other:</strong> ' + esc(state.step2.other_text || '');
+  }
+  if (state.step2.label) return esc(state.step2.label);
+  return '<span class="tri-review-empty">Not yet selected.</span>';
+}
+function formatStep3Review() {
+  var s = state.step3;
+  var lines = [];
+  var dept = s.department === 'Other' && s.department_other ? s.department_other : s.department;
+  if (dept) lines.push('<li><strong>Department:</strong> ' + esc(dept) + '</li>');
+  if (s.course_topic) lines.push('<li><strong>Course:</strong> ' + esc(s.course_topic) + '</li>');
+  if (s.student_level) lines.push('<li><strong>Student level:</strong> ' + esc(s.student_level) + '</li>');
+  if (s.class_format) lines.push('<li><strong>Class format:</strong> ' + esc(s.class_format) + '</li>');
+  if (s.current_approach) lines.push('<li><strong>Current approach:</strong> ' + esc(s.current_approach) + '</li>');
+  if (lines.length === 0) return '<span class="tri-review-empty">No context provided.</span>';
+  return '<ul>' + lines.join('') + '</ul>';
+}
+function formatStep4Review() {
+  var lines = [];
+  state.step4.materials.forEach(function(m) {
+    lines.push('<li>' + esc(m) + '</li>');
+  });
+  if (state.step4.other_text) {
+    lines.push('<li><strong>Other:</strong> ' + esc(state.step4.other_text) + '</li>');
+  }
+  if (lines.length === 0) return '<span class="tri-review-empty">' + esc(config.copy.no_materials_text) + '</span>';
+  return '<ul>' + lines.join('') + '</ul>';
+}
+
+// =====================================================================
+// Prompt assembly
+// =====================================================================
+
+function assemblePrompt() {
+  var s = state;
+  var tpl = promptTemplate;
+
+  // Process conditional blocks first; consume trailing newline
+  var cond = {
+    step1_other: s.step1.other_text,
+    step2_other: s.step2.other_text,
+    materials_other: s.step4.other_text
+  };
+  tpl = tpl.replace(/\{\{#if (\w+)\}\}([\s\S]*?)\{\{\/if\}\}\n?/g, function(_m, key, body) {
+    return cond[key] && String(cond[key]).trim() ? body + '\n' : '';
+  });
+
+  var dept = (s.step3.department === 'Other' && s.step3.department_other)
+    ? s.step3.department_other
+    : (s.step3.department || 'Not specified');
+
+  var goalLabel = s.step1.label || (s.step1.other_text ? 'Other' : 'Not specified');
+  var focusLabel;
+  if (s.step1.id === (config && config.step1 ? config.step1.other.id : 'step1_other')) {
+    focusLabel = s.step2.other_text ? 'Other' : 'Not specified';
+  } else {
+    focusLabel = s.step2.label || (s.step2.other_text ? 'Other' : 'Not specified');
+  }
+
+  var matsLines;
+  if (s.step4.materials && s.step4.materials.length > 0) {
+    matsLines = s.step4.materials.map(function(m) { return '- ' + m; }).join('\n');
+  } else if (s.step4.other_text && s.step4.other_text.trim()) {
+    matsLines = '';
+  } else {
+    matsLines = (config && config.copy ? config.copy.no_materials_text : 'No materials yet — starting from scratch.');
+  }
+
+  var slots = {
+    department: dept,
+    department_other: s.step3.department_other || '',
+    course_topic: s.step3.course_topic || 'Not specified',
+    student_level: s.step3.student_level || 'Not specified',
+    class_format: s.step3.class_format || 'Not specified',
+    current_approach: (s.step3.current_approach && s.step3.current_approach.trim()) ? s.step3.current_approach : 'Not specified',
+    step1_goal: goalLabel,
+    step1_other: s.step1.other_text || '',
+    step2_focus: focusLabel,
+    step2_other: s.step2.other_text || '',
+    materials_list: matsLines,
+    materials_other: s.step4.other_text || ''
+  };
+
+  Object.keys(slots).forEach(function(k) {
+    tpl = tpl.split('{{' + k + '}}').join(String(slots[k]));
+  });
+
+  // Collapse 3+ newlines and trim
+  tpl = tpl.replace(/\n{3,}/g, '\n\n');
+  return tpl.replace(/^\n+/, '').replace(/\n+$/, '\n');
+}
+
+// =====================================================================
+// Copy + commit
+// =====================================================================
+
+function handleCopyAndCommit() {
+  var assembled = assemblePrompt();
+  var triagePayload = {
+    step1: { id: state.step1.id, label: state.step1.label, other_text: state.step1.other_text },
+    step2: { id: state.step2.id, label: state.step2.label, other_text: state.step2.other_text },
+    step3: {
+      department: state.step3.department,
+      department_other: state.step3.department_other,
+      course_topic: state.step3.course_topic,
+      student_level: state.step3.student_level,
+      class_format: state.step3.class_format,
+      current_approach: state.step3.current_approach
+    },
+    step4: { materials: state.step4.materials.slice(), other_text: state.step4.other_text },
+    prompt_variant: config.prompt_variant || 'agent',
+    assembled_prompt: assembled
+  };
+  // Preserved in JS state per SPEC v0.6 §9 (manual-fallback recovery via
+  // devtools if the form submission fails). No user-facing fallback UI.
+  pendingTriagePayload = triagePayload;
+
+  // 1. Copy
+  copyTextToClipboard(assembled).then(function() {
+    var btn = document.getElementById('btn-copy-commit');
+    if (btn) {
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<span aria-hidden="true">✓</span> Copied — opening agent…';
+      btn.classList.add('copied');
+      setTimeout(function() { btn.innerHTML = orig; btn.classList.remove('copied'); }, 3500);
+    }
+    announce('Prompt copied to clipboard.');
+  });
+
+  // 2. Submit to Google Form (no-cors; fail-graceful).
+  submitToGoogleForm(
+    'triage',
+    state.session_id,
+    new Date().toISOString(),
+    JSON.stringify(triagePayload)
+  );
+
+  // 3. Open agent
+  try {
+    var url = config.agent_url || '';
+    if (url && url.indexOf('PLACEHOLDER') === -1) {
+      window.open(url, '_blank', 'noopener');
+    } else {
+      console.info('agent_url is a placeholder; not opening a new tab.');
+    }
+  } catch (e) {
+    console.warn('Could not open agent URL:', e);
+  }
+
+  // 4. Transition to Bridge — the post-commit waypoint between Review and
+  // Reflection (SPEC v0.6 §4 step 8). The Reflection screen is reached only
+  // when the faculty member clicks "I'm back" on the Bridge screen.
+  setTimeout(function() { setScreen('bridge'); }, 250);
+}
+
+function copyTextToClipboard(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    return navigator.clipboard.writeText(text).catch(function() {
+      return new Promise(function(resolve) { fallbackCopy(text); resolve(); });
+    });
+  }
+  return new Promise(function(resolve) { fallbackCopy(text); resolve(); });
+}
+
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.cssText = 'position:fixed;opacity:0;top:0;left:0;';
+  document.body.appendChild(ta);
+  ta.focus(); ta.select();
+  try { document.execCommand('copy'); } catch (e) {}
+  document.body.removeChild(ta);
+}
+
+// Submit one row to the Google Form bound to the project sheet. Four fields:
+// type discriminator, session_id, ISO timestamp, and a JSON-string payload.
+// Uses mode: "no-cors" because Google Forms' submission endpoint does not
+// return CORS-permissive headers — the request fires, Google receives the
+// data and writes the row, the browser ignores the (opaque) response. Per
+// SPEC v0.6 §9. Failures log to console; no user-facing error path.
+function submitToGoogleForm(type, sessionId, timestamp, payload) {
+  if (!config.form || !config.form.submission_url) {
+    console.error('Google Form not configured; skipping submission.');
+    return Promise.resolve();
+  }
+  var fd = new FormData();
+  fd.append(config.form.entry_type, type);
+  fd.append(config.form.entry_session_id, sessionId);
+  fd.append(config.form.entry_timestamp, timestamp);
+  fd.append(config.form.entry_payload, payload);
+  return fetch(config.form.submission_url, {
+    method: 'POST',
+    mode: 'no-cors',
+    body: fd
+  }).catch(function(err) {
+    console.error('Form submission failed:', err);
+  });
+}
+
+// =====================================================================
+// Bridge — post-commit waypoint between Review and Reflection
+// =====================================================================
+
+function renderBridge() {
+  var screen = document.getElementById('screen-bridge');
+  var copy = config.copy;
+  var assembled = (pendingTriagePayload && pendingTriagePayload.assembled_prompt) || assemblePrompt();
+  var agentUrl = config.agent_url || '';
+  var html = '';
+  html += '<div class="tri-bridge-mark" aria-hidden="true">→</div>';
+  html += '<h2 id="bridge-prompt" class="tri-step-prompt">' + esc(copy.bridge_header) + '</h2>';
+  html += '<p class="tri-bridge-confirmation">' + esc(copy.bridge_confirmation) + '</p>';
+  html += '<a class="tri-bridge-link" id="bridge-agent-link" href="' + esc(agentUrl) + '" target="_blank" rel="noopener noreferrer">';
+  html += '<span aria-hidden="true">↗</span> ' + esc(copy.bridge_agent_link_label);
+  html += '</a>';
+  html += '<div class="tri-bridge-copyrow">';
+  html += '<button type="button" class="tri-btn tri-btn-secondary" id="btn-bridge-copy" aria-label="' + esc(copy.bridge_copy_again_label) + '">';
+  html += '<span aria-hidden="true">📋</span> ' + esc(copy.bridge_copy_again_label);
+  html += '</button>';
+  html += '</div>';
+  html += '<label for="bridge-prompt-text" class="tri-bridge-textarea-label">' + esc(copy.bridge_prompt_textarea_label) + '</label>';
+  html += '<textarea id="bridge-prompt-text" class="tri-prompt-preview" readonly aria-label="' + esc(copy.bridge_prompt_textarea_label) + '"></textarea>';
+  html += '<div class="tri-bridge-spacer" aria-hidden="true"></div>';
+  html += '<div class="tri-bridge-actions">';
+  html += '<button type="button" class="tri-btn tri-btn-primary tri-btn-large" id="btn-bridge-continue">' + esc(copy.bridge_continue_label) + '</button>';
+  html += '</div>';
+
+  screen.innerHTML = html;
+  document.getElementById('bridge-prompt-text').value = assembled;
+
+  document.getElementById('btn-bridge-copy').addEventListener('click', function() {
+    var btn = this;
+    copyTextToClipboard(assembled).then(function() {
+      var orig = btn.innerHTML;
+      btn.innerHTML = '<span aria-hidden="true">✓</span> Copied';
+      btn.classList.add('copied');
+      announce('Prompt copied to clipboard.');
+      setTimeout(function() { btn.innerHTML = orig; btn.classList.remove('copied'); }, 2500);
+    });
+  });
+  document.getElementById('btn-bridge-continue').addEventListener('click', function() {
+    setScreen('reflection');
+  });
+}
+
+// =====================================================================
+// Reflection
+// =====================================================================
+
+function renderReflection() {
+  var screen = document.getElementById('screen-reflection');
+  var copy = config.copy;
+  var html = '';
+  html += '<h2 id="reflection-prompt" class="tri-step-prompt">' + esc(copy.reflection_prompt) + '</h2>';
+  html += '<p class="tri-step-sub">' + esc(copy.reflection_subtext) + '</p>';
+
+  html += '<div class="tri-form-row">';
+  html += '<label for="refl-text" class="tri-form-label">Your reflection</label>';
+  html += '<textarea id="refl-text" class="plib-textarea plib-textarea-large" placeholder="Write a sentence or two about what you tried and what changed."></textarea>';
+  html += '<div class="plib-counter" id="refl-counter"><span id="refl-words">0</span> words · <span id="refl-chars">0</span> characters</div>';
+  html += '</div>';
+
+  html += '<div class="tri-form-row">';
+  html += '<label for="refl-name" class="tri-form-label">Your name (optional)</label>';
+  html += '<input id="refl-name" class="tri-form-input" type="text" maxlength="120" placeholder="">';
+  html += '</div>';
+
+  html += '<div class="plib-warn" id="refl-warn"></div>';
+  html += '<div class="tri-confirmation" id="refl-confirm">Saved. Thank you.</div>';
+
+  html += '<div class="tri-reflection-actions">';
+  html += '<button type="button" class="tri-btn tri-btn-primary tri-btn-large" id="btn-save-reflection">' + esc(copy.save_reflection_label) + '</button>';
+  html += '<button type="button" class="tri-btn tri-btn-secondary" id="btn-new-route">' + esc(copy.new_route_label) + '</button>';
+  html += '</div>';
+
+  screen.innerHTML = html;
+
+  var ta = document.getElementById('refl-text');
+  ta.addEventListener('input', function() {
+    var v = ta.value;
+    document.getElementById('refl-chars').textContent = v.length;
+    var words = v.trim() === '' ? 0 : v.trim().split(/\s+/).length;
+    document.getElementById('refl-words').textContent = words;
+  });
+
+  document.getElementById('btn-save-reflection').addEventListener('click', handleSaveReflection);
+  document.getElementById('btn-new-route').addEventListener('click', handleNewRoute);
+}
+
+function handleSaveReflection() {
+  var ta = document.getElementById('refl-text');
+  var name = document.getElementById('refl-name').value.trim();
+  var text = ta.value.trim();
+  var warn = document.getElementById('refl-warn');
+  warn.textContent = '';
+  if (!text) {
+    warn.textContent = 'Write a few words first, then save.';
+    ta.focus();
+    return;
+  }
+  // Per SPEC v0.6 §9: payload is the inner reflection content; type, session
+  // id, and timestamp travel as separate form fields.
+  submitToGoogleForm(
+    'reflection',
+    state.session_id,
+    new Date().toISOString(),
+    JSON.stringify({ reflection_text: text, optional_name: name || null })
+  );
+  // The submission is fire-and-forget (no-cors gives an opaque response).
+  // We assume success from the user's perspective and reset the form so they
+  // can submit additional reflections under the same session id.
+  var conf = document.getElementById('refl-confirm');
+  conf.textContent = 'Saved. Thank you.';
+  conf.classList.add('visible');
+  announce('Reflection saved.');
+  ta.value = '';
+  document.getElementById('refl-words').textContent = '0';
+  document.getElementById('refl-chars').textContent = '0';
+  setTimeout(function() {
+    var c = document.getElementById('refl-confirm');
+    if (c) { c.classList.remove('visible'); }
+  }, 4000);
+}
+
+function handleNewRoute() {
+  resetSession();
+  setScreen('step1');
+}
+
+function resetSession() {
+  state = blankState();
+  pendingTriagePayload = null;
+  var foot = document.getElementById('session-foot');
+  if (foot) foot.textContent = 'Session ' + state.session_id;
+}
+
+// =====================================================================
+// Shared step actions (Back/Next)
+// =====================================================================
+
+function stepActionsHtml(opts) {
+  opts = opts || {};
+  var copy = config.copy;
+  var html = '<div class="tri-actions">';
+  if (opts.canBack === false) {
+    html += '<span></span>';
+  } else {
+    html += '<button type="button" class="tri-btn tri-btn-secondary" data-action="back">' + esc(copy.back_label) + '</button>';
+  }
+  var disAttr = opts.nextDisabled ? ' disabled' : '';
+  html += '<button type="button" class="tri-btn tri-btn-primary tri-btn-large" data-action="next"' + disAttr + '>' + esc(copy.next_label) + ' →</button>';
+  html += '</div>';
+  return html;
+}
+
+function bindStepActions(screen, handlers) {
+  var back = screen.querySelector('[data-action="back"]');
+  if (back && handlers.onBack) back.addEventListener('click', handlers.onBack);
+  var next = screen.querySelector('[data-action="next"]');
+  if (next && handlers.onNext) next.addEventListener('click', function() {
+    if (next.disabled) return;
+    handlers.onNext();
+  });
+}
+
+function updateNextEnabled(enabled) {
+  var next = document.querySelector('.screen:not(.hidden) [data-action="next"]');
+  if (next) next.disabled = !enabled;
+}
+
+// =====================================================================
+// Helpers
+// =====================================================================
+
+function esc(s) {
+  if (s == null) return '';
+  return String(s).replace(/[&<>"']/g, function(c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+// Boot
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', boot);
+} else {
+  boot();
+}
+
+})();
+</script>
+</body>
+</html>

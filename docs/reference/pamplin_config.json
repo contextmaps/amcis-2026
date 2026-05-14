@@ -1,0 +1,847 @@
+{
+  "step1": {
+    "groups": [
+      { "id": "course_design", "label": "Course Design", "items": ["improve_syllabus", "organize_materials"] },
+      { "id": "lecture_explanation", "label": "Lecture & Explanation", "items": ["redesign_lecture", "explain_concept", "create_examples", "adapt_levels"] },
+      { "id": "engagement", "label": "Engagement", "items": ["design_activity", "discussion_questions"] },
+      { "id": "assessment", "label": "Assessment", "items": ["create_quiz", "improve_assignment", "build_rubric", "generate_feedback"] },
+      { "id": "ai_integration", "label": "AI Integration", "items": ["add_ai_use", "student_ai_activity"] }
+    ],
+    "items": {
+      "improve_syllabus":     { "label": "Improve a syllabus or course plan",                                "group": "course_design" },
+      "organize_materials":   { "label": "Organize and synthesize course materials",                          "group": "course_design" },
+      "redesign_lecture":     { "label": "Redesign a lecture or class session",                               "group": "lecture_explanation" },
+      "explain_concept":      { "label": "Explain a difficult concept more clearly",                          "group": "lecture_explanation" },
+      "create_examples":      { "label": "Create discipline-specific examples, cases, or scenarios",          "group": "lecture_explanation" },
+      "adapt_levels":         { "label": "Adapt material for different student levels",                       "group": "lecture_explanation" },
+      "design_activity":      { "label": "Design an in-class activity",                                        "group": "engagement" },
+      "discussion_questions": { "label": "Generate discussion questions",                                      "group": "engagement" },
+      "create_quiz":          { "label": "Create a quiz or formative check",                                   "group": "assessment" },
+      "improve_assignment":   { "label": "Improve an assignment",                                              "group": "assessment" },
+      "build_rubric":         { "label": "Build or revise a rubric",                                           "group": "assessment" },
+      "generate_feedback":    { "label": "Generate feedback language",                                         "group": "assessment" },
+      "add_ai_use":           { "label": "Add responsible AI use to a course or assignment",                   "group": "ai_integration" },
+      "student_ai_activity":  { "label": "Create a student-facing AI activity or build a reusable course assistant", "group": "ai_integration" }
+    },
+    "other": { "id": "step1_other", "label": "Other (describe briefly)", "max_chars": 200 }
+  },
+
+  "step2": {
+    "improve_syllabus": [
+      { "id": "modernize_tone",       "label": "Modernize tone and structure" },
+      { "id": "clarify_objectives",   "label": "Clarify learning objectives" },
+      { "id": "align_assignments",    "label": "Align assignments with outcomes" },
+      { "id": "add_ai_section",       "label": "Add a responsible-AI-use section" },
+      { "id": "revise_policies",      "label": "Revise course policies (attendance, late work, etc.)" },
+      { "id": "student_friendly",     "label": "Make it more student-friendly to read" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "organize_materials": [
+      { "id": "consolidate_readings", "label": "Consolidate scattered readings and resources" },
+      { "id": "tag_topics",           "label": "Tag and categorize materials by topic" },
+      { "id": "module_structure",     "label": "Group materials into modules or units" },
+      { "id": "update_outdated",      "label": "Identify outdated or duplicate items" },
+      { "id": "sequence_materials",   "label": "Reorder materials into a clearer sequence" },
+      { "id": "summarize_materials",  "label": "Generate brief summaries for each item" },
+      { "id": "audio_overview",       "label": "Create an audio overview or podcast-style summary of readings" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "redesign_lecture": [
+      { "id": "shorter_focused",      "label": "Make it shorter and more focused" },
+      { "id": "add_active_learning",  "label": "Add active-learning moments" },
+      { "id": "update_examples",      "label": "Update or replace examples" },
+      { "id": "reorder_flow",         "label": "Reorder for a clearer narrative" },
+      { "id": "add_visuals",          "label": "Add visuals or analogies" },
+      { "id": "tighten_intro_close",  "label": "Tighten the opening and closing" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "explain_concept": [
+      { "id": "simpler_language",     "label": "Rewrite in simpler language" },
+      { "id": "find_analogy",         "label": "Find a useful analogy or metaphor" },
+      { "id": "worked_example",       "label": "Walk through a worked example" },
+      { "id": "common_misconceptions","label": "Address common misconceptions" },
+      { "id": "visual_explanation",   "label": "Create a visual explanation" },
+      { "id": "tiered_explanations",  "label": "Layer the explanation from basic to advanced" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "create_examples": [
+      { "id": "mini_cases",           "label": "Mini cases or scenarios" },
+      { "id": "data_examples",        "label": "Realistic data or numbers to work with" },
+      { "id": "industry_specific",    "label": "Industry-specific applications" },
+      { "id": "current_events",       "label": "Tie examples to current events" },
+      { "id": "student_relatable",    "label": "Make examples student-relatable" },
+      { "id": "varied_difficulty",    "label": "Examples at varying difficulty levels" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "adapt_levels": [
+      { "id": "simplify_first_year",  "label": "Simplify for first-year students" },
+      { "id": "extend_advanced",      "label": "Extend for advanced students" },
+      { "id": "undergrad_to_grad",    "label": "Translate undergraduate material to graduate" },
+      { "id": "language_non_majors",  "label": "Adjust language for non-majors" },
+      { "id": "prerequisite_review",  "label": "Insert a brief prerequisite review" },
+      { "id": "challenge_extensions", "label": "Add stretch challenges or extensions" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "design_activity": [
+      { "id": "small_group",          "label": "Small-group exercise" },
+      { "id": "role_play",            "label": "Role-play or simulation" },
+      { "id": "case_discussion",      "label": "Short case discussion" },
+      { "id": "think_pair_share",     "label": "Think-pair-share" },
+      { "id": "hands_on",             "label": "Hands-on / data-analysis activity" },
+      { "id": "debate_format",        "label": "Structured debate" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "discussion_questions": [
+      { "id": "reading_based",        "label": "A question set tied to a specific reading" },
+      { "id": "opening_questions",    "label": "Opening questions to launch a session" },
+      { "id": "probing_followups",    "label": "Probing follow-ups for deeper engagement" },
+      { "id": "trade_off_questions",  "label": "Questions surfacing tensions or trade-offs" },
+      { "id": "real_world_apply",     "label": "Application to real-world scenarios" },
+      { "id": "meta_questions",       "label": "Meta questions about students' own thinking" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "create_quiz": [
+      { "id": "low_stakes_check",     "label": "Low-stakes formative check" },
+      { "id": "multiple_choice",      "label": "Multiple-choice questions" },
+      { "id": "short_answer",         "label": "Short-answer questions" },
+      { "id": "in_class_poll",        "label": "In-class poll items" },
+      { "id": "pre_class_check",      "label": "Pre-class readiness check" },
+      { "id": "end_of_module",        "label": "End-of-module knowledge check" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "improve_assignment": [
+      { "id": "clarify_instructions", "label": "Clarify the instructions" },
+      { "id": "add_scaffolding",      "label": "Add scaffolding or milestones" },
+      { "id": "update_relevance",     "label": "Update for current relevance / authenticity" },
+      { "id": "add_ai_use_guidance",  "label": "Add AI-use guidance for students" },
+      { "id": "reduce_ambiguity",     "label": "Reduce ambiguity in expectations" },
+      { "id": "differentiate_levels", "label": "Differentiate for student levels" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "build_rubric": [
+      { "id": "new_rubric",           "label": "Build a new rubric from scratch" },
+      { "id": "simplify_existing",    "label": "Simplify an existing rubric" },
+      { "id": "add_specific_criteria","label": "Add more specific criteria" },
+      { "id": "tier_levels",          "label": "Tier the performance levels more clearly" },
+      { "id": "student_friendly_rub", "label": "Rewrite in student-friendly language" },
+      { "id": "align_outcomes",       "label": "Align rubric to learning outcomes" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "generate_feedback": [
+      { "id": "common_phrases",       "label": "A bank of common comment phrases" },
+      { "id": "growth_oriented",      "label": "Growth-oriented language" },
+      { "id": "rubric_aligned",       "label": "Rubric-aligned feedback templates" },
+      { "id": "tone_softening",       "label": "Soften tone while keeping the standard" },
+      { "id": "quick_personalization","label": "Quick-personalization templates" },
+      { "id": "revision_guidance",    "label": "Revision guidance for resubmissions" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "add_ai_use": [
+      { "id": "draft_course_policy",  "label": "Draft a course-level AI-use policy" },
+      { "id": "assignment_policy",    "label": "Add AI guidance to a specific assignment" },
+      { "id": "allowed_disallowed",   "label": "Clarify what's allowed vs. disallowed" },
+      { "id": "disclosure_norms",     "label": "Define disclosure / citation norms" },
+      { "id": "integrity_concerns",   "label": "Address academic-integrity concerns" },
+      { "id": "syllabus_language",    "label": "Add a syllabus statement on AI use" },
+      { "id": "other",                "label": "Other (free text)" }
+    ],
+    "student_ai_activity": [
+      { "id": "prompt_for_students",  "label": "Design a prompt that students will use" },
+      { "id": "in_class_demo",        "label": "Build an in-class AI demonstration" },
+      { "id": "reusable_assistant",   "label": "Create a reusable course assistant" },
+      { "id": "critique_ai_output",   "label": "Have students critique AI output" },
+      { "id": "compare_human_ai",     "label": "Compare human vs. AI work" },
+      { "id": "debate_with_ai",       "label": "Use AI as a debate partner" },
+      { "id": "other",                "label": "Other (free text)" }
+    ]
+  },
+
+  "step3": {
+    "departments": ["ACIS", "BIT", "Finance", "HTM", "Management", "Marketing", "Real Estate", "Other"],
+    "student_levels": ["Undergraduate", "Graduate", "Mixed"],
+    "class_formats": ["In-person", "Online", "Hybrid"],
+    "current_approach_max_chars": 280
+  },
+
+  "step4": {
+    "default": [
+      { "id": "existing_materials",   "label": "Existing related materials" },
+      { "id": "learning_outcomes",    "label": "The course learning outcomes" },
+      { "id": "target_audience",      "label": "Description of the target audience" },
+      { "id": "time_constraints",     "label": "Time constraints" },
+      { "id": "starting_from_scratch","label": "I'm starting from scratch" }
+    ],
+
+    "improve_syllabus": {
+      "modernize_tone": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "course_outcomes",         "label": "Course outcomes" },
+        { "id": "peer_examples",           "label": "Peer or model syllabi for reference" },
+        { "id": "student_feedback",        "label": "Student feedback on the current syllabus" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "clarify_objectives": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "learning_outcomes",       "label": "Existing learning outcomes (if any)" },
+        { "id": "accreditation_reqs",      "label": "Accreditation or program requirements" },
+        { "id": "sample_assessments",      "label": "Sample assessments or major assignments" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "align_assignments": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "list_of_assignments",     "label": "List of current assignments" },
+        { "id": "learning_outcomes",       "label": "Course learning outcomes" },
+        { "id": "current_grade_weights",   "label": "Current grade weights" },
+        { "id": "existing_rubrics",        "label": "Existing rubrics" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "add_ai_section": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "current_ai_policy",       "label": "Current AI-use policy (if any)" },
+        { "id": "departmental_policy",     "label": "Departmental AI guidance" },
+        { "id": "sample_language",         "label": "Sample AI-policy language to adapt" },
+        { "id": "integrity_concerns",      "label": "Specific academic-integrity concerns" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "revise_policies": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "university_policies",     "label": "University-level policy text" },
+        { "id": "departmental_norms",      "label": "Departmental norms" },
+        { "id": "prior_student_issues",    "label": "Prior student issues you want to address" },
+        { "id": "peer_syllabi",            "label": "Peer syllabi for comparison" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "student_friendly": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "student_feedback",        "label": "Student feedback on readability" },
+        { "id": "plain_language_examples", "label": "Plain-language examples to emulate" },
+        { "id": "accessibility_priorities","label": "Accessibility priorities" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "organize_materials": {
+      "consolidate_readings": [
+        { "id": "reading_list",            "label": "Current reading list" },
+        { "id": "sample_readings",         "label": "Sample readings or PDFs" },
+        { "id": "course_topics_outline",   "label": "Course topics outline" },
+        { "id": "syllabus",                "label": "Existing syllabus" },
+        { "id": "lms_files_index",         "label": "An index of LMS / Canvas files" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "tag_topics": [
+        { "id": "reading_list",            "label": "Reading or materials list" },
+        { "id": "learning_outcomes",       "label": "Course learning outcomes" },
+        { "id": "course_topics_outline",   "label": "Course topics outline" },
+        { "id": "prior_tagging_scheme",    "label": "Prior tagging scheme (if any)" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "module_structure": [
+        { "id": "syllabus_outline",        "label": "Syllabus outline" },
+        { "id": "list_of_topics",          "label": "List of topics to cover" },
+        { "id": "weekly_calendar",         "label": "Weekly calendar / pacing" },
+        { "id": "learning_outcomes",       "label": "Course learning outcomes" },
+        { "id": "sample_module_layouts",   "label": "Sample module layouts to emulate" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "update_outdated": [
+        { "id": "current_materials_list",  "label": "Current materials list" },
+        { "id": "last_revision_year",      "label": "When the materials were last revised" },
+        { "id": "sample_outdated_items",   "label": "Sample items you suspect are outdated" },
+        { "id": "scope_of_concern",        "label": "Scope of concern (sections, weeks)" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "sequence_materials": [
+        { "id": "current_sequence",        "label": "Current sequence / order" },
+        { "id": "learning_outcomes",       "label": "Course learning outcomes" },
+        { "id": "prerequisite_deps",       "label": "Prerequisite dependencies among topics" },
+        { "id": "peer_course_sequencing",  "label": "Peer-course sequencing for reference" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "summarize_materials": [
+        { "id": "reading_list",            "label": "Reading list" },
+        { "id": "key_chapters",            "label": "Key chapters or sections" },
+        { "id": "sample_readings",         "label": "Sample readings to summarize" },
+        { "id": "target_audience",         "label": "Target student audience" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "audio_overview": [
+        { "id": "readings_pdfs",           "label": "Readings (PDFs, articles, or links)" },
+        { "id": "lecture_slides",          "label": "Lecture slides" },
+        { "id": "existing_study_guide",    "label": "Existing study guide or summary" },
+        { "id": "syllabus_or_schedule",    "label": "Course syllabus or weekly schedule" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "redesign_lecture": {
+      "shorter_focused": [
+        { "id": "current_slides",          "label": "Current slides" },
+        { "id": "lecture_notes",           "label": "Lecture notes or outline" },
+        { "id": "time_budget",             "label": "Target class time budget" },
+        { "id": "key_takeaways",           "label": "The 2–3 key takeaways" },
+        { "id": "prior_student_questions", "label": "Common student questions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "add_active_learning": [
+        { "id": "current_slides",          "label": "Current slides" },
+        { "id": "lecture_notes",           "label": "Lecture notes or outline" },
+        { "id": "class_size",              "label": "Class size" },
+        { "id": "room_setup",              "label": "Room setup (fixed seating, movable, etc.)" },
+        { "id": "prior_activities_used",   "label": "Activities you've used before" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "update_examples": [
+        { "id": "current_slides",          "label": "Current slides" },
+        { "id": "current_examples",        "label": "Current examples used" },
+        { "id": "target_industries",       "label": "Industries / contexts to draw from" },
+        { "id": "recent_news",             "label": "Recent news or events to tie in" },
+        { "id": "student_demographics",    "label": "Student demographics" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "reorder_flow": [
+        { "id": "current_slides",          "label": "Current slides" },
+        { "id": "lecture_notes",           "label": "Lecture notes or outline" },
+        { "id": "learning_outcomes",       "label": "Lecture learning outcomes" },
+        { "id": "confusion_points",        "label": "Where students currently get lost" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "add_visuals": [
+        { "id": "current_slides",          "label": "Current slides" },
+        { "id": "lecture_notes",           "label": "Lecture notes or outline" },
+        { "id": "key_concepts",            "label": "Key concepts to visualize" },
+        { "id": "available_tools",         "label": "Visual tools available (PowerPoint, etc.)" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "tighten_intro_close": [
+        { "id": "current_slides",          "label": "Current slides" },
+        { "id": "intro_close_text",        "label": "Current intro / closing text" },
+        { "id": "key_takeaways",           "label": "The 2–3 key takeaways" },
+        { "id": "hook_ideas",              "label": "Hook ideas you've considered" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "explain_concept": {
+      "simpler_language": [
+        { "id": "current_explanation",     "label": "Your current explanation" },
+        { "id": "target_audience",         "label": "Who the audience is" },
+        { "id": "glossary_of_terms",       "label": "Glossary of jargon to translate" },
+        { "id": "prior_student_questions", "label": "Common student questions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "find_analogy": [
+        { "id": "current_explanation",     "label": "Your current explanation" },
+        { "id": "student_majors",          "label": "Student majors / backgrounds" },
+        { "id": "related_concepts",        "label": "Related concepts students already know" },
+        { "id": "prior_analogies_tried",   "label": "Analogies already tried" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "worked_example": [
+        { "id": "current_explanation",     "label": "Your current explanation" },
+        { "id": "sample_problem",          "label": "A sample problem to work through" },
+        { "id": "expected_answer",         "label": "Expected answer / solution path" },
+        { "id": "common_pitfalls",         "label": "Common pitfalls students hit" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "common_misconceptions": [
+        { "id": "current_explanation",     "label": "Your current explanation" },
+        { "id": "student_questions",       "label": "Student questions or emails on this topic" },
+        { "id": "exam_error_patterns",     "label": "Recurring errors on past exams" },
+        { "id": "prior_faqs",              "label": "Prior FAQ documents" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "visual_explanation": [
+        { "id": "current_explanation",     "label": "Your current explanation" },
+        { "id": "key_relationships",       "label": "Key relationships to visualize" },
+        { "id": "available_tools",         "label": "Tools available for the visual" },
+        { "id": "rough_sketch",            "label": "A rough sketch or outline" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "tiered_explanations": [
+        { "id": "current_explanation",     "label": "Your current explanation" },
+        { "id": "target_levels",           "label": "Levels you need to span" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes for each level" },
+        { "id": "prerequisite_concepts",   "label": "Prerequisite concepts" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "create_examples": {
+      "mini_cases": [
+        { "id": "concept_or_topic",        "label": "Concept or topic the cases illustrate" },
+        { "id": "target_industry",         "label": "Target industry or context" },
+        { "id": "recent_news",             "label": "Recent news / real cases to draw on" },
+        { "id": "student_majors",          "label": "Student majors or interests" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "data_examples": [
+        { "id": "concept_or_topic",        "label": "Concept or topic the data illustrates" },
+        { "id": "sample_dataset",          "label": "A sample dataset" },
+        { "id": "public_data_sources",     "label": "Public data sources to use" },
+        { "id": "target_software_tool",    "label": "Target software / tool (Excel, R, etc.)" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "industry_specific": [
+        { "id": "concept_or_topic",        "label": "Concept or topic to illustrate" },
+        { "id": "target_industries",       "label": "Target industries" },
+        { "id": "prior_examples_used",     "label": "Examples already used" },
+        { "id": "alumni_employer_input",   "label": "Alumni or employer input you have" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "current_events": [
+        { "id": "concept_or_topic",        "label": "Concept or topic to illustrate" },
+        { "id": "recent_news_articles",    "label": "Recent news articles to use" },
+        { "id": "preferred_news_sources",  "label": "Preferred news sources" },
+        { "id": "region_or_market",        "label": "Region or market focus" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "student_relatable": [
+        { "id": "concept_or_topic",        "label": "Concept or topic to illustrate" },
+        { "id": "student_demographics",    "label": "Student demographics" },
+        { "id": "common_experiences",      "label": "Common student experiences to draw on" },
+        { "id": "prior_examples_used",     "label": "Examples already used" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "varied_difficulty": [
+        { "id": "concept_or_topic",        "label": "Concept or topic to illustrate" },
+        { "id": "current_examples",        "label": "Current examples in use" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes targeted" },
+        { "id": "target_levels",           "label": "Levels you need to span" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "adapt_levels": {
+      "simplify_first_year": [
+        { "id": "current_material",        "label": "Current material" },
+        { "id": "glossary_of_terms",       "label": "Glossary of jargon to translate" },
+        { "id": "prerequisite_topics",     "label": "Prerequisite topics first-years lack" },
+        { "id": "sample_first_year_work",  "label": "Sample first-year student work" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "extend_advanced": [
+        { "id": "current_material",        "label": "Current material" },
+        { "id": "advanced_readings",       "label": "Advanced readings to add" },
+        { "id": "research_questions",      "label": "Open research questions to lean on" },
+        { "id": "prior_advanced_assigns",  "label": "Prior advanced assignments" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "undergrad_to_grad": [
+        { "id": "current_undergrad_mat",   "label": "Current undergraduate material" },
+        { "id": "graduate_outcomes",       "label": "Graduate-level outcomes" },
+        { "id": "expected_prior_knowledge","label": "Expected prior knowledge of grad students" },
+        { "id": "sample_graduate_assigns", "label": "Sample graduate assignments" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "language_non_majors": [
+        { "id": "current_material",        "label": "Current material" },
+        { "id": "non_major_audience",      "label": "Non-major audience profile" },
+        { "id": "glossary_of_terms",       "label": "Glossary of jargon to translate" },
+        { "id": "prior_examples_used",     "label": "Examples already used" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "prerequisite_review": [
+        { "id": "current_material",        "label": "Current material" },
+        { "id": "list_of_prerequisites",   "label": "List of prerequisite concepts" },
+        { "id": "common_gaps_observed",    "label": "Common gaps you've observed" },
+        { "id": "brief_review_format",     "label": "Preferred brief-review format" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "challenge_extensions": [
+        { "id": "current_material",        "label": "Current material" },
+        { "id": "advanced_topics_list",    "label": "Advanced topics that could extend it" },
+        { "id": "student_interests",       "label": "Student interests to draw on" },
+        { "id": "time_budget",             "label": "Time budget for the extension" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "design_activity": {
+      "small_group": [
+        { "id": "learning_outcomes",       "label": "Learning outcomes for the activity" },
+        { "id": "class_size",              "label": "Class size" },
+        { "id": "room_setup",              "label": "Room setup" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "materials_available",     "label": "Materials / artifacts available" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "role_play": [
+        { "id": "scenario_or_topic",       "label": "Scenario or topic" },
+        { "id": "role_descriptions",       "label": "Role descriptions (if any)" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "debrief_questions",       "label": "Debrief questions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "case_discussion": [
+        { "id": "case_text",               "label": "Case text or source" },
+        { "id": "discussion_questions",    "label": "Existing discussion questions" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "think_pair_share": [
+        { "id": "prompt_or_question",      "label": "The prompt or question" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "room_setup",              "label": "Room setup" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "hands_on": [
+        { "id": "dataset_or_artifact",     "label": "Dataset or artifact" },
+        { "id": "software_tools",          "label": "Software tools available" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "debate_format": [
+        { "id": "debate_topic",            "label": "Debate topic" },
+        { "id": "position_briefs",         "label": "Position briefs (if any)" },
+        { "id": "evaluation_criteria",     "label": "Evaluation criteria" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "discussion_questions": {
+      "reading_based": [
+        { "id": "reading_text",            "label": "Reading text or source" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "prior_questions",         "label": "Prior discussion questions used" },
+        { "id": "key_passages",            "label": "Key passages to anchor on" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "opening_questions": [
+        { "id": "lecture_topic",           "label": "Lecture topic" },
+        { "id": "key_concepts",            "label": "Key concepts" },
+        { "id": "student_demographics",    "label": "Student demographics" },
+        { "id": "hook_ideas",              "label": "Hook ideas you've considered" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "probing_followups": [
+        { "id": "existing_questions",      "label": "Existing question set" },
+        { "id": "expected_responses",      "label": "Expected student responses" },
+        { "id": "common_misconceptions",   "label": "Common misconceptions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "trade_off_questions": [
+        { "id": "topic_area",              "label": "Topic area" },
+        { "id": "recent_debates",          "label": "Recent debates / news" },
+        { "id": "sensitivities",           "label": "Sensitivities to handle" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "real_world_apply": [
+        { "id": "topic_area",              "label": "Topic area" },
+        { "id": "target_industries",       "label": "Target industries" },
+        { "id": "recent_news",             "label": "Recent news or events" },
+        { "id": "student_majors",          "label": "Student majors" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "meta_questions": [
+        { "id": "topic_area",              "label": "Topic area" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "prior_reflection_prompts","label": "Prior reflection prompts used" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "create_quiz": {
+      "low_stakes_check": [
+        { "id": "lecture_topic",           "label": "Lecture topic" },
+        { "id": "key_concepts",            "label": "Key concepts" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "prior_misconceptions",    "label": "Common misconceptions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "multiple_choice": [
+        { "id": "topic_or_reading",        "label": "Topic or reading" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "sample_questions",        "label": "Sample MC questions you have" },
+        { "id": "common_misconceptions",   "label": "Common misconceptions for distractors" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "short_answer": [
+        { "id": "topic_or_reading",        "label": "Topic or reading" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "sample_questions",        "label": "Sample short-answer prompts you have" },
+        { "id": "expected_answers",        "label": "Expected answer outlines" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "in_class_poll": [
+        { "id": "lecture_topic",           "label": "Lecture topic" },
+        { "id": "key_concepts",            "label": "Key concepts" },
+        { "id": "polling_tool",            "label": "Polling tool available" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "pre_class_check": [
+        { "id": "upcoming_topic",          "label": "Upcoming topic" },
+        { "id": "prerequisite_concepts",   "label": "Prerequisite concepts" },
+        { "id": "reading_assigned",        "label": "Reading assigned" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "end_of_module": [
+        { "id": "module_topics",           "label": "Module topics covered" },
+        { "id": "learning_outcomes",       "label": "Module learning outcomes" },
+        { "id": "sample_questions",        "label": "Sample questions you have" },
+        { "id": "time_budget",             "label": "Quiz time budget" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "improve_assignment": {
+      "clarify_instructions": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "prior_student_questions", "label": "Common student questions on it" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "sample_strong_subs",      "label": "Sample strong submissions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "add_scaffolding": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "term_calendar",           "label": "Term calendar / due-date constraints" },
+        { "id": "prior_milestones",        "label": "Prior milestones used" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "update_relevance": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "target_industries",       "label": "Target industries / contexts" },
+        { "id": "recent_news",             "label": "Recent news or events" },
+        { "id": "student_majors",          "label": "Student majors" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "add_ai_use_guidance": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "course_ai_policy",        "label": "Course AI policy (if any)" },
+        { "id": "sample_submissions",      "label": "Sample student submissions" },
+        { "id": "integrity_concerns",      "label": "Concerns about academic integrity" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "reduce_ambiguity": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "prior_student_questions", "label": "Common student questions on it" },
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "sample_submissions",      "label": "Sample student submissions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "differentiate_levels": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "target_levels",           "label": "Student levels you need to span" },
+        { "id": "sample_submissions",      "label": "Sample submissions across levels" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "build_rubric": {
+      "new_rubric": [
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "peer_rubrics",            "label": "Peer rubrics for reference" },
+        { "id": "sample_submissions",      "label": "Sample submissions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "simplify_existing": [
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "student_feedback_rubric", "label": "Student feedback on the rubric" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "add_specific_criteria": [
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "grading_inconsistencies", "label": "Past grading inconsistencies to address" },
+        { "id": "sample_submissions",      "label": "Sample submissions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "tier_levels": [
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "submissions_at_levels",   "label": "Sample submissions at each level" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "student_friendly_rub": [
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "target_audience",         "label": "Target student audience" },
+        { "id": "plain_language_examples", "label": "Plain-language examples to emulate" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "align_outcomes": [
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "learning_outcomes",       "label": "Course or assignment learning outcomes" },
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "generate_feedback": {
+      "common_phrases": [
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "rubric",                  "label": "Rubric" },
+        { "id": "sample_submissions",      "label": "Sample submissions" },
+        { "id": "prior_feedback_examples", "label": "Examples of feedback you've written before" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "growth_oriented": [
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "rubric",                  "label": "Rubric" },
+        { "id": "prior_feedback_examples", "label": "Examples of feedback you've written before" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "rubric_aligned": [
+        { "id": "rubric",                  "label": "Rubric" },
+        { "id": "sample_submissions",      "label": "Sample submissions" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "tone_softening": [
+        { "id": "prior_feedback_examples", "label": "Existing feedback that needs softening" },
+        { "id": "audience_level",          "label": "Audience level (year, context)" },
+        { "id": "sample_submissions",      "label": "Sample submissions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "quick_personalization": [
+        { "id": "rubric",                  "label": "Rubric" },
+        { "id": "common_strengths_weak",   "label": "Common strengths / weaknesses you see" },
+        { "id": "sample_submissions",      "label": "Sample submissions" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "revision_guidance": [
+        { "id": "assignment_text",         "label": "Assignment text" },
+        { "id": "rubric",                  "label": "Rubric" },
+        { "id": "sample_submissions",      "label": "Sample submissions for revision" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "add_ai_use": {
+      "draft_course_policy": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "departmental_policy",     "label": "Departmental AI policy (if any)" },
+        { "id": "university_guidance",     "label": "University AI guidance" },
+        { "id": "prior_incidents",         "label": "Prior incidents you want to address" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "assignment_policy": [
+        { "id": "existing_assignment",     "label": "Existing assignment instructions" },
+        { "id": "existing_rubric",         "label": "Existing rubric" },
+        { "id": "course_ai_policy",        "label": "Course AI policy (if any)" },
+        { "id": "integrity_concerns",      "label": "Specific integrity concerns" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "allowed_disallowed": [
+        { "id": "existing_policy_text",    "label": "Existing policy text" },
+        { "id": "assignment_list",         "label": "List of assignments / activities" },
+        { "id": "integrity_concerns",      "label": "Specific integrity concerns" },
+        { "id": "sample_language",         "label": "Sample policy language to adapt" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "disclosure_norms": [
+        { "id": "existing_policy_text",    "label": "Existing policy text" },
+        { "id": "citation_style_used",     "label": "Citation style used in the course" },
+        { "id": "sample_disclosures",      "label": "Sample disclosure statements to adapt" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "integrity_concerns": [
+        { "id": "prior_incidents",         "label": "Prior integrity incidents" },
+        { "id": "departmental_policy",     "label": "Departmental policy" },
+        { "id": "assignment_list",         "label": "List of assignments / activities" },
+        { "id": "sample_language",         "label": "Sample policy language" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "syllabus_language": [
+        { "id": "existing_syllabus",       "label": "Existing syllabus" },
+        { "id": "departmental_policy",     "label": "Departmental policy" },
+        { "id": "sample_statements",       "label": "Sample syllabus statements" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    },
+
+    "student_ai_activity": {
+      "prompt_for_students": [
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "target_ai_tool",          "label": "Target AI tool" },
+        { "id": "topic_or_concept",        "label": "Topic or concept" },
+        { "id": "prior_prompts_used",      "label": "Prior prompts you've used" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "in_class_demo": [
+        { "id": "lecture_topic",           "label": "Lecture topic" },
+        { "id": "target_ai_tool",          "label": "Target AI tool" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "time_budget",             "label": "Time budget" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "reusable_assistant": [
+        { "id": "course_topic",            "label": "Course topic / scope" },
+        { "id": "source_documents",        "label": "Source documents to ground it on" },
+        { "id": "target_ai_platform",      "label": "Target AI platform (Copilot Studio, GPTs, etc.)" },
+        { "id": "intended_uses",           "label": "Intended student uses" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "critique_ai_output": [
+        { "id": "sample_ai_output",        "label": "Sample AI output to critique" },
+        { "id": "evaluation_criteria",     "label": "Evaluation criteria" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "compare_human_ai": [
+        { "id": "sample_assignment",       "label": "Sample assignment" },
+        { "id": "target_ai_tool",          "label": "Target AI tool" },
+        { "id": "evaluation_criteria",     "label": "Evaluation criteria" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ],
+      "debate_with_ai": [
+        { "id": "debate_topic",            "label": "Debate topic" },
+        { "id": "target_ai_tool",          "label": "Target AI tool" },
+        { "id": "learning_outcomes",       "label": "Learning outcomes" },
+        { "id": "starting_from_scratch",   "label": "I'm starting from scratch" }
+      ]
+    }
+  },
+
+  "copy": {
+    "step1_prompt": "What would you like AI to help you improve or create today?",
+    "step1_subtext": "Pick something small or ambitious. You can try another path later.",
+    "step2_prompt": "Which version of that goal feels closest to what you need?",
+    "step2_subtext": "Pick the one closest to what you have in mind. You can edit later.",
+    "step2_other_placeholder": "Describe the version you have in mind (a sentence is fine).",
+    "step3_prompt": "Tell the AI enough to understand your course.",
+    "step3_subtext": "All fields are optional, but more context helps the agent.",
+    "step4_prompt": "What materials or constraints should the AI know about?",
+    "step4_subtext": "Check anything you have on hand. \"Starting from scratch\" is a fine answer.",
+    "review_prompt": "Review your selections, then copy the prompt and open the agent.",
+    "review_subtext": "Edit any block by clicking its Edit link. The prompt below is what gets copied.",
+    "copy_button_label": "Copy prompt and open the agent",
+    "reflection_prompt": "What changed for you?",
+    "reflection_subtext": "Optional — but helpful for shaping future workshops.",
+    "save_reflection_label": "Save reflection",
+    "new_route_label": "Start another path",
+    "back_label": "Back",
+    "next_label": "Next",
+    "step1_other_placeholder": "Briefly describe what you'd like AI to help with.",
+    "step1_other_label": "Other (describe briefly)",
+    "step4_other_placeholder": "Briefly describe any other materials or constraints.",
+    "no_materials_text": "No materials yet — starting from scratch.",
+    "bridge_header": "Your prompt is on its way.",
+    "bridge_confirmation": "We've copied your prompt to your clipboard and opened the Pamplin Teaching Companion in a new tab. Paste the prompt as your first message there. If the new tab didn't open, click the link below.",
+    "bridge_agent_link_label": "Open the Pamplin Teaching Companion",
+    "bridge_copy_again_label": "Copy the prompt again",
+    "bridge_prompt_textarea_label": "Your assembled prompt (manual copy if needed):",
+    "bridge_continue_label": "I'm back — share a reflection"
+  },
+
+  "agent_url": "https://m365.cloud.microsoft/chat/?titleId=T_5d144e0f-ac7f-68fe-1c24-00da60290d29",
+  "form": {
+    "submission_url": "https://docs.google.com/forms/d/e/1FAIpQLSeewFWI-GYoESAL1-bskxx_vHoT47FrGOKTKT2wE1--XN3uLg/formResponse",
+    "entry_type": "entry.1945782144",
+    "entry_session_id": "entry.1409887469",
+    "entry_timestamp": "entry.1987234281",
+    "entry_payload": "entry.85212787"
+  },
+  "prompt_variant": "agent",
+  "suppress_header": true
+}

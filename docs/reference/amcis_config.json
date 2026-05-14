@@ -1,0 +1,1479 @@
+{
+  "title": "Teaching Inside the Thread",
+  "subtitle": "An AI-Centered Pedagogy",
+  "agent_url": "https://chatgpt.com/g/g-6a04e57a41208191ac7ef63d967053f8-amcis-teaching-companion",
+  "form": {
+    "submission_url": "https://docs.google.com/forms/d/e/1FAIpQLSfr1k5pksXMujds0RpFEdpc8bTVxk5aWaZVyQANSuMn71j5GA/formResponse",
+    "entry_type": "entry.1850646152",
+    "entry_session_id": "entry.560367375",
+    "entry_timestamp": "entry.1473660026",
+    "entry_payload": "entry.1114220693"
+  },
+  "copy": {
+    "step1_prompt": "What is your teaching goal today?",
+    "step1_subtext": "Pick the area that best matches what you want to work on. You can refine the focus on the next screen.",
+    "step1_other_label": "Other (describe briefly)",
+    "step1_other_placeholder": "Briefly describe your teaching goal.",
+    "step2_prompt": "What specific action do you want to take?",
+    "step2_subtext": "Pick the focus that best matches your subproblem. You can edit later.",
+    "step2_other_label": "Other (free text)",
+    "step2_other_placeholder": "Describe the specific focus you have in mind (a sentence is fine).",
+    "step3_prompt": "Tell the agent enough to understand your course.",
+    "step3_subtext": "All fields except course topic are optional, though more context helps the agent.",
+    "step4_prompt": "What materials or evidence would help the agent do this work?",
+    "step4_subtext": "Check anything you have on hand. \"I'm starting from scratch\" is a fine answer.",
+    "step4_other_placeholder": "Briefly describe any other materials or constraints.",
+    "review_prompt": "Review your selections, then copy the prompt and open the Companion.",
+    "review_subtext": "Edit any section by clicking its Edit link. The prompt below is what gets copied.",
+    "copy_button_label": "Copy prompt and open the Companion",
+    "bridge_header": "Your prompt is on its way.",
+    "bridge_confirmation": "Your prompt is on your clipboard. The AMCIS Teaching Companion should have opened in a new tab. Paste the prompt as your first message there.",
+    "bridge_agent_link_label": "Open the AMCIS Teaching Companion",
+    "bridge_copy_again_label": "Copy the prompt again",
+    "bridge_prompt_textarea_label": "Your assembled prompt (manual copy if needed):",
+    "bridge_m_open_note": "This prompt is your M-Open, the start of a multi-turn exchange. When you're done, you can paste an M-Close into the thread or simply close it.",
+    "bridge_continue_label": "I'm back, share a reflection",
+    "reflection_prompt": "What changed for you?",
+    "reflection_subtext": "Share a short reflection on what you tried and what shifted. The Q and O blocks below are optional but valued.",
+    "reflection_textarea_placeholder": "Write a sentence or two about what you tried and what changed.",
+    "save_reflection_label": "Save reflection",
+    "reflection_confirmation": "Thank you. Your reflection is saved.",
+    "try_x_label": "Try an X block: open a free exploration",
+    "x_prompt": "If you have time, try an X block.",
+    "x_subtext": "Open a free exploration with the agent. Type ### X as your first line and ask anything the workshop didn't address. The thread captures it; we don't grade it.",
+    "x_copy_prefix_label": "Copy ### X prefix",
+    "x_reopen_label": "Re-open the Companion in a new tab",
+    "x_done_label": "Done, start another path",
+    "new_route_label": "Start another path",
+    "back_label": "Back",
+    "next_label": "Continue",
+    "no_materials_text": "No specific materials yet, starting from scratch."
+  },
+  "step1": {
+    "items": {
+      "course_design": {
+        "id": "course_design",
+        "label": "Course design and curriculum architecture",
+        "description": "Syllabus work, learning outcomes, course-level AI policy, curriculum mapping, course restructuring, new course design."
+      },
+      "teaching_is_concepts": {
+        "id": "teaching_is_concepts",
+        "label": "Teaching IS concepts, methods, and technologies",
+        "description": "Technical lecture redesign, AI-code-debugging exercises, AI-co-pilot labs, progressive scaffolds, process redesign activities, governance and accountability units."
+      },
+      "cases_scenarios": {
+        "id": "cases_scenarios",
+        "label": "Cases, scenarios, and applied examples",
+        "description": "Discipline-specific examples, AI-decision cases, case adaptation, AI-failure mini-cases, escalating sequences, platform-governance activities."
+      },
+      "engagement_protocols": {
+        "id": "engagement_protocols",
+        "label": "Engagement, interaction, and student-AI protocols",
+        "description": "Discussion design, mixed human-AI activities, student-AI exchange protocols, debates, AI-limitation activities, AI in peer-review."
+      },
+      "assessment_integrity": {
+        "id": "assessment_integrity",
+        "label": "Assessment and academic integrity in the AI era",
+        "description": "Assignment redesign, process-based rubrics, integrity-without-detection strategy, show-your-work requirements, oral defense components, feedback systems."
+      },
+      "research_methods": {
+        "id": "research_methods",
+        "label": "Research methods, theory, and evidence",
+        "description": "Phenomenon-to-construct translation, theory-building exercises, AI-supported literature synthesis, evaluating AI-generated evidence, human-vs-AI qualitative coding, prompt reproducibility."
+      },
+      "doctoral_supervision": {
+        "id": "doctoral_supervision",
+        "label": "Doctoral training, supervision, and mentoring",
+        "description": "AI-augmented qualifying exams, dissertation coaching, AI as teaching partner for methods, responsible-AI-writing norms, dissertation-protocol design, AI-supported feedback templates."
+      }
+    },
+    "order": [
+      "course_design",
+      "teaching_is_concepts",
+      "cases_scenarios",
+      "engagement_protocols",
+      "assessment_integrity",
+      "research_methods",
+      "doctoral_supervision"
+    ],
+    "boundary_statements": {
+      "cases_scenarios": "Best for faculty who want to build cases, generate examples, or develop applied scenarios for classroom use.",
+      "research_methods": "Best for teaching students how IS research is designed, evaluated, and interpreted.",
+      "doctoral_supervision": "Best for mentoring doctoral students and supporting long-arc scholarly development."
+    },
+    "other": {
+      "id": "step1_other",
+      "label": "Other (describe briefly)",
+      "max_chars": 200
+    }
+  },
+  "step2": {
+    "course_design": [
+      {
+        "id": "audit_syllabus",
+        "label": "Audit a syllabus for AI-readiness"
+      },
+      {
+        "id": "redesign_outcomes",
+        "label": "Redesign learning outcomes for AI presence"
+      },
+      {
+        "id": "add_ai_policy",
+        "label": "Add a course-level AI-use policy"
+      },
+      {
+        "id": "map_curriculum",
+        "label": "Map AI integration across an existing curriculum"
+      },
+      {
+        "id": "restructure_course",
+        "label": "Restructure a course around AI-augmented work"
+      },
+      {
+        "id": "plan_new_course",
+        "label": "Plan a new course from scratch with AI in mind"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ],
+    "teaching_is_concepts": [
+      {
+        "id": "redesign_technical_lecture",
+        "label": "Redesign a technical lecture for an AI-using classroom"
+      },
+      {
+        "id": "debug_ai_code",
+        "label": "Build an exercise where students debug AI-generated code"
+      },
+      {
+        "id": "ai_copilot_lab",
+        "label": "Design a hands-on lab where AI is a co-pilot, not the solution"
+      },
+      {
+        "id": "progressive_scaffolds",
+        "label": "Create progressive scaffolds for a technical concept"
+      },
+      {
+        "id": "process_redesign_activity",
+        "label": "Build a classroom activity around process redesign with AI support"
+      },
+      {
+        "id": "governance_unit",
+        "label": "Build a teaching unit on data governance, privacy, or algorithmic accountability"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ],
+    "cases_scenarios": [
+      {
+        "id": "discipline_examples",
+        "label": "Generate discipline-specific examples for a concept"
+      },
+      {
+        "id": "ai_decision_case",
+        "label": "Build a case-based discussion around AI-augmented decision-making"
+      },
+      {
+        "id": "adapt_published_case",
+        "label": "Adapt a published case for AI-era classroom use"
+      },
+      {
+        "id": "ai_failure_minicase",
+        "label": "Create a mini-case that surfaces an AI failure mode"
+      },
+      {
+        "id": "escalating_examples",
+        "label": "Develop a sequence of escalating-difficulty examples"
+      },
+      {
+        "id": "platform_governance_activity",
+        "label": "Build a classroom activity around platform governance or digital transformation"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ],
+    "engagement_protocols": [
+      {
+        "id": "discussion_questions",
+        "label": "Generate discussion questions for an AI-era topic"
+      },
+      {
+        "id": "human_ai_activity",
+        "label": "Plan an in-class activity that requires both human and AI work"
+      },
+      {
+        "id": "exchange_protocol",
+        "label": "Design a student-AI exchange protocol for an assignment"
+      },
+      {
+        "id": "structured_debate",
+        "label": "Build a structured debate or comparison exercise around an AI topic"
+      },
+      {
+        "id": "expose_limitations",
+        "label": "Create a low-stakes activity that exposes AI limitations"
+      },
+      {
+        "id": "ai_peer_review",
+        "label": "Design a peer-review activity in which AI is a third participant"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ],
+    "assessment_integrity": [
+      {
+        "id": "redesign_assignment",
+        "label": "Redesign an assignment to remain meaningful under AI access"
+      },
+      {
+        "id": "process_rubric",
+        "label": "Build a rubric that assesses reasoning and process, not just output"
+      },
+      {
+        "id": "integrity_no_detection",
+        "label": "Develop an integrity strategy that does not rely on detection"
+      },
+      {
+        "id": "show_your_work",
+        "label": "Create a \"show your work\" requirement that's hard to fake"
+      },
+      {
+        "id": "oral_defense",
+        "label": "Design an oral defense or in-class demonstration component"
+      },
+      {
+        "id": "feedback_system",
+        "label": "Build a process-based feedback system for AI-assisted work"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ],
+    "research_methods": [
+      {
+        "id": "phenomenon_to_construct",
+        "label": "Teach students how to translate real-world phenomena into research constructs"
+      },
+      {
+        "id": "theory_building_exercise",
+        "label": "Design a theory-building classroom exercise"
+      },
+      {
+        "id": "lit_synthesis_workflows",
+        "label": "Build AI-supported literature synthesis workflows"
+      },
+      {
+        "id": "evaluate_ai_evidence",
+        "label": "Teach students to evaluate the reliability and limitations of AI-generated evidence"
+      },
+      {
+        "id": "human_vs_ai_coding",
+        "label": "Compare human and AI-supported coding in qualitative analysis"
+      },
+      {
+        "id": "prompt_reproducibility",
+        "label": "Build exercises around prompt reproducibility and validity in research"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ],
+    "doctoral_supervision": [
+      {
+        "id": "qual_exam_approach",
+        "label": "Design an AI-augmented qualifying exam approach"
+      },
+      {
+        "id": "dissertation_coaching",
+        "label": "Build a dissertation-coaching workflow using AI"
+      },
+      {
+        "id": "methods_training_module",
+        "label": "Develop a methods training module using AI as a teaching partner"
+      },
+      {
+        "id": "writing_norms",
+        "label": "Develop supervision norms for responsible AI-assisted research writing"
+      },
+      {
+        "id": "dissertation_protocols",
+        "label": "Design protocols for AI-assisted dissertation work"
+      },
+      {
+        "id": "feedback_templates",
+        "label": "Create AI-supported feedback templates for student research drafts"
+      },
+      {
+        "id": "other",
+        "label": "Other (free text)"
+      }
+    ]
+  },
+  "step3": {
+    "fields": [
+      {
+        "id": "course_topic",
+        "label": "Course topic",
+        "type": "text",
+        "placeholder": "e.g., MIS 4530 Database Management Systems",
+        "max_chars": 80,
+        "required": true
+      },
+      {
+        "id": "student_level",
+        "label": "Student level",
+        "type": "select",
+        "options": [
+          "Undergraduate",
+          "Master's",
+          "Doctoral",
+          "Mixed"
+        ],
+        "required": false
+      },
+      {
+        "id": "class_size",
+        "label": "Class size",
+        "type": "select",
+        "options": [
+          "25 or fewer",
+          "26 to 60",
+          "61 to 150",
+          "More than 150",
+          "Not applicable"
+        ],
+        "required": false
+      },
+      {
+        "id": "class_format",
+        "label": "Class format",
+        "type": "select",
+        "options": [
+          "In-person",
+          "Online (synchronous)",
+          "Online (asynchronous)",
+          "Hybrid"
+        ],
+        "required": false
+      },
+      {
+        "id": "teaching_context",
+        "label": "Teaching context and constraints (optional)",
+        "type": "textarea",
+        "placeholder": "e.g., Required course, no TA support, institution has a restrictive AI policy, students have varied technical backgrounds.",
+        "max_chars": 280,
+        "required": false
+      }
+    ]
+  },
+  "step4": {
+    "course_design": {
+      "audit_syllabus": [
+        {
+          "id": "your_current_syllabus_current_semester_or_recent_past_semest",
+          "label": "Your current syllabus (current semester or recent past semester)"
+        },
+        {
+          "id": "your_course_learning_outcomes",
+          "label": "Your course learning outcomes"
+        },
+        {
+          "id": "a_recent_set_of_assignments_or_assessments_from_the_course",
+          "label": "A recent set of assignments or assessments from the course"
+        },
+        {
+          "id": "your_institution_s_ai_use_policy_or_guidelines_if_any",
+          "label": "Your institution's AI-use policy or guidelines (if any)"
+        },
+        {
+          "id": "an_ai_generated_syllabus_audit_or_redesign_suggestion_if_you",
+          "label": "An AI-generated syllabus audit or redesign suggestion, if you've experimented with one before"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "redesign_outcomes": [
+        {
+          "id": "your_current_learning_outcomes_or_program_level_outcomes_if_",
+          "label": "Your current learning outcomes (or program-level outcomes if course outcomes don't exist yet)"
+        },
+        {
+          "id": "examples_of_outcomes_from_peer_courses_or_institutions",
+          "label": "Examples of outcomes from peer courses or institutions"
+        },
+        {
+          "id": "recent_student_work_that_suggests_where_current_outcomes_are",
+          "label": "Recent student work that suggests where current outcomes are or aren't being met"
+        },
+        {
+          "id": "a_sense_of_which_learning_outcomes_feel_outdated_weakened_or",
+          "label": "A sense of which learning outcomes feel outdated, weakened, or newly important in the AI era"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "add_ai_policy": [
+        {
+          "id": "your_institution_s_or_department_s_existing_ai_use_policy_if",
+          "label": "Your institution's or department's existing AI-use policy (if any)"
+        },
+        {
+          "id": "a_peer_course_s_ai_use_policy_you_ve_seen_and_want_to_learn_",
+          "label": "A peer course's AI-use policy you've seen and want to learn from"
+        },
+        {
+          "id": "your_sense_of_what_student_behaviors_you_want_to_encourage_a",
+          "label": "Your sense of what student behaviors you want to encourage and discourage"
+        },
+        {
+          "id": "examples_of_ai_use_questions_misunderstandings_or_edge_cases",
+          "label": "Examples of AI-use questions, misunderstandings, or edge cases students have raised"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "map_curriculum": [
+        {
+          "id": "the_current_curriculum_or_program_structure_course_list_sequ",
+          "label": "The current curriculum or program structure (course list, sequence, prerequisites)"
+        },
+        {
+          "id": "your_understanding_of_where_ai_already_appears_across_the_co",
+          "label": "Your understanding of where AI already appears across the courses you teach, coordinate, or know well"
+        },
+        {
+          "id": "program_level_learning_outcomes_or_accreditation_requirement",
+          "label": "Program-level learning outcomes or accreditation requirements"
+        },
+        {
+          "id": "a_target_for_where_ai_should_appear_intensify_or_shift_acros",
+          "label": "A target for where AI should appear, intensify, or shift across the sequence"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "restructure_course": [
+        {
+          "id": "your_current_course_structure_modules_units_weeks",
+          "label": "Your current course structure (modules, units, weeks)"
+        },
+        {
+          "id": "your_current_assessment_structure",
+          "label": "Your current assessment structure"
+        },
+        {
+          "id": "a_sense_of_which_course_components_feel_pre_ai_and_need_reth",
+          "label": "A sense of which course components feel pre-AI and need rethinking"
+        },
+        {
+          "id": "examples_of_student_work_that_shows_how_ai_is_changing_what_",
+          "label": "Examples of student work that shows how AI is changing what's possible (or what's problematic)"
+        },
+        {
+          "id": "a_target_for_what_the_restructured_course_should_look_like_m",
+          "label": "A target for what the restructured course should look like (more project work, different assessment structures, integrated AI tools)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "plan_new_course": [
+        {
+          "id": "the_topic_audience_and_credit_hour_structure_for_the_new_cou",
+          "label": "The topic, audience, and credit-hour structure for the new course"
+        },
+        {
+          "id": "adjacent_courses_or_prerequisite_courses_in_your_program",
+          "label": "Adjacent courses or prerequisite courses in your program"
+        },
+        {
+          "id": "peer_courses_you_ve_seen_and_want_to_learn_from_in_is_or_els",
+          "label": "Peer courses you've seen and want to learn from (in IS or elsewhere)"
+        },
+        {
+          "id": "your_initial_thoughts_on_the_course_s_scope_and_structure_ev",
+          "label": "Your initial thoughts on the course's scope and structure (even rough notes)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "teaching_is_concepts": {
+      "redesign_technical_lecture": [
+        {
+          "id": "your_current_lecture_slides_notes_or_outline_for_this_topic",
+          "label": "Your current lecture slides, notes, or outline for this topic"
+        },
+        {
+          "id": "the_technical_concept_or_skill_being_taught",
+          "label": "The technical concept or skill being taught"
+        },
+        {
+          "id": "your_sense_of_how_ai_is_already_changing_how_students_engage",
+          "label": "Your sense of how AI is already changing how students engage with this material"
+        },
+        {
+          "id": "examples_of_student_questions_misconceptions_or_confusion_pa",
+          "label": "Examples of student questions, misconceptions, or confusion patterns from past offerings"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "debug_ai_code": [
+        {
+          "id": "a_topic_or_programming_concept_where_you_d_want_students_to_",
+          "label": "A topic or programming concept where you'd want students to practice debugging"
+        },
+        {
+          "id": "sample_working_code_in_the_language_and_toolchain_your_cours",
+          "label": "Sample working code in the language and toolchain your course uses"
+        },
+        {
+          "id": "a_set_of_common_bugs_students_typically_introduce_or_struggl",
+          "label": "A set of common bugs students typically introduce or struggle to find"
+        },
+        {
+          "id": "an_ai_generated_code_example_containing_subtle_errors_mislea",
+          "label": "An AI-generated code example containing subtle errors, misleading logic, or incomplete solutions"
+        },
+        {
+          "id": "the_skill_level_you_re_calibrating_the_exercise_to_intro_int",
+          "label": "The skill level you're calibrating the exercise to (intro, intermediate, advanced)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "ai_copilot_lab": [
+        {
+          "id": "the_lab_topic_or_assignment_specification",
+          "label": "The lab topic or assignment specification"
+        },
+        {
+          "id": "the_specific_skills_students_should_develop_independently_th",
+          "label": "The specific skills students should develop independently (the non-AI core)"
+        },
+        {
+          "id": "the_points_in_the_lab_where_ai_assistance_supports_learning_",
+          "label": "The points in the lab where AI assistance supports learning versus where it bypasses essential skill development"
+        },
+        {
+          "id": "past_lab_work_where_students_leaned_too_heavily_on_ai_and_mi",
+          "label": "Past lab work where students leaned too heavily on AI and missed the underlying skill"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "progressive_scaffolds": [
+        {
+          "id": "the_technical_concept_you_re_scaffolding",
+          "label": "The technical concept you're scaffolding"
+        },
+        {
+          "id": "your_current_introduction_or_first_pass_explanation_of_it",
+          "label": "Your current introduction or first-pass explanation of it"
+        },
+        {
+          "id": "examples_of_where_students_typically_lose_the_thread_or_hit_",
+          "label": "Examples of where students typically lose the thread or hit a conceptual wall"
+        },
+        {
+          "id": "the_eventual_application_or_assessment_the_scaffolding_build",
+          "label": "The eventual application or assessment the scaffolding builds toward"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "process_redesign_activity": [
+        {
+          "id": "a_workflow_or_organizational_process_students_will_analyze",
+          "label": "A workflow or organizational process students will analyze"
+        },
+        {
+          "id": "the_course_context_and_learning_outcomes_this_activity_serve",
+          "label": "The course context and learning outcomes this activity serves"
+        },
+        {
+          "id": "examples_of_workflow_or_process_redesign_activities_students",
+          "label": "Examples of workflow or process redesign activities students have done before"
+        },
+        {
+          "id": "your_sense_of_where_ai_fits_productively_into_the_redesign_w",
+          "label": "Your sense of where AI fits productively into the redesign workflow versus where it doesn't"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "governance_unit": [
+        {
+          "id": "the_specific_topic_within_governance_privacy_or_accountabili",
+          "label": "The specific topic within governance, privacy, or accountability you want to teach"
+        },
+        {
+          "id": "existing_readings_cases_or_current_events_that_anchor_the_un",
+          "label": "Existing readings, cases, or current events that anchor the unit"
+        },
+        {
+          "id": "relevant_regulatory_or_institutional_context_gdpr_organizati",
+          "label": "Relevant regulatory or institutional context (GDPR, organizational data policies, AI use guidelines)"
+        },
+        {
+          "id": "examples_of_ai_behavior_that_illustrate_the_topic_concretely",
+          "label": "Examples of AI behavior that illustrate the topic concretely (biased outputs, privacy leakage, accountability gaps)"
+        },
+        {
+          "id": "the_course_or_curricular_context_this_unit_fits_into",
+          "label": "The course or curricular context this unit fits into"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "cases_scenarios": {
+      "discipline_examples": [
+        {
+          "id": "the_concept_the_examples_will_illustrate",
+          "label": "The concept the examples will illustrate"
+        },
+        {
+          "id": "your_discipline_or_sub_discipline_e_g_mis_bit_analytics_is_s",
+          "label": "Your discipline or sub-discipline (e.g., MIS, BIT, analytics, IS strategy, cybersecurity)"
+        },
+        {
+          "id": "the_student_background_and_level_the_examples_should_match",
+          "label": "The student background and level the examples should match"
+        },
+        {
+          "id": "existing_examples_you_ve_used_before_that_worked_well_plus_a",
+          "label": "Existing examples you've used before that worked well, plus any that fell flat"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "ai_decision_case": [
+        {
+          "id": "the_decision_domain_the_case_will_explore_organizational_eth",
+          "label": "The decision domain the case will explore (organizational, ethical, strategic, technical)"
+        },
+        {
+          "id": "the_role_students_will_take_in_the_case_analyst_manager_desi",
+          "label": "The role students will take in the case (analyst, manager, designer, auditor)"
+        },
+        {
+          "id": "past_cases_scenarios_or_organizational_situations_you_ve_use",
+          "label": "Past cases, scenarios, or organizational situations you've used that involved uncertainty or competing priorities"
+        },
+        {
+          "id": "the_kind_of_ai_involvement_the_case_should_depict_advisory_a",
+          "label": "The kind of AI involvement the case should depict (advisory, autonomous, collaborative, ambiguous)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "adapt_published_case": [
+        {
+          "id": "the_published_or_teaching_case_you_re_working_from_business_",
+          "label": "The published or teaching case you're working from (business-school, IS, or industry-focused)"
+        },
+        {
+          "id": "the_original_learning_objectives_the_case_was_designed_to_te",
+          "label": "The original learning objectives the case was designed to teach"
+        },
+        {
+          "id": "your_sense_of_where_the_case_feels_dated_under_current_ai_co",
+          "label": "Your sense of where the case feels dated under current AI conditions"
+        },
+        {
+          "id": "the_new_learning_objectives_you_want_to_add_about_ai_era_dec",
+          "label": "The new learning objectives you want to add about AI-era decision-making"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "ai_failure_minicase": [
+        {
+          "id": "the_failure_mode_you_want_to_illustrate_bias_hallucination_m",
+          "label": "The failure mode you want to illustrate (bias, hallucination, miscalibration, accountability gap)"
+        },
+        {
+          "id": "a_realistic_business_scenario_where_this_failure_could_occur",
+          "label": "A realistic business scenario where this failure could occur"
+        },
+        {
+          "id": "the_student_role_and_the_kind_of_reasoning_or_discussion_the",
+          "label": "The student role and the kind of reasoning or discussion the case should provoke"
+        },
+        {
+          "id": "examples_of_similar_failures_from_news_research_or_industry_",
+          "label": "Examples of similar failures from news, research, or industry reports"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "escalating_examples": [
+        {
+          "id": "the_concept_or_skill_the_sequence_will_build_toward",
+          "label": "The concept or skill the sequence will build toward"
+        },
+        {
+          "id": "your_sense_of_students_starting_point_before_they_encounter_",
+          "label": "Your sense of students' starting point before they encounter this material"
+        },
+        {
+          "id": "existing_examples_in_the_course_this_sequence_will_sit_along",
+          "label": "Existing examples in the course this sequence will sit alongside"
+        },
+        {
+          "id": "a_target_endpoint_what_mastery_looks_like_for_this_concept_o",
+          "label": "A target endpoint: what mastery looks like for this concept or skill"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "platform_governance_activity": [
+        {
+          "id": "the_specific_aspect_of_platform_governance_or_digital_transf",
+          "label": "The specific aspect of platform governance or digital transformation the activity will explore"
+        },
+        {
+          "id": "a_real_world_platform_organization_or_transformation_initiat",
+          "label": "A real-world platform, organization, or transformation initiative students will analyze"
+        },
+        {
+          "id": "the_student_role_and_analytical_lens_governance_strategy_eth",
+          "label": "The student role and analytical lens (governance, strategy, ethics, design, operations)"
+        },
+        {
+          "id": "existing_readings_cases_or_news_articles_that_anchor_the_top",
+          "label": "Existing readings, cases, or news articles that anchor the topic"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "engagement_protocols": {
+      "discussion_questions": [
+        {
+          "id": "the_topic_case_or_reading_the_discussion_will_center_on",
+          "label": "The topic, case, or reading the discussion will center on"
+        },
+        {
+          "id": "your_learning_outcomes_for_the_discussion_session",
+          "label": "Your learning outcomes for the discussion session"
+        },
+        {
+          "id": "past_discussion_questions_you_ve_used_that_worked_well_or_di",
+          "label": "Past discussion questions you've used that worked well (or didn't land)"
+        },
+        {
+          "id": "the_class_format_and_time_available_for_discussion_class_siz",
+          "label": "The class format and time available for discussion (class size, duration, in-person or online)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "human_ai_activity": [
+        {
+          "id": "the_course_topic_or_skill_the_activity_will_address",
+          "label": "The course topic or skill the activity will address"
+        },
+        {
+          "id": "the_class_size_duration_and_format_constraints",
+          "label": "The class size, duration, and format constraints"
+        },
+        {
+          "id": "examples_of_activities_you_ve_used_before_that_involved_coll",
+          "label": "Examples of activities you've used before that involved collaboration, peer interaction, or role structure"
+        },
+        {
+          "id": "your_sense_of_which_parts_of_the_activity_must_be_human_driv",
+          "label": "Your sense of which parts of the activity must be human-driven versus where AI can productively participate"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "exchange_protocol": [
+        {
+          "id": "the_assignment_specification_and_learning_outcomes",
+          "label": "The assignment specification and learning outcomes"
+        },
+        {
+          "id": "the_specific_ai_tools_students_will_be_using",
+          "label": "The specific AI tools students will be using"
+        },
+        {
+          "id": "past_student_ai_exchanges_or_transcripts_you_ve_encountered_",
+          "label": "Past student-AI exchanges or transcripts you've encountered in teaching, discussion, or shared student work"
+        },
+        {
+          "id": "your_sense_of_what_productive_student_ai_interaction_looks_l",
+          "label": "Your sense of what productive student-AI interaction looks like for this kind of work"
+        },
+        {
+          "id": "examples_of_student_ai_exchanges_that_went_poorly_or_reveale",
+          "label": "Examples of student-AI exchanges that went poorly or revealed problems"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "structured_debate": [
+        {
+          "id": "the_topic_or_question_the_debate_will_center_on",
+          "label": "The topic or question the debate will center on"
+        },
+        {
+          "id": "the_positions_perspectives_or_comparisons_students_will_work",
+          "label": "The positions, perspectives, or comparisons students will work with"
+        },
+        {
+          "id": "past_debate_or_comparison_exercises_you_ve_run_formats_struc",
+          "label": "Past debate or comparison exercises you've run (formats, structures, time allocations)"
+        },
+        {
+          "id": "source_materials_readings_cases_ai_outputs_students_will_use",
+          "label": "Source materials (readings, cases, AI outputs) students will use to develop their positions"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "expose_limitations": [
+        {
+          "id": "a_topic_task_or_domain_area_where_ai_limitations_would_be_ed",
+          "label": "A topic, task, or domain area where AI limitations would be educationally useful to expose"
+        },
+        {
+          "id": "an_ai_output_or_several_demonstrating_the_limitation",
+          "label": "An AI output (or several) demonstrating the limitation"
+        },
+        {
+          "id": "your_sense_of_what_students_should_learn_from_encountering_t",
+          "label": "Your sense of what students should learn from encountering the limitation"
+        },
+        {
+          "id": "the_course_context_this_activity_fits_into",
+          "label": "The course context this activity fits into"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "ai_peer_review": [
+        {
+          "id": "the_assignment_or_work_students_will_be_reviewing",
+          "label": "The assignment or work students will be reviewing"
+        },
+        {
+          "id": "your_current_peer_review_protocol_if_you_have_one_or_a_peer_",
+          "label": "Your current peer-review protocol (if you have one) or a peer's"
+        },
+        {
+          "id": "the_specific_role_ai_will_play_reviewer_organizer_summarizer",
+          "label": "The specific role AI will play (reviewer, organizer, summarizer, comparator)"
+        },
+        {
+          "id": "past_peer_review_experiences_that_revealed_where_the_process",
+          "label": "Past peer-review experiences that revealed where the process supported learning well, or where it became superficial or uneven"
+        },
+        {
+          "id": "examples_of_ai_generated_review_feedback_if_you_ve_experimen",
+          "label": "Examples of AI-generated review feedback, if you've experimented with it"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "assessment_integrity": {
+      "redesign_assignment": [
+        {
+          "id": "the_current_assignment_specification_and_rubric",
+          "label": "The current assignment specification and rubric"
+        },
+        {
+          "id": "your_sense_of_which_parts_of_the_assignment_ai_can_now_do_tr",
+          "label": "Your sense of which parts of the assignment AI can now do trivially"
+        },
+        {
+          "id": "recent_student_submissions_where_ai_appeared_to_be_doing_mos",
+          "label": "Recent student submissions where AI appeared to be doing most of the intellectual work"
+        },
+        {
+          "id": "an_ai_output_run_against_the_assignment_for_comparison_with_",
+          "label": "An AI output run against the assignment, for comparison with student work"
+        },
+        {
+          "id": "the_course_learning_outcome_this_assignment_is_supposed_to_a",
+          "label": "The course learning outcome this assignment is supposed to assess"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "process_rubric": [
+        {
+          "id": "your_current_rubric_for_the_assignment_or_assessment_type",
+          "label": "Your current rubric for the assignment or assessment type"
+        },
+        {
+          "id": "the_course_outcomes_or_skills_you_actually_want_to_evaluate",
+          "label": "The course outcomes or skills you actually want to evaluate"
+        },
+        {
+          "id": "examples_of_student_work_where_the_final_output_looked_fine_",
+          "label": "Examples of student work where the final output looked fine but the reasoning was weak (or vice versa)"
+        },
+        {
+          "id": "a_peer_rubric_you_ve_seen_that_handles_process_well",
+          "label": "A peer rubric you've seen that handles process well"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "integrity_no_detection": [
+        {
+          "id": "your_institution_s_academic_integrity_policy",
+          "label": "Your institution's academic integrity policy"
+        },
+        {
+          "id": "a_specific_assignment_or_assessment_you_re_worried_about",
+          "label": "A specific assignment or assessment you're worried about"
+        },
+        {
+          "id": "past_incidents_or_near_incidents_that_shaped_your_current_th",
+          "label": "Past incidents or near-incidents that shaped your current thinking (anonymized if needed)"
+        },
+        {
+          "id": "your_sense_of_which_student_behaviors_raise_genuine_integrit",
+          "label": "Your sense of which student behaviors raise genuine integrity concerns versus which ones challenge traditional expectations"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "show_your_work": [
+        {
+          "id": "the_assignment_or_assessment_you_want_to_add_this_requiremen",
+          "label": "The assignment or assessment you want to add this requirement to"
+        },
+        {
+          "id": "examples_of_show_your_work_attempts_that_didn_t_work_process",
+          "label": "Examples of \"show your work\" attempts that didn't work (process narratives students wrote that felt formulaic or generated)"
+        },
+        {
+          "id": "examples_of_process_evidence_that_did_feel_authentic_or_mean",
+          "label": "Examples of process evidence that did feel authentic or meaningful"
+        },
+        {
+          "id": "your_sense_of_what_process_artifacts_feel_meaningful_in_your",
+          "label": "Your sense of what process artifacts feel meaningful in your discipline (drafts, version histories, code commits, query logs, conversation logs, prototypes)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "oral_defense": [
+        {
+          "id": "the_current_assignment_or_assessment_this_component_would_at",
+          "label": "The current assignment or assessment this component would attach to"
+        },
+        {
+          "id": "your_class_size_and_time_constraints_the_operational_reality",
+          "label": "Your class size and time constraints (the operational reality)"
+        },
+        {
+          "id": "past_in_class_demonstration_formats_that_worked_or_didn_t_yo",
+          "label": "Past in-class demonstration formats that worked or didn't (yours or peer examples)"
+        },
+        {
+          "id": "the_specific_skill_or_understanding_you_want_to_verify_in_pe",
+          "label": "The specific skill or understanding you want to verify in person"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "feedback_system": [
+        {
+          "id": "the_assignment_or_coursework_this_feedback_system_would_serv",
+          "label": "The assignment or coursework this feedback system would serve"
+        },
+        {
+          "id": "your_current_feedback_workflow_what_you_give_when_how",
+          "label": "Your current feedback workflow (what you give, when, how)"
+        },
+        {
+          "id": "examples_of_feedback_approaches_that_helped_students_improve",
+          "label": "Examples of feedback approaches that helped students improve, and others that led to superficial revision or dependence"
+        },
+        {
+          "id": "an_ai_generated_feedback_attempt_on_similar_work_for_compari",
+          "label": "An AI-generated feedback attempt on similar work, for comparison"
+        },
+        {
+          "id": "your_sense_of_where_you_want_to_be_more_or_less_directive_in",
+          "label": "Your sense of where you want to be more or less directive in your feedback"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "research_methods": {
+      "phenomenon_to_construct": [
+        {
+          "id": "a_phenomenon_description_or_practitioner_observation_news_ar",
+          "label": "A phenomenon description or practitioner observation (news article, workplace anecdote, implementation problem, case vignette, or field observation)"
+        },
+        {
+          "id": "examples_of_published_papers_that_operationalized_a_similar_",
+          "label": "Examples of published papers that operationalized a similar phenomenon as a construct"
+        },
+        {
+          "id": "past_student_attempts_at_construct_definitions_including_one",
+          "label": "Past student attempts at construct definitions, including ones that revealed common misconceptions or conflated concepts"
+        },
+        {
+          "id": "a_target_outcome_what_a_successful_student_response_would_lo",
+          "label": "A target outcome: what a successful student response would look like (a paper, proposal, or analysis you'd accept)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "theory_building_exercise": [
+        {
+          "id": "a_phenomenon_paper_or_case_students_will_engage_with",
+          "label": "A phenomenon, paper, or case students will engage with"
+        },
+        {
+          "id": "one_or_two_theoretical_exemplars_from_is_literature_you_d_wa",
+          "label": "One or two theoretical exemplars from IS literature you'd want students to learn from or extend (e.g., TAM, sociomateriality, affordance theory)"
+        },
+        {
+          "id": "your_course_s_stated_learning_outcome_for_theory_engagement",
+          "label": "Your course's stated learning outcome for theory engagement"
+        },
+        {
+          "id": "past_student_attempts_at_theory_work_that_revealed_common_mi",
+          "label": "Past student attempts at theory work that revealed common misconceptions or weak construct distinctions"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "lit_synthesis_workflows": [
+        {
+          "id": "the_research_question_students_are_working_on",
+          "label": "The research question students are working on"
+        },
+        {
+          "id": "a_set_of_5_to_15_papers_students_are_expected_to_engage_with",
+          "label": "A set of 5 to 15 papers students are expected to engage with"
+        },
+        {
+          "id": "a_draft_annotated_bibliography_yours_or_a_student_s",
+          "label": "A draft annotated bibliography (yours or a student's)"
+        },
+        {
+          "id": "an_example_of_an_ai_generated_synthesis_that_went_wrong_hall",
+          "label": "An example of an AI-generated synthesis that went wrong (hallucinated citations, surface-level reading, missed connections)"
+        },
+        {
+          "id": "the_course_or_methods_context_this_synthesis_activity_fits_i",
+          "label": "The course or methods context this synthesis activity fits into"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "evaluate_ai_evidence": [
+        {
+          "id": "a_topic_where_you_ve_seen_ai_produce_confidently_wrong_or_bi",
+          "label": "A topic where you've seen AI produce confidently wrong or biased output"
+        },
+        {
+          "id": "a_set_of_ai_responses_to_a_single_prompt_showing_variation",
+          "label": "A set of AI responses to a single prompt (showing variation)"
+        },
+        {
+          "id": "a_rubric_or_set_of_criteria_for_evaluating_evidence_in_your_",
+          "label": "A rubric or set of criteria for evaluating evidence in your field"
+        },
+        {
+          "id": "a_paper_or_methodological_treatment_students_could_compare_a",
+          "label": "A paper or methodological treatment students could compare AI output against"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "human_vs_ai_coding": [
+        {
+          "id": "a_dataset_of_qualitative_material_interview_excerpts_open_en",
+          "label": "A dataset of qualitative material (interview excerpts, open-ended survey responses, field notes, even a small set)"
+        },
+        {
+          "id": "an_existing_coding_scheme_or_codebook",
+          "label": "An existing coding scheme or codebook"
+        },
+        {
+          "id": "a_set_of_human_coded_examples_for_comparison",
+          "label": "A set of human-coded examples for comparison"
+        },
+        {
+          "id": "an_ai_output_that_coded_the_same_material_or_a_plan_to_gener",
+          "label": "An AI output that coded the same material (or a plan to generate one)"
+        },
+        {
+          "id": "a_learning_outcome_for_the_methods_unit_this_exercise_serves",
+          "label": "A learning outcome for the methods unit this exercise serves"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "prompt_reproducibility": [
+        {
+          "id": "a_research_question_or_analytic_task_you_want_students_to_us",
+          "label": "A research question or analytic task you want students to use AI for"
+        },
+        {
+          "id": "a_set_of_prompts_yours_or_sourced_that_produced_different_re",
+          "label": "A set of prompts (yours or sourced) that produced different results on the same task"
+        },
+        {
+          "id": "a_criterion_or_rubric_for_what_good_output_looks_like",
+          "label": "A criterion or rubric for what \"good\" output looks like"
+        },
+        {
+          "id": "a_small_dataset_or_evidence_base_students_can_run_the_prompt",
+          "label": "A small dataset or evidence base students can run the prompts against"
+        },
+        {
+          "id": "what_you_want_students_to_learn_about_reproducibility_or_pro",
+          "label": "What you want students to learn about reproducibility or prompt sensitivity"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "doctoral_supervision": {
+      "qual_exam_approach": [
+        {
+          "id": "your_program_s_current_qualifying_exam_format_and_reading_li",
+          "label": "Your program's current qualifying exam format and reading lists"
+        },
+        {
+          "id": "past_qualifying_exam_questions_yours_or_your_program_s",
+          "label": "Past qualifying exam questions (yours or your program's)"
+        },
+        {
+          "id": "a_sense_of_which_students_typically_struggle_and_where",
+          "label": "A sense of which students typically struggle and where"
+        },
+        {
+          "id": "an_ai_response_to_a_qualifying_exam_style_question_for_compa",
+          "label": "An AI response to a qualifying-exam-style question, for comparison and discussion"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "dissertation_coaching": [
+        {
+          "id": "an_advisee_s_current_dissertation_draft_or_proposal_at_any_s",
+          "label": "An advisee's current dissertation draft or proposal (at any stage)"
+        },
+        {
+          "id": "your_usual_rhythm_for_advisee_feedback_frequency_depth_writt",
+          "label": "Your usual rhythm for advisee feedback (frequency, depth, written vs. meetings)"
+        },
+        {
+          "id": "dissertation_drafts_timelines_or_supervision_approaches_that",
+          "label": "Dissertation drafts, timelines, or supervision approaches that worked well in the past"
+        },
+        {
+          "id": "a_clear_sense_of_where_this_advisee_is_stuck_or_making_slow_",
+          "label": "A clear sense of where this advisee is stuck or making slow progress"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "methods_training_module": [
+        {
+          "id": "the_methods_topic_this_module_covers_qualitative_design_scie",
+          "label": "The methods topic this module covers (qualitative, design science, econometrics, survey, experimental, computational)"
+        },
+        {
+          "id": "your_existing_teaching_materials_for_this_topic",
+          "label": "Your existing teaching materials for this topic"
+        },
+        {
+          "id": "the_methods_concept_or_skill_students_typically_struggle_wit",
+          "label": "The methods concept or skill students typically struggle with most"
+        },
+        {
+          "id": "a_current_syllabus_for_the_doctoral_seminar_this_fits_into",
+          "label": "A current syllabus for the doctoral seminar this fits into"
+        },
+        {
+          "id": "examples_of_past_student_work_that_revealed_where_the_teachi",
+          "label": "Examples of past student work that revealed where the teaching wasn't landing"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "writing_norms": [
+        {
+          "id": "your_department_s_or_program_s_current_ai_writing_policy_if_",
+          "label": "Your department's or program's current AI-writing policy (if any)"
+        },
+        {
+          "id": "your_own_current_supervision_style_and_existing_norms_even_i",
+          "label": "Your own current supervision style and existing norms (even if unwritten)"
+        },
+        {
+          "id": "examples_of_student_written_work_with_and_without_ai_assista",
+          "label": "Examples of student-written work with and without AI assistance"
+        },
+        {
+          "id": "the_journal_venues_your_students_typically_target_each_has_i",
+          "label": "The journal venues your students typically target (each has its own AI disclosure norms now)"
+        },
+        {
+          "id": "a_draft_authorship_and_disclosure_agreement_if_one_exists_in",
+          "label": "A draft authorship and disclosure agreement, if one exists in your program"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "dissertation_protocols": [
+        {
+          "id": "an_advisee_s_dissertation_topic_and_current_chapter_or_metho",
+          "label": "An advisee's dissertation topic and current chapter or methods section"
+        },
+        {
+          "id": "the_specific_stages_of_dissertation_work_where_ai_use_is_bei",
+          "label": "The specific stages of dissertation work where AI use is being considered (literature, analysis, drafting, revision)"
+        },
+        {
+          "id": "your_program_s_current_expectations_about_disclosure_of_ai_u",
+          "label": "Your program's current expectations about disclosure of AI use"
+        },
+        {
+          "id": "a_draft_or_sample_of_ai_assisted_work_the_advisee_has_alread",
+          "label": "A draft or sample of AI-assisted work the advisee has already produced"
+        },
+        {
+          "id": "a_target_venue_or_departmental_expectation_for_what_acceptab",
+          "label": "A target venue or departmental expectation for what acceptable AI use should look like in the final dissertation"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ],
+      "feedback_templates": [
+        {
+          "id": "a_recent_draft_from_an_advisee_or_doctoral_student",
+          "label": "A recent draft from an advisee or doctoral student"
+        },
+        {
+          "id": "the_kind_of_feedback_you_typically_give_developmental_struct",
+          "label": "The kind of feedback you typically give (developmental, structural, methodological, line-level)"
+        },
+        {
+          "id": "examples_of_written_feedback_you_ve_given_on_similar_drafts",
+          "label": "Examples of written feedback you've given on similar drafts"
+        },
+        {
+          "id": "an_ai_generated_feedback_attempt_on_a_similar_draft_showing_",
+          "label": "An AI-generated feedback attempt on a similar draft (showing what AI does well and where it misses)"
+        },
+        {
+          "id": "starting_from_scratch",
+          "label": "I'm starting from scratch"
+        }
+      ]
+    },
+    "default": [
+      {
+        "id": "any_existing_course_materials_related_to_your_goal",
+        "label": "Any existing course materials related to your goal"
+      },
+      {
+        "id": "your_course_learning_outcomes",
+        "label": "Your course learning outcomes"
+      },
+      {
+        "id": "recent_assignments_assessments_or_activities_relevant_to_you",
+        "label": "Recent assignments, assessments, or activities relevant to your goal"
+      },
+      {
+        "id": "your_institution_s_ai_use_policy_or_guidelines_if_any",
+        "label": "Your institution's AI-use policy or guidelines (if any)"
+      },
+      {
+        "id": "past_student_work_or_feedback_that_shaped_your_thinking",
+        "label": "Past student work or feedback that shaped your thinking"
+      },
+      {
+        "id": "starting_from_scratch",
+        "label": "I'm starting from scratch"
+      }
+    ]
+  },
+  "step4_other": {
+    "label": "Other (describe briefly)",
+    "max_chars": 200
+  },
+  "reflection": {
+    "textarea_max_chars": 2000,
+    "textarea_suggested_min_words": 50,
+    "textarea_suggested_max_words": 250,
+    "q_block": {
+      "id": "q_practices",
+      "label": "Which of these AI-in-teaching practices feels most likely to change something about your teaching this fall?",
+      "type": "checkbox",
+      "options": [
+        {
+          "id": "custom_agents",
+          "label": "Custom agents for course-specific tasks"
+        },
+        {
+          "id": "assignment_redesign",
+          "label": "Assignment redesign under AI access"
+        },
+        {
+          "id": "multi_turn_coaching",
+          "label": "Multi-turn coaching for students"
+        },
+        {
+          "id": "ai_assessment",
+          "label": "AI-assisted assessment"
+        },
+        {
+          "id": "doctoral_tools",
+          "label": "Doctoral student supervision tools"
+        }
+      ]
+    },
+    "o_block": {
+      "id": "o_concerns",
+      "label": "Rank these dimensions of AI-assisted teaching by how much they concern you.",
+      "type": "ranking",
+      "items": [
+        {
+          "id": "integrity",
+          "label": "Academic integrity"
+        },
+        {
+          "id": "dependence",
+          "label": "Student dependence"
+        },
+        {
+          "id": "equity",
+          "label": "Equity of access"
+        },
+        {
+          "id": "feedback_quality",
+          "label": "Quality of feedback"
+        },
+        {
+          "id": "workload",
+          "label": "Faculty workload"
+        },
+        {
+          "id": "curriculum_drift",
+          "label": "Curriculum drift"
+        }
+      ]
+    }
+  },
+  "prompt_template": "I am a {student_level} instructor teaching {class_format} in a class of {class_size} students.\n\nCourse: {course_topic}\n\n{{#if teaching_context}}Teaching context and constraints: {teaching_context}\n\n{{/if}}My teaching goal today is in the area of: {step1_goal}\nSpecifically, I want to: {step2_focus}\n\nMaterials I have on hand:\n{materials_list}\n\n{{#if materials_other}}Other materials or constraints: {materials_other}\n\n{{/if}}Please give me a structured, actionable response covering: (1) the recommended AI tool for this work, (2) how to access it, (3) an opening prompt I can paste, (4) follow-up prompts to extend the work, (5) what to expect from a good first response, (6) estimated time, (7) a reflection reminder. Keep your entire response in this single message.\n",
+  "output_schema": [
+    "1. Recommended tool",
+    "2. How to access",
+    "3. Opening prompt",
+    "4. Follow-up prompts",
+    "5. What to expect",
+    "6. Estimated time",
+    "7. Reflection reminder"
+  ],
+  "prompt_variant": "agent"
+}
