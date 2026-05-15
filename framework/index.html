@@ -68,11 +68,6 @@
       display: flex;
       gap: var(--space-3);
     }
-    .frame-home-cta {
-      display: flex;
-      justify-content: center;
-      margin-top: var(--space-8);
-    }
     .slide {
       display: none;
     }
@@ -118,10 +113,6 @@
         <button class="btn btn-primary" id="nextBtn" type="button">Next</button>
       </div>
     </nav>
-
-    <div class="frame-home-cta" id="finalHomeCta" hidden>
-      <a class="btn btn-primary" href="../">Back to home</a>
-    </div>
   </main>
 
   <div class="plib-aria-live" id="ariaLive" aria-live="polite"></div>
@@ -133,7 +124,6 @@
       const prevBtn = document.getElementById('prevBtn');
       const nextBtn = document.getElementById('nextBtn');
       const counterEl = document.getElementById('slideCounter');
-      const finalCta = document.getElementById('finalHomeCta');
       const aria = document.getElementById('ariaLive');
 
       function parseHash() {
@@ -151,7 +141,6 @@
         counterEl.textContent = n + ' of ' + totalSlides;
         prevBtn.disabled = n === 1;
         nextBtn.disabled = n === totalSlides;
-        finalCta.hidden = n !== totalSlides;
         if (updateHash) {
           history.replaceState(null, '', '#' + n);
         }

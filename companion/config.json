@@ -11,7 +11,7 @@
   },
   "copy": {
     "step1_prompt": "What is your teaching goal today?",
-    "step1_subtext": "Pick the area that best matches what you want to work on. You can refine the focus on the next screen.",
+    "step1_subtext": "Click on the panel that best matches what you want to work on, or type it in the Other box. Then click Continue.",
     "step1_other_label": "Other (describe briefly)",
     "step1_other_placeholder": "Briefly describe your teaching goal.",
     "step2_prompt": "What specific action do you want to take?",
@@ -31,20 +31,14 @@
     "bridge_agent_link_label": "Open the AMCIS Teaching Companion",
     "bridge_copy_again_label": "Copy the prompt again",
     "bridge_prompt_textarea_label": "Your assembled prompt (manual copy if needed):",
-    "bridge_m_open_note": "This prompt is your M-Open, the start of a multi-turn exchange. When you're done, you can paste an M-Close into the thread or simply close it.",
     "bridge_continue_label": "I'm back, share a reflection",
     "reflection_prompt": "What changed for you?",
-    "reflection_subtext": "Share a short reflection on what you tried and what shifted. The Q and O blocks below are optional but valued.",
+    "reflection_subtext": "Share a short reflection on what you tried and what shifted.",
     "reflection_textarea_placeholder": "Write a sentence or two about what you tried and what changed.",
     "save_reflection_label": "Save reflection",
     "reflection_confirmation": "Thank you. Your reflection is saved.",
-    "try_x_label": "Try an X block: open a free exploration",
-    "x_prompt": "If you have time, try an X block.",
-    "x_subtext": "Open a free exploration with the agent. Type ### X as your first line and ask anything the workshop didn't address. The thread captures it; we don't grade it.",
-    "x_copy_prefix_label": "Copy ### X prefix",
-    "x_reopen_label": "Re-open the Companion in a new tab",
-    "x_done_label": "Done, start another path",
-    "new_route_label": "Start another path",
+    "reopen_companion_label": "Re-open the Companion in a new tab",
+    "new_route_label": "Done, start another path",
     "back_label": "Back",
     "next_label": "Continue",
     "no_materials_text": "No specific materials yet, starting from scratch."
@@ -1405,65 +1399,7 @@
   "reflection": {
     "textarea_max_chars": 2000,
     "textarea_suggested_min_words": 50,
-    "textarea_suggested_max_words": 250,
-    "q_block": {
-      "id": "q_practices",
-      "label": "Which of these AI-in-teaching practices feels most likely to change something about your teaching this fall?",
-      "type": "checkbox",
-      "options": [
-        {
-          "id": "custom_agents",
-          "label": "Custom agents for course-specific tasks"
-        },
-        {
-          "id": "assignment_redesign",
-          "label": "Assignment redesign under AI access"
-        },
-        {
-          "id": "multi_turn_coaching",
-          "label": "Multi-turn coaching for students"
-        },
-        {
-          "id": "ai_assessment",
-          "label": "AI-assisted assessment"
-        },
-        {
-          "id": "doctoral_tools",
-          "label": "Doctoral student supervision tools"
-        }
-      ]
-    },
-    "o_block": {
-      "id": "o_concerns",
-      "label": "Rank these dimensions of AI-assisted teaching by how much they concern you.",
-      "type": "ranking",
-      "items": [
-        {
-          "id": "integrity",
-          "label": "Academic integrity"
-        },
-        {
-          "id": "dependence",
-          "label": "Student dependence"
-        },
-        {
-          "id": "equity",
-          "label": "Equity of access"
-        },
-        {
-          "id": "feedback_quality",
-          "label": "Quality of feedback"
-        },
-        {
-          "id": "workload",
-          "label": "Faculty workload"
-        },
-        {
-          "id": "curriculum_drift",
-          "label": "Curriculum drift"
-        }
-      ]
-    }
+    "textarea_suggested_max_words": 250
   },
   "prompt_template": "I am a {student_level} instructor teaching {class_format} in a class of {class_size} students.\n\nCourse: {course_topic}\n\n{{#if teaching_context}}Teaching context and constraints: {teaching_context}\n\n{{/if}}My teaching goal today is in the area of: {step1_goal}\nSpecifically, I want to: {step2_focus}\n\nMaterials I have on hand:\n{materials_list}\n\n{{#if materials_other}}Other materials or constraints: {materials_other}\n\n{{/if}}Please give me a structured, actionable response covering: (1) the recommended AI tool for this work, (2) how to access it, (3) an opening prompt I can paste, (4) follow-up prompts to extend the work, (5) what to expect from a good first response, (6) estimated time, (7) a reflection reminder. Keep your entire response in this single message.\n",
   "output_schema": [

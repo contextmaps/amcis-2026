@@ -67,11 +67,39 @@
       flex-direction: column;
       gap: var(--space-2);
     }
+    /* Step 1: card itself is the selection target (click anywhere). */
+    .tri-group--clickable {
+      cursor: pointer;
+      transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+    }
+    .tri-group--clickable:hover {
+      border-color: var(--accent);
+      box-shadow: var(--shadow-sm);
+    }
+    .tri-group--clickable.selected {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+      border-width: 2px;
+      padding: calc(var(--space-4) - 1px);
+    }
+    .tri-group--clickable.selected .tri-group-label {
+      color: var(--accent-deep);
+    }
+    .tri-group--clickable:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+    }
     /* Amber-tan tint for the Other peer panel — lifted token spirit from
        Pamplin's --c-r-bg / --c-r-border / --c-r-id. */
     .tri-group-other {
       background: #fff8f0;
       border-color: #d0a040;
+    }
+    .tri-group-other.selected {
+      background: #fff0d8;
+      border-color: #b88420;
+      border-width: 2px;
+      padding: calc(var(--space-4) - 1px);
     }
     .tri-group-label {
       font-size: var(--fs-xs);
@@ -228,11 +256,31 @@
     }
 
     /* ---------- Review ---------- */
+    .review-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      margin-bottom: var(--space-6);
+    }
+    @media (min-width: 1024px) {
+      .review-grid {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        align-items: stretch;
+      }
+    }
+    .review-col-prompt {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+      height: 100%;
+    }
+    .review-col-prompt .review-prompt-preview {
+      flex: 1 1 auto;
+    }
     .review-rows {
       display: flex;
       flex-direction: column;
       gap: var(--space-2);
-      margin-bottom: var(--space-6);
     }
     .review-row {
       display: grid;
@@ -318,42 +366,17 @@
       border-radius: var(--radius-md);
       resize: vertical;
     }
-    .framing-line {
-      margin-top: var(--space-4);
-      padding: var(--space-3) var(--space-4);
-      background: rgba(22, 163, 74, 0.06);
-      border-left: 3px solid var(--block-s);
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+    .output-schema-line {
+      margin: var(--space-4) 0 0;
+      padding: var(--space-2) 0;
       font-size: var(--fs-sm);
       color: var(--fg-muted);
+      line-height: 1.5;
     }
-    .output-schema {
-      margin-top: var(--space-5);
-      padding: var(--space-5);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-      background: var(--bg-soft);
-    }
-    .output-schema__title {
-      font-size: var(--fs-sm);
+    .output-schema-line__label {
       font-weight: 600;
       color: var(--fg);
-      margin: 0 0 var(--space-2);
-    }
-    .output-schema__hint {
-      font-size: var(--fs-xs);
-      color: var(--fg-muted);
-      margin: 0 0 var(--space-3);
-    }
-    .output-schema__list {
-      margin: 0;
-      padding-left: 1.25rem;
-      color: var(--fg);
-      font-size: var(--fs-sm);
-      line-height: 1.7;
-    }
-    .output-schema__list li {
-      padding: 0;
+      margin-right: 0.35rem;
     }
 
     /* ---------- Reflection sub-blocks ---------- */
@@ -377,8 +400,6 @@
       border-radius: var(--radius-md) 0 0 var(--radius-md);
     }
     .reflect-block--r::before { background: var(--block-r); }
-    .reflect-block--q::before { background: var(--block-q); }
-    .reflect-block--o::before { background: var(--block-o); }
     .reflect-block__header {
       display: flex;
       align-items: center;
@@ -391,71 +412,6 @@
       font-weight: 500;
       color: var(--fg);
     }
-    .checkbox-list {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    .checkbox-list label {
-      display: flex;
-      align-items: flex-start;
-      gap: var(--space-2);
-      padding: var(--space-2);
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      line-height: 1.45;
-    }
-    .checkbox-list label:hover { background: rgba(0, 0, 0, 0.03); }
-    .checkbox-list input { margin-top: 0.2rem; }
-
-    .ranked-list {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-2);
-    }
-    .ranked-item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: var(--space-3);
-      padding: var(--space-3) var(--space-4);
-      background: #ffffff;
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-    }
-    .ranked-item__index {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 1.75rem; height: 1.75rem;
-      border-radius: 50%;
-      background: var(--block-o);
-      color: #ffffff;
-      font-weight: 600;
-      font-size: var(--fs-sm);
-      flex-shrink: 0;
-    }
-    .ranked-item__label { flex: 1; }
-    .ranked-item__controls { display: flex; gap: var(--space-1); }
-    .ranked-item__btn {
-      width: 32px; height: 32px;
-      padding: 0;
-      border: 1px solid var(--border-strong);
-      background: #ffffff;
-      border-radius: var(--radius-sm);
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      font: inherit;
-      font-size: 1rem;
-      color: var(--fg);
-    }
-    .ranked-item__btn:hover { background: var(--bg-soft); }
-    .ranked-item__btn[disabled] { opacity: 0.3; cursor: not-allowed; }
 
     .reflect-saved {
       padding: var(--space-5);
@@ -557,9 +513,13 @@
       <span class="block-label block-label--r0"><span class="block-label__dot"></span>Session opener</span>
       <h2 class="tri-step-prompt" id="review-prompt"></h2>
       <p class="tri-step-sub" id="review-sub"></p>
-      <div class="review-rows" id="review-rows"></div>
-      <div class="review-prompt-label">Prompt to be copied</div>
-      <textarea class="review-prompt-preview" id="prompt-preview" readonly aria-label="Assembled prompt preview"></textarea>
+      <div class="review-grid">
+        <div class="review-rows" id="review-rows"></div>
+        <div class="review-col-prompt">
+          <div class="review-prompt-label">Prompt to be copied</div>
+          <textarea class="review-prompt-preview" id="prompt-preview" readonly aria-label="Assembled prompt preview"></textarea>
+        </div>
+      </div>
       <div class="screen-actions">
         <button class="btn btn-tertiary" data-back="step4" type="button">Back</button>
         <div class="screen-actions__right">
@@ -578,13 +538,11 @@
       </div>
       <div class="review-prompt-label" id="bridge-prompt-label"></div>
       <textarea class="read-only-prompt" id="bridge-prompt" readonly aria-label="Assembled prompt"></textarea>
-      <div class="framing-line" id="bridge-framing"></div>
 
-      <div class="output-schema" aria-labelledby="output-schema-title">
-        <p class="output-schema__title" id="output-schema-title">What the agent will produce</p>
-        <p class="output-schema__hint">A structured response with these seven sections, in one message.</p>
-        <ol class="output-schema__list" id="output-schema-list"></ol>
-      </div>
+      <p class="output-schema-line" id="output-schema-line">
+        <span class="output-schema-line__label">What the agent will produce:</span>
+        <span id="output-schema-line__body"></span>
+      </p>
 
       <div class="screen-actions">
         <span></span>
@@ -608,22 +566,6 @@
           <textarea class="plib-textarea" id="reflect-r-text" aria-label="Reflection text"></textarea>
           <div class="plib-counter" id="reflect-r-counter">0 words</div>
         </div>
-
-        <div class="reflect-block reflect-block--q">
-          <div class="reflect-block__header">
-            <span class="reflect-block__prompt" id="reflect-q-prompt"></span>
-            <span class="block-label block-label--q"><span class="block-label__dot"></span>Q</span>
-          </div>
-          <div class="checkbox-list" id="reflect-q-list"></div>
-        </div>
-
-        <div class="reflect-block reflect-block--o">
-          <div class="reflect-block__header">
-            <span class="reflect-block__prompt" id="reflect-o-prompt"></span>
-            <span class="block-label block-label--o"><span class="block-label__dot"></span>O</span>
-          </div>
-          <ul class="ranked-list" id="reflect-o-list"></ul>
-        </div>
       </div>
 
       <div class="name-field">
@@ -641,21 +583,8 @@
       <div class="reflect-saved" id="reflect-saved" hidden>
         <strong id="reflect-saved-msg"></strong>
         <div class="reflect-saved__actions">
-          <button class="btn btn-primary" id="reflect-try-x" type="button"></button>
-          <button class="btn btn-secondary" id="reflect-restart" type="button"></button>
-        </div>
-      </div>
-    </section>
-
-    <section class="screen block-accent block-accent--x" id="screen-x">
-      <span class="block-label block-label--x"><span class="block-label__dot"></span>Exploration block</span>
-      <h2 class="tri-step-prompt" id="x-h"></h2>
-      <p class="tri-step-sub" id="x-orient"></p>
-      <div class="screen-actions">
-        <button class="btn btn-secondary plib-copy-btn" id="x-copy-prefix" type="button" data-copied-label="Copied"></button>
-        <div class="screen-actions__right">
-          <a class="btn btn-secondary" id="x-reopen-agent" href="#" target="_blank" rel="noopener"></a>
-          <button class="btn btn-primary" id="x-done" type="button"></button>
+          <a class="btn btn-secondary" id="reflect-reopen-agent" href="#" target="_blank" rel="noopener"></a>
+          <button class="btn btn-primary" id="reflect-restart" type="button"></button>
         </div>
       </div>
     </section>
@@ -673,7 +602,6 @@
 
     let CONFIG = null;
     let state = null;
-    let oOrder = [];
 
     function generateUUID() {
       if (typeof crypto !== 'undefined' && crypto.randomUUID) return crypto.randomUUID();
@@ -703,7 +631,7 @@
         step3: {},
         step4: { materials: [], other_text: null },
         assembledPrompt: '',
-        reflection: { text: '', q_responses: [], o_responses: [], optional_name: '' }
+        reflection: { text: '', optional_name: '' }
       };
     }
 
@@ -730,23 +658,20 @@
         const item = CONFIG.step1.items[catId];
         const boundary = (CONFIG.step1.boundary_statements || {})[catId];
         const sel = state.step1.id === catId ? ' selected' : '';
-        html += '<div class="tri-group" data-group-id="' + esc(catId) + '" role="group" aria-labelledby="grp-' + esc(catId) + '">';
+        html += '<div class="tri-group tri-group--clickable' + sel + '" data-step1-id="' + esc(catId) + '" role="radio" tabindex="0" aria-checked="' + (sel ? 'true' : 'false') + '" aria-labelledby="grp-' + esc(catId) + '">';
         html += '  <div class="tri-group-label" id="grp-' + esc(catId) + '">' + esc(item.label) + '</div>';
         html += '  <p class="tri-group-desc">' + esc(item.description) + '</p>';
         if (boundary) {
           html += '  <p class="tri-group-boundary">' + esc(boundary) + '</p>';
         }
-        html += '  <button type="button" class="tri-choice' + sel + '" data-step1-id="' + esc(catId) + '" role="radio" aria-checked="' + (sel ? 'true' : 'false') + '">';
-        html += '    <span class="tri-choice-radio" aria-hidden="true"></span>';
-        html += '    <span class="tri-choice-text">Pick this area</span>';
-        html += '  </button>';
         html += '</div>';
       });
       // Other peer panel — always-visible textarea
       const otherId = CONFIG.step1.other.id;
       const otherMax = CONFIG.step1.other.max_chars || 200;
       const otherText = state.step1.other_text || '';
-      html += '<div class="tri-group tri-group-other" data-group-id="' + esc(otherId) + '" role="group" aria-labelledby="grp-' + esc(otherId) + '">';
+      const otherSel = state.step1.id === otherId ? ' selected' : '';
+      html += '<div class="tri-group tri-group-other' + otherSel + '" data-group-id="' + esc(otherId) + '" role="group" aria-labelledby="grp-' + esc(otherId) + '">';
       html += '  <div class="tri-group-label" id="grp-' + esc(otherId) + '">' + esc(CONFIG.copy.step1_other_label) + '</div>';
       html += '  <p class="tri-group-desc">A different teaching goal in your own words. Selects on type.</p>';
       html += '  <textarea class="plib-textarea" id="step1-other-input" maxlength="' + otherMax + '" placeholder="' + esc(CONFIG.copy.step1_other_placeholder) + '" aria-label="Other (describe briefly)">' + esc(otherText) + '</textarea>';
@@ -754,26 +679,31 @@
       html += '</div>';
       grid.innerHTML = html;
 
-      // Bind category radio buttons
-      grid.querySelectorAll('[data-step1-id]').forEach((btn) => {
-        btn.addEventListener('click', () => {
-          const id = btn.getAttribute('data-step1-id');
-          const item = CONFIG.step1.items[id];
-          if (state.step1.id !== id) {
-            state.step2 = { id: null, label: null, other_text: null };
-            state.step4 = { materials: [], other_text: null };
+      function selectCategory(id) {
+        const item = CONFIG.step1.items[id];
+        if (state.step1.id !== id) {
+          state.step2 = { id: null, label: null, other_text: null };
+          state.step4 = { materials: [], other_text: null };
+        }
+        state.step1 = { id: id, label: item.label, other_text: null };
+        paintStep1Selection();
+      }
+
+      grid.querySelectorAll('[data-step1-id]').forEach((card) => {
+        const id = card.getAttribute('data-step1-id');
+        card.addEventListener('click', () => selectCategory(id));
+        card.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            selectCategory(id);
           }
-          state.step1 = { id: id, label: item.label, other_text: null };
-          // Clear Other input
-          const oti = document.getElementById('step1-other-input');
-          if (oti) oti.value = '';
-          const otc = document.getElementById('step1-other-count');
-          if (otc) otc.textContent = '0';
-          paintStep1Selection();
         });
       });
-      // Bind Other textarea (type-to-select)
+
       const otherTa = document.getElementById('step1-other-input');
+      // D4.4: typing in Other clears any selected category card
+      // (handled implicitly by paintStep1Selection — state.step1.id moves to otherId
+      // and category cards' selected class is toggled off).
       otherTa.addEventListener('input', () => {
         const v = otherTa.value;
         const cnt = document.getElementById('step1-other-count');
@@ -800,11 +730,11 @@
 
     function paintStep1Selection() {
       const otherId = CONFIG.step1.other.id;
-      document.querySelectorAll('#step1-groups .tri-choice').forEach((btn) => {
-        const id = btn.getAttribute('data-step1-id');
+      document.querySelectorAll('#step1-groups [data-step1-id]').forEach((card) => {
+        const id = card.getAttribute('data-step1-id');
         const sel = state.step1.id === id;
-        btn.classList.toggle('selected', sel);
-        btn.setAttribute('aria-checked', sel ? 'true' : 'false');
+        card.classList.toggle('selected', sel);
+        card.setAttribute('aria-checked', sel ? 'true' : 'false');
       });
       const otherPanel = document.querySelector('#step1-groups [data-group-id="' + otherId + '"]');
       if (otherPanel) {
@@ -1200,12 +1130,12 @@
         return cond[key] && String(cond[key]).trim() ? body : '';
       });
 
-      // 2) Student level — adjust article and text in the opening line
+      // 2) Student level — render as "I am an instructor of a {level} course"
       const lvl = studentLevelArticleAndText(state.step3.student_level);
       if (lvl) {
-        tpl = tpl.replace(/I am a \{student_level\} instructor/, 'I am ' + lvl.article + ' ' + lvl.text + ' instructor');
+        tpl = tpl.replace(/I am a \{student_level\} instructor/, 'I am an instructor of ' + lvl.article + ' ' + lvl.text + ' course');
       } else {
-        // No student level provided: drop the slot and adjust article
+        // No student level provided: drop the "of a X course" phrase entirely
         tpl = tpl.replace(/I am a \{student_level\} instructor/, 'I am an instructor');
       }
 
@@ -1271,7 +1201,6 @@
     function renderBridge() {
       document.getElementById('bridge-h').textContent = CONFIG.copy.bridge_header;
       document.getElementById('bridge-confirmation').textContent = CONFIG.copy.bridge_confirmation;
-      document.getElementById('bridge-framing').textContent = CONFIG.copy.bridge_m_open_note;
       document.getElementById('bridge-copy-again').textContent = CONFIG.copy.bridge_copy_again_label;
       document.getElementById('bridge-return').textContent = CONFIG.copy.bridge_continue_label;
       document.getElementById('bridge-prompt-label').textContent = CONFIG.copy.bridge_prompt_textarea_label;
@@ -1280,15 +1209,21 @@
       link.textContent = CONFIG.copy.bridge_agent_link_label || CONFIG.agent_url;
       document.getElementById('bridge-prompt').value = state.assembledPrompt;
 
-      // Output schema list
-      const list = document.getElementById('output-schema-list');
-      list.innerHTML = '';
-      (CONFIG.output_schema || []).forEach((section) => {
-        const li = document.createElement('li');
-        // Strip leading "N. " if present so the <ol> handles numbering.
-        li.textContent = String(section).replace(/^\d+\.\s*/, '');
-        list.appendChild(li);
-      });
+      // Compressed seven-section description (single line).
+      const sections = (CONFIG.output_schema || []).map((section) =>
+        String(section).replace(/^\s*/, '')
+      );
+      let inline = '';
+      if (sections.length) {
+        if (sections.length === 1) {
+          inline = sections[0];
+        } else {
+          inline = sections.slice(0, -1).join(', ') + ', and ' + sections[sections.length - 1];
+        }
+      }
+      const body = document.getElementById('output-schema-line__body');
+      body.textContent = 'A structured response with ' + (sections.length || 'several') +
+        ' sections in one message: ' + inline + '.';
     }
 
     // ====================================================================
@@ -1305,79 +1240,16 @@
       updateWordCount();
 
       document.getElementById('reflect-r-prompt').textContent = 'Reflection';
-      const qBlock = CONFIG.reflection && CONFIG.reflection.q_block;
-      const oBlock = CONFIG.reflection && CONFIG.reflection.o_block;
-      document.getElementById('reflect-q-prompt').textContent = qBlock ? qBlock.label : '';
-      document.getElementById('reflect-o-prompt').textContent = oBlock ? oBlock.label : '';
-
-      const qList = document.getElementById('reflect-q-list');
-      qList.innerHTML = '';
-      if (qBlock && qBlock.options) {
-        qBlock.options.forEach((opt, i) => {
-          const lab = document.createElement('label');
-          const cb = document.createElement('input');
-          cb.type = 'checkbox';
-          cb.id = 'q-' + i;
-          cb.value = opt.label;
-          cb.dataset.optionId = opt.id;
-          if (state.reflection.q_responses.indexOf(opt.label) !== -1) cb.checked = true;
-          lab.appendChild(cb);
-          const span = document.createElement('span');
-          span.textContent = opt.label;
-          lab.appendChild(span);
-          qList.appendChild(lab);
-        });
-      }
-
-      if (!oOrder.length && oBlock && oBlock.items) {
-        oOrder = state.reflection.o_responses.length
-          ? state.reflection.o_responses.slice()
-          : oBlock.items.map(i => i.label);
-      }
-      renderOList();
 
       document.getElementById('reflect-name').value = state.reflection.optional_name || '';
       document.getElementById('reflect-save').textContent = CONFIG.copy.save_reflection_label;
       document.getElementById('reflect-saved-msg').textContent = CONFIG.copy.reflection_confirmation;
-      document.getElementById('reflect-try-x').textContent = CONFIG.copy.try_x_label;
+      const reopen = document.getElementById('reflect-reopen-agent');
+      reopen.href = CONFIG.agent_url;
+      reopen.textContent = CONFIG.copy.reopen_companion_label;
       document.getElementById('reflect-restart').textContent = CONFIG.copy.new_route_label;
       document.getElementById('reflect-saved').hidden = true;
       document.getElementById('reflect-save').removeAttribute('aria-disabled');
-    }
-
-    function renderOList() {
-      const list = document.getElementById('reflect-o-list');
-      list.innerHTML = '';
-      oOrder.forEach((item, idx) => {
-        const li = document.createElement('li');
-        li.className = 'ranked-item';
-        li.innerHTML =
-          '<span class="ranked-item__index"></span>' +
-          '<span class="ranked-item__label"></span>' +
-          '<span class="ranked-item__controls">' +
-            '<button type="button" class="ranked-item__btn" data-dir="up" aria-label="Move up">&uarr;</button>' +
-            '<button type="button" class="ranked-item__btn" data-dir="down" aria-label="Move down">&darr;</button>' +
-          '</span>';
-        li.querySelector('.ranked-item__index').textContent = idx + 1;
-        li.querySelector('.ranked-item__label').textContent = item;
-        const upBtn = li.querySelector('[data-dir="up"]');
-        const downBtn = li.querySelector('[data-dir="down"]');
-        if (idx === 0) upBtn.disabled = true;
-        if (idx === oOrder.length - 1) downBtn.disabled = true;
-        upBtn.addEventListener('click', () => moveO(idx, -1));
-        downBtn.addEventListener('click', () => moveO(idx, 1));
-        list.appendChild(li);
-      });
-    }
-
-    function moveO(i, delta) {
-      const j = i + delta;
-      if (j < 0 || j >= oOrder.length) return;
-      const tmp = oOrder[i];
-      oOrder[i] = oOrder[j];
-      oOrder[j] = tmp;
-      renderOList();
-      announce('Moved item ' + (j + 1));
     }
 
     function updateWordCount() {
@@ -1387,19 +1259,6 @@
       const maxW = (CONFIG.reflection && CONFIG.reflection.textarea_suggested_max_words) || 250;
       document.getElementById('reflect-r-counter').textContent =
         words + ' words  (suggested ' + minW + ' to ' + maxW + ')';
-    }
-
-    // ====================================================================
-    // X screen
-    // ====================================================================
-    function renderX() {
-      document.getElementById('x-h').textContent = CONFIG.copy.x_prompt;
-      document.getElementById('x-orient').textContent = CONFIG.copy.x_subtext;
-      document.getElementById('x-copy-prefix').textContent = CONFIG.copy.x_copy_prefix_label;
-      const reopen = document.getElementById('x-reopen-agent');
-      reopen.href = CONFIG.agent_url;
-      reopen.textContent = CONFIG.copy.x_reopen_label;
-      document.getElementById('x-done').textContent = CONFIG.copy.x_done_label;
     }
 
     // ====================================================================
@@ -1475,13 +1334,9 @@
 
     function saveReflection() {
       const text = document.getElementById('reflect-r-text').value.trim();
-      const checks = Array.from(document.querySelectorAll('#reflect-q-list input[type="checkbox"]'))
-        .filter(c => c.checked).map(c => c.value);
       const name = document.getElementById('reflect-name').value.trim();
       state.reflection = {
         text: text,
-        q_responses: checks,
-        o_responses: oOrder.slice(),
         optional_name: name || null
       };
       const timestamp = isoNow();
@@ -1490,8 +1345,6 @@
         session_id: state.sessionId,
         timestamp: timestamp,
         reflection_text: text,
-        q_responses: checks,
-        o_responses: oOrder.slice(),
         optional_name: name || null
       };
       submitToGoogleForm('reflection', state.sessionId, timestamp, payload);
@@ -1502,7 +1355,6 @@
 
     function restart() {
       state = freshState();
-      oOrder = [];
       renderStep1();
       renderStep3();
       // step2 and step4 will render lazily when reached
@@ -1547,17 +1399,7 @@
 
       document.getElementById('reflect-r-text').addEventListener('input', updateWordCount);
       document.getElementById('reflect-save').addEventListener('click', saveReflection);
-      document.getElementById('reflect-try-x').addEventListener('click', () => {
-        renderX();
-        showScreen('x');
-      });
       document.getElementById('reflect-restart').addEventListener('click', restart);
-
-      document.getElementById('x-copy-prefix').addEventListener('click', (e) => {
-        copyToClipboard('### X\n');
-        flashCopy(e.currentTarget);
-      });
-      document.getElementById('x-done').addEventListener('click', restart);
     }
 
     function init(cfg) {
@@ -1566,7 +1408,6 @@
       renderStep1();
       renderStep3();
       renderReflection();
-      renderX();
       wire();
       showScreen('step1');
     }
