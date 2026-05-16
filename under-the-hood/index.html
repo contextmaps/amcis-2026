@@ -4,64 +4,75 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Under the Hood · Teaching Inside the Thread</title>
-  <meta name="description" content="How this artifact was designed and built. AMCIS 2026 Workshop. In active drafting.">
+  <meta name="description" content="How this artifact was designed and built, presented in four slides. AMCIS 2026 Workshop.">
   <link rel="stylesheet" href="../assets/shared.css">
   <style>
-    .uth-wrap {
-      padding: var(--space-8) 0 var(--space-16);
+    .frame-wrap {
+      padding: var(--space-8) 0 var(--space-12);
     }
-    .uth-hero {
-      padding-top: var(--space-8);
-      padding-bottom: var(--space-6);
-    }
-    .uth-hero h1 {
-      font-size: var(--fs-3xl);
-      letter-spacing: -0.015em;
-    }
-    .uth-hero p.subtitle {
-      color: var(--fg-muted);
-      font-size: var(--fs-lg);
-      margin-top: var(--space-2);
-    }
-    .status-banner {
-      margin: var(--space-6) 0 var(--space-10);
-      padding: var(--space-5) var(--space-6);
-      background: var(--accent-soft);
-      border: 1px solid var(--accent);
-      border-left: 4px solid var(--accent);
-      border-radius: var(--radius-md);
-      color: var(--fg);
-    }
-    .status-banner strong {
-      color: var(--accent);
-    }
-    .toc {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-    }
-    .toc-item {
-      padding: var(--space-6);
+    .slide-stage {
       background: var(--bg-soft);
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
+      padding: var(--space-6);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
     }
-    .toc-item h2 {
-      font-size: var(--fs-xl);
+    .slide-stage img {
+      max-width: 100%;
+      max-height: 75vh;
+      object-fit: contain;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-md);
+    }
+    .slide-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 50vh;
+      background: #ffffff;
+      border: 2px dashed var(--border-strong);
+      border-radius: var(--radius-md);
+      color: var(--fg-muted);
+      text-align: center;
+      padding: var(--space-8);
+    }
+    .slide-placeholder strong {
       color: var(--fg);
+      font-size: var(--fs-lg);
       margin-bottom: var(--space-2);
     }
-    .toc-item__stub {
-      color: var(--fg-muted);
-      line-height: var(--lh-body);
-    }
-    .uth-byline {
-      margin-top: var(--space-12);
-      padding-top: var(--space-6);
-      border-top: 1px solid var(--border);
+    .slide-caption {
+      margin-top: var(--space-5);
       color: var(--fg-muted);
       font-size: var(--fs-sm);
       text-align: center;
+    }
+    .nav-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: var(--space-4);
+      margin-top: var(--space-6);
+    }
+    .nav-row__counter {
+      font-size: var(--fs-sm);
+      color: var(--fg-muted);
+    }
+    .nav-row__actions {
+      display: flex;
+      gap: var(--space-3);
+    }
+    .slide {
+      display: none;
+    }
+    .slide.is-active {
+      display: block;
     }
   </style>
 </head>
@@ -71,51 +82,114 @@
     <a class="page-header__home" href="../">Home</a>
   </header>
 
-  <main class="container container--prose uth-wrap">
-    <section class="uth-hero">
-      <h1>Under the Hood</h1>
-      <p class="subtitle">How this artifact was designed and built.</p>
+  <main class="container frame-wrap">
+    <h1 class="visually-hidden">Under the Hood</h1>
+
+    <section class="slide" id="slide-1" data-slide="1" aria-label="Slide 1 of 4">
+      <div class="slide-stage">
+        <img src="../assets/slide4.png" alt="A Disciplined Human-AI Development Workflow" data-fallback="slide4.png">
+      </div>
+      <p class="slide-caption">Slide 1 of 4: A Disciplined Human-AI Development Workflow</p>
     </section>
 
-    <aside class="status-banner" role="note">
-      <strong>This section is in active drafting.</strong> The methodology, workflow exposition, and replication scaffolding will be filled in over the coming weeks alongside the workshop's preparation for AMCIS 2026.
-    </aside>
+    <section class="slide" id="slide-2" data-slide="2" aria-label="Slide 2 of 4">
+      <div class="slide-stage">
+        <img src="../assets/slide5.png" alt="The Orchestration Pipeline, From Specification to Deployed Artifact" data-fallback="slide5.png">
+      </div>
+      <p class="slide-caption">Slide 2 of 4: The Orchestration Pipeline, From Specification to Deployed Artifact</p>
+    </section>
 
-    <div class="toc" aria-label="Sections in active drafting">
-      <article class="toc-item">
-        <h2>The Framework, Articulated</h2>
-        <p class="toc-item__stub">A formal articulation of Thread-Centered Pedagogy as a position. Roughly 800 words. The full text develops the framework's claims, its decomposition principle, and its standing relative to existing IS and HCI scholarship on AI in learning environments. Written with publication quality so that it can serve as the conceptual core of an SSRN preprint with minimal additional editing.</p>
-      </article>
+    <section class="slide" id="slide-3" data-slide="3" aria-label="Slide 3 of 4">
+      <div class="slide-stage">
+        <img src="../assets/slide6.png" alt="The Calibration Discipline Behind Trustworthy Assessment" data-fallback="slide6.png">
+      </div>
+      <p class="slide-caption">Slide 3 of 4: The Calibration Discipline Behind Trustworthy Assessment</p>
+    </section>
 
-      <article class="toc-item">
-        <h2>The Workflow</h2>
-        <p class="toc-item__stub">An exposition of the SPEC and HANDOFF discipline used to build this artifact. The section will include a polished workflow diagram with hover explanations on each node, showing how the human and AI roles divide across specification, iteration, and review. The discipline generalizes beyond this artifact.</p>
-      </article>
+    <section class="slide" id="slide-4" data-slide="4" aria-label="Slide 4 of 4">
+      <div class="slide-stage">
+        <img src="../assets/slide7.png" alt="The AI-Centered Educational Ecosystem" data-fallback="slide7.png">
+      </div>
+      <p class="slide-caption">Slide 4 of 4: The AI-Centered Educational Ecosystem</p>
+    </section>
 
-      <article class="toc-item">
-        <h2>Calibration</h2>
-        <p class="toc-item__stub">How the AMCIS Teaching Companion's instruction body was developed and tested. The section will describe the calibration cycles, the success and failure cases observed, and the framing decisions that shaped the final agent body.</p>
-      </article>
-
-      <article class="toc-item">
-        <h2>The Agent, Verbatim</h2>
-        <p class="toc-item__stub">The AMCIS Teaching Companion's instruction body shown in full. Verbatim and unedited, so readers can replicate the agent or adapt it.</p>
-      </article>
-
-      <article class="toc-item">
-        <h2>Replication</h2>
-        <p class="toc-item__stub">An invitation for other faculty to adapt the pattern to their own contexts. The section will offer a checklist of what to keep, what to change, and where the design discipline becomes load-bearing.</p>
-      </article>
-
-      <article class="toc-item">
-        <h2>References and Acknowledgments</h2>
-        <p class="toc-item__stub">Relevant HCI and IS pedagogy literature, plus acknowledgments for people who contributed to the workshop, the artifact, and the methodology.</p>
-      </article>
-    </div>
-
-    <p class="uth-byline">
-      Onur Seref &middot; Pamplin College of Business &middot; Virginia Tech
-    </p>
+    <nav class="nav-row" aria-label="Slide navigation">
+      <span class="nav-row__counter" id="slideCounter">1 of 4</span>
+      <div class="nav-row__actions">
+        <button class="btn btn-secondary" id="prevBtn" type="button">Previous</button>
+        <button class="btn btn-primary" id="nextBtn" type="button">Next</button>
+      </div>
+    </nav>
   </main>
+
+  <div class="plib-aria-live" id="ariaLive" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      const slides = Array.from(document.querySelectorAll('.slide'));
+      const totalSlides = slides.length;
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
+      const counterEl = document.getElementById('slideCounter');
+      const aria = document.getElementById('ariaLive');
+
+      function parseHash() {
+        const m = (location.hash || '').match(/^#(\d+)$/);
+        if (!m) return 1;
+        const n = parseInt(m[1], 10);
+        if (isNaN(n) || n < 1 || n > totalSlides) return 1;
+        return n;
+      }
+
+      function setSlide(n, updateHash) {
+        if (n < 1) n = 1;
+        if (n > totalSlides) n = totalSlides;
+        slides.forEach(s => s.classList.toggle('is-active', parseInt(s.dataset.slide, 10) === n));
+        counterEl.textContent = n + ' of ' + totalSlides;
+        prevBtn.disabled = n === 1;
+        nextBtn.disabled = n === totalSlides;
+        if (updateHash) {
+          history.replaceState(null, '', '#' + n);
+        }
+        aria.textContent = 'Showing slide ' + n + ' of ' + totalSlides;
+      }
+
+      prevBtn.addEventListener('click', () => setSlide(getCurrent() - 1, true));
+      nextBtn.addEventListener('click', () => setSlide(getCurrent() + 1, true));
+
+      function getCurrent() {
+        const active = slides.find(s => s.classList.contains('is-active'));
+        return active ? parseInt(active.dataset.slide, 10) : 1;
+      }
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          setSlide(getCurrent() + 1, true);
+        } else if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          setSlide(getCurrent() - 1, true);
+        }
+      });
+
+      window.addEventListener('hashchange', () => setSlide(parseHash(), false));
+
+      // Graceful image fallback when slide assets are not yet placed
+      document.querySelectorAll('.slide img').forEach(img => {
+        img.addEventListener('error', () => {
+          const parent = img.parentElement;
+          const captionText = img.getAttribute('data-fallback') || 'Slide image';
+          const placeholder = document.createElement('div');
+          placeholder.className = 'slide-placeholder';
+          placeholder.innerHTML =
+            '<strong>Slide image not yet placed</strong>' +
+            '<span>Expected file: <code>assets/' + captionText + '</code></span>';
+          parent.replaceChild(placeholder, img);
+        });
+      });
+
+      setSlide(parseHash(), true);
+    })();
+  </script>
 </body>
 </html>
