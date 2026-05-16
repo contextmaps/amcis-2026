@@ -1,8 +1,8 @@
 # AMCIS 2026 Workshop — Project Specification
 
 **Title:** Teaching Inside the Thread: An AI-Centered Pedagogy
-**Version:** 0.3
-**Last updated:** 2026-05-14
+**Version:** 0.4
+**Last updated:** 2026-05-16
 **Workshop date:** Thursday, August 20, 2026 — afternoon session
 **Workshop location:** AMCIS 2026, Reno, Nevada
 **Duration target:** 90 minutes (collapsible to 45 — see §12)
@@ -85,14 +85,13 @@ This act is positioned as a research and pedagogy contribution, not a tutorial. 
 ### Act 2 — The Companion (40–45 minutes)
 
 Faculty use The Companion live. They walk through:
-- A triage (which functions as R0 — establishing what they're doing today and assembling the agent's opening prompt)
+- A triage (which functions as R0, establishing what they're doing today and assembling the agent's opening prompt)
 - Receipt of the assembled prompt (S block, visible in the UI)
 - Transition to the AMCIS Teaching Companion GPT via a Bridge screen
 - Their own exchange with the agent (M, in ChatGPT)
-- Return to the platform for reflection (R block, optionally accompanied by Q and O blocks)
-- An opt-in X block at the end for free exploration
+- Return to the platform for a free-text reflection (R block)
 
-The block framework is **lightly visible** throughout Act 2: small color accents and discreet icons mark each screen with the block it represents. Faculty who don't care barely register the marking. Faculty who lean in see the framework operating in real time.
+The block framework is **not surfaced as vocabulary** in The Companion. As of v0.4, the framework's internal vocabulary (M-Open, X-block, Q/O block names) has been removed from the Companion's user-facing surfaces. Faculty experience the framework through the structure of the triage, not through framework terminology. The Framework spoke remains the place where block vocabulary is named and explained for curious users. Light visual accents (block-colored top borders, discreet screen markers) may remain, but no textual framework references appear in the working triage. See §6.2.
 
 **No block engagement is enforced beyond R0.** The platform's assembled prompt is the R0; everything else is invitational. Faculty leave when they're done.
 
@@ -120,11 +119,11 @@ The homepage carries:
 
 ### 5.2 Three spokes
 
-**The Framework** (`/framework/`) — three-page slide flow rendering the existing PNG images.
+**The Framework** (`/framework/`) — three-page slide flow rendering the Framework PNG images (slide1 through slide3).
 
 **The Companion** (`/companion/`) — the hands-on Companion Interface, retuned for AMCIS audience with the locked content design (see §7).
 
-**Under the Hood** (`/under-the-hood/`) — methodology section. v1 ships as informative stub; full content matures alongside the paper draft.
+**Under the Hood** (`/under-the-hood/`) — methodology section. As of v0.4, a four-slide flow rendering the Under the Hood PNG images (slide4 through slide7), mirroring the Framework spoke's slide-viewer pattern. The four slides are: (1) the disciplined human-AI development workflow, (2) the orchestration pipeline, (3) the calibration discipline, (4) the AI-centered educational ecosystem. The earlier plan for a prose-based publication-seed page was replaced by the visual slide approach; the eight conceptual contributions (§3) now live in this SPEC and the eventual paper rather than on the public page.
 
 ### 5.3 File structure on disk
 
@@ -133,21 +132,20 @@ amcis-2026/
 ├── index.html                  ← hub: homepage
 ├── assets/
 │   ├── shared.css              ← design system across all four pages
-│   ├── slide1.png
-│   ├── slide2.png
-│   └── slide3.png
+│   ├── slide1.png ... slide3.png   ← Framework slides
+│   └── slide4.png ... slide7.png   ← Under the Hood slides
 ├── framework/
-│   └── index.html              ← three-page slide flow
+│   └── index.html              ← three-slide viewer
 ├── companion/
 │   ├── index.html              ← platform state machine
 │   └── config.json             ← content + form + agent URL
 └── under-the-hood/
-    └── index.html              ← stub for v1
+    └── index.html              ← four-slide viewer
 ```
 
 ### 5.4 Shared design system
 
-All four HTML pages import `assets/shared.css`. The shared stylesheet defines color tokens, typography, button styles, navigation header pattern, the block accent palette, and the `plib-*` primitives (textarea, counter, copy button, aria-live).
+All four HTML pages import `assets/shared.css`. The shared stylesheet defines color tokens, typography, button styles, and the navigation header pattern (including the VT orange Home button, added in v0.4). Companion-specific primitives (the `tri-*` selection patterns, `plib-*` textarea and counter primitives) live in the Companion page's embedded styles.
 
 ---
 
@@ -157,27 +155,33 @@ All four HTML pages import `assets/shared.css`. The shared stylesheet defines co
 
 Four HTML pages connected by clean navigation. Separates contexts cleanly: pre-workshop review, workshop-day driving, and post-workshop reference all benefit from clean per-spoke navigation.
 
-### 6.2 Visual alignment — light block accents, not block-explicit
+### 6.2 Visual alignment — framework vocabulary removed from Companion UI
 
-Each screen in The Companion receives a light block accent: a small icon and a thin colored border or top strip in the block's color. Unobtrusive labels sit in a corner. The reflection screen carries three nested block accents (R/Q/O) on one page.
+**Revised in v0.4.** Earlier versions specified light block accents (small icons, colored borders, discreet labels) on each Companion screen, with the framework "lightly visible" to attentive users. Workshop-website review (the first feedback round, May 2026) established that the framework's internal vocabulary should not appear in the working triage at all. Faculty should not need to learn the framework's language (M-Open, X-block, Q/O) to use the Companion successfully.
 
-What we do not do: full block-explicit UI with bordered cards and prominent block IDs. That would feel like a curriculum exercise.
+As of v0.4: the Companion's user-facing surfaces carry no textual framework vocabulary. The M-Open explanatory note on the Bridge screen, the Q-block and O-block reflection prompts, and the X-block capstone screen have all been removed (see §7.5, §7.6). Light visual accents that carry no vocabulary (a block-colored top strip, for example) may remain, but nothing on a working triage screen names or explains a block type.
+
+The Framework spoke remains the place where the block alphabet is named and explained, for users who choose to engage with it. The Companion demonstrates the framework through the structure of the experience; it does not teach the framework's terminology.
+
+What we still do not do: full block-explicit UI with bordered cards and prominent block IDs.
 
 ### 6.3 Notation — keep, frame as instantiation not canon
 
-The block alphabet (R0/S/M/R/X/Q/O) is preserved. Onur introduces it in The Framework spoke with explicit framing that the letters are one instantiation of a decomposition principle, not canonical names.
+The block alphabet (R0/S/M/R/X/Q/O) is preserved as the framework's working vocabulary. Onur introduces it in The Framework spoke with explicit framing that the letters are one instantiation of a decomposition principle, not canonical names. The notation lives in The Framework spoke and in internal documents; it does not appear in the Companion's user-facing triage (see §6.2).
 
 ### 6.4 Voluntary engagement only — no enforced block traversal
 
-The platform's assembled prompt **is** the R0. Beyond R0, all block engagement is invitational. M, R, Q, O, and X blocks are available but not required.
+The platform's assembled prompt **is** the R0. Beyond R0, all block engagement is invitational. The triage and the reflection are available; nothing is required beyond completing the triage to reach the assembled prompt.
 
 ### 6.5 Public-surface neutrality — no prior-project lineage on visible pages
 
 The homepage, The Framework, The Companion, and Under the Hood read as freshly composed for this workshop. Thread-Centered Pedagogy is presented as a position Onur has developed and is launching publicly here. Internal documents preserve build lineage; public surfaces stay clean.
 
-### 6.6 Under the Hood as publication seed
+### 6.6 Under the Hood and the publication seed
 
-Under the Hood is co-equal to The Companion as a workshop deliverable. The full content (deferred from v1) will include the eight conceptual contributions named in §3, articulated formally enough to be the foundation of an SSRN preprint.
+Under the Hood is co-equal to The Companion as a workshop deliverable. As of v0.4 it is implemented as a four-slide visual flow (see §5.2): the methodology, the orchestration pipeline, the calibration discipline, and the AI-centered educational ecosystem.
+
+The eight conceptual contributions named in §3 are **not** rendered on the public Under the Hood page. They were judged too dense for a time-constrained workshop closing (90 minutes, with possible compression). They live in this SPEC (§3) and will form the conceptual core of an SSRN preprint drafted after the workshop. The Under the Hood slides convey the methodology and the rigor of the work; the formal conceptual argument is reserved for the paper.
 
 ### 6.7 Agent platform — public ChatGPT Custom GPT
 
@@ -231,7 +235,7 @@ This section captures the full content design developed through three rounds of 
 6. **Research methods, theory, and evidence** — phenomenon-to-construct translation, theory-building exercises, AI-supported literature synthesis, evaluating AI-generated evidence, human-vs-AI qualitative coding, prompt reproducibility
 7. **Doctoral training, supervision, and mentoring** — AI-augmented qualifying exams, dissertation coaching workflows, AI-as-teaching-partner methods modules, responsible-AI-writing supervision norms, AI-assisted-dissertation protocols, AI-supported feedback templates
 
-Plus **Other** (free-text with always-visible textarea on Step 1; reveal-on-select pattern on Steps 2 and 4).
+Plus **Other** (free-text). As of v0.4, Step 1 uses a card-click selection pattern: the seven category cards plus the Other panel sit in a grid; a card is selected by clicking anywhere on its body, with the selection shown by a background color change. The earlier "Pick this area" radio button on each card was removed in the first feedback round. Typing in the Other panel's textarea clears any selected card; selecting a card clears the Other selection (the Other text is preserved). Steps 2 and 4 retain the radio-button + reveal-on-select pattern.
 
 Three categories carry **"Best for..." boundary statements** (categories 3, 6, 7); the other four are self-explanatory from their titles.
 
@@ -269,20 +273,24 @@ Step 4 drafting principles, applied to all 42 paths:
 - **AI interaction artifacts where they land honestly** — hallucinated outputs, prompt-variation logs, AI failures appear in Step 4 as legitimate materials, applied across multiple categories
 - **No "Other" required at Step 4** — the materials are tailored; Other is available but less needed
 
-### 7.5 Q and O blocks on the reflection screen
+### 7.5 Q and O blocks — removed in v0.4
 
-Per §3 of v0.2, content unchanged. Q block (checkbox, "Which AI-in-teaching practices feels most likely to change something about your teaching this fall?") and O block (ranking, "Rank these dimensions of AI-assisted teaching by how much they concern you") provide reflection-time data capture that doubles as workshop-impact evidence and paper data.
+Earlier versions specified a Q block (checkbox question) and an O block (ranking question) on the reflection screen, intended to demonstrate those block types and to capture reflection-time data that could double as workshop-impact evidence.
 
-### 7.6 X block — opt-in capstone
+**Removed in v0.4.** Workshop-website review concluded that the Q and O blocks asked too much of the user at the end of an otherwise relaxed reflection experience, read as quiz-like, and were a cognitive imposition rather than a contribution. The reflection screen is now a single free-text reflection plus an optional name field. The data trade is accepted: the workshop loses per-user structured opinion data, but the triage selections themselves and the free-text reflection remain as substantive evidence for post-workshop analysis, and the triage selections are arguably a truer signal of faculty intent since they mirror the category panels the user already engaged with.
 
-Per §3 of v0.2, content unchanged. Final screen post-reflection inviting free exploration with the agent prefixed by `### X`.
+### 7.6 X block — removed in v0.4
+
+Earlier versions specified an opt-in X block: a post-reflection capstone screen inviting free exploration with the agent.
+
+**Removed in v0.4.** Workshop-website review concluded that the X-block screen was redundant (users in the agent thread can already converse freely without a prompt prefix) and that surfacing X-block vocabulary would confuse rather than help. The standalone X-block screen has been removed. The useful affordance from that screen, a "Re-open the Companion in a new tab" button, has been moved to the post-reflection confirmation panel, which now carries two buttons: "Re-open the Companion in a new tab" and "Done, start another path."
 
 ### 7.7 Prompt template
 
 The user's selections substitute into this template:
 
 ```
-I am a [student_level] instructor teaching [class_format] in a class of [class_size] students.
+I am an instructor of a [student_level] course teaching [class_format] in a class of [class_size] students.
 
 Course: [course_topic]
 
@@ -301,11 +309,13 @@ Other materials or constraints: [materials_other]
 Please give me a structured, actionable response covering: (1) the recommended AI tool for this work, (2) how to access it, (3) an opening prompt I can paste, (4) follow-up prompts to extend the work, (5) what to expect from a good first response, (6) estimated time, (7) a reflection reminder. Keep your entire response in this single message.
 ```
 
+The opening sentence uses the "instructor of a [student_level] course" phrasing (revised in v0.4 from the earlier "[student_level] instructor"). The slot-substitution logic handles grammatical edge cases: a blank student level falls back to "I am an instructor teaching..."; a "Not applicable" class size drops the class-size clause; class format renders in natural prose ("in-person", "in a synchronous online format", and so on).
+
 The seven-section output schema is **named inside the prompt itself** rather than left as hidden machinery in the agent's instruction body. This makes the response shape visible to faculty before they paste into the GPT, and provides redundant grounding for the agent.
 
 ### 7.8 Agent instruction body
 
-The AMCIS Teaching Companion's instruction body is drafted fresh for the IS audience, with the seven-section output schema, the seven-tool universe filter pattern, no preamble/no epilogue discipline, and audience-appropriate technical register. Calibration cycles run pre-workshop in a separate thread or as parallel work to HANDOFF_02. The placeholder body currently in the GPT is sufficient for end-to-end platform testing.
+The AMCIS Teaching Companion's instruction body is `docs/AGENT_DEFINITION.md`, at v1.3 as of this SPEC version. It is drafted for the IS audience with the seven-section output schema, the seven-tool universe and filter pattern (ChatGPT primary, Microsoft Copilot demoted to institutional-access-only), the no-preamble/no-epilogue discipline, the substantively-technical register, and a hybrid-input-tolerant fallback. The instruction body was developed through two rounds of external review and then compressed to fit ChatGPT's 8000-character Instructions field limit (the Instructions section is approximately 7,770 characters). The calibrated body is deployed to the live GPT and has been verified working. Further calibration, if needed, edits `docs/AGENT_DEFINITION.md` and re-pastes the Instructions section.
 
 ---
 
@@ -324,20 +334,21 @@ The artifact triad discipline:
 
 Workshop is August 20, 2026.
 
-**Day 1 (completed):**
-- HANDOFF_01 executed: hub + 3 spokes built, Companion working end-to-end with placeholder content
-- HANDOFF_01_PATCH executed: Companion container width
-- Smoke-tested locally
-
-**Day 2 (current):**
-- Content design completed through three rounds of external review (this SPEC v0.3 records the result)
-- HANDOFF_02 executes: full content swap + Pamplin-pattern Other UI adoption + seven-section schema surfacing
-- End-to-end walkthrough by Onur
+**Build phase (completed):**
+- HANDOFF_01 and HANDOFF_01_PATCH: hub plus three spokes built; Companion working end-to-end; container width fix
+- HANDOFF_02: full content swap, Pamplin-pattern Other UI adoption, seven-section schema surfaced
+- Content design completed through three rounds of external review
+- HANDOFF_03A: platform UX fixes (Step 1 card-click, Q/O and X removed, framework vocabulary removed, VT orange Home button, Review two-column, grammar fix)
+- HANDOFF_03B: Under the Hood implemented as a four-slide viewer
+- HANDOFF_03C: homepage header and Under the Hood slide-sizing polish
+- Agent instruction body (AGENT_DEFINITION.md v1.3) drafted, reviewed, compressed, deployed to the live GPT, verified
+- Draft site shared with Jason Talaei and Dean Sarker by email
 
 **Following weeks:**
-- Calibration cycles on the GPT instruction body
-- Under the Hood content drafting (HANDOFF_03 territory)
-- Send draft to Dean Sarker and Jason Talaei for feedback
+- Integrate any feedback returned from Jason Talaei
+- GPT calibration follow-up if real-use testing surfaces drift
+- Imagemap enhancement brainstorm (deferred, possibly informed by Jason's feedback)
+- AMCIS program copy submission; workshop-day URL distribution (slide or QR code)
 - Final dry run before AMCIS
 
 ---
@@ -355,26 +366,32 @@ Workshop is August 20, 2026.
 - Step 3 schema revised: class size restored, teaching context replaces institution type (v0.3, §7.3)
 - All 42 Step 4 materials trees designed (v0.3, encoded in config.json)
 - Prompt template names seven-section schema inline (v0.3, §7.7)
-- Eight conceptual contributions identified for Under the Hood (v0.3, §3)
+- Eight conceptual contributions identified (v0.3, §3); reserved for the paper, not the public page (v0.4, §6.6)
+- HANDOFF_02 executed: content swap, Other UI adoption, seven-section schema surfaced (v0.3 era)
+- HANDOFF_03A executed: platform UX fixes, Step 1 card-click redesign, Q/O blocks and X block removed, framework vocabulary removed from Companion UI, VT orange Home button, Review screen two-column, prompt template grammar fix (v0.4, §6.2, §7.1, §7.5, §7.6, §7.7)
+- HANDOFF_03B executed: Under the Hood implemented as a four-slide viewer (v0.4, §5.2)
+- HANDOFF_03C executed: homepage header centering and Under the Hood slide sizing polish (v0.4)
+- Agent instruction body drafted, reviewed, compressed, and deployed to the live GPT as AGENT_DEFINITION.md v1.3; verified working (v0.4, §7.8)
+- Outreach email sent to Jason Talaei, Dean Sarker cc'd, sharing the draft site (v0.4)
 
 ---
 
 ## 11. Open items
 
-- **HANDOFF_02 execution.** The content swap + Other UI adoption + seven-section schema surfacing is drafted alongside this SPEC version. CC execution pending.
-- **GPT calibration.** Real instruction body drafted after HANDOFF_02 lands. Calibration cycles follow the prior platform's pattern.
-- **Under the Hood content drafting.** HANDOFF_03 or later; matures alongside the paper draft.
-- **Pre-workshop logistics.** AMCIS program copy submission (text in Appendix A). Slide/QR code production for workshop-day URL distribution.
+- **GPT calibration follow-up.** The agent body (v1.3) is deployed and verified working. Further calibration edits AGENT_DEFINITION.md and re-pastes the Instructions section, only if real-use testing surfaces drift.
+- **Feedback from Jason Talaei.** The draft site has been shared. Any feedback returned is integrated as a later handoff. The 45-minute compression question (§12) is handled if Jason raises it; it was not raised in the email.
+- **Imagemap enhancement (deferred).** The idea of hover-text on Framework slide regions (originally §2.C) is deferred to later in the summer, possibly informed by Jason's feedback. Not scoped or scheduled.
+- **Pre-workshop logistics.** AMCIS program copy submission (text in Appendix A). Slide or QR code production for workshop-day URL distribution.
 
 ---
 
 ## 12. Collapsible 45-minute variant
 
-If Jason Talaei's UNR promptathon partnership consumes 45 minutes of the workshop slot, the workshop compresses to 45 minutes total. Same architecture, same Companion artifact; live delivery compresses.
+If the workshop slot must be shared (for example with a UNR partner session) and compresses to 45 minutes total, the workshop adapts. Same architecture, same Companion artifact; live delivery compresses. This was not raised in the outreach exchange with Jason Talaei; it is retained here as a contingency.
 
 - **Act 1 (The Framework):** 20–25 minutes → 10 minutes. Three slides become a single rapid pass.
-- **Act 2 (The Companion):** 40–45 minutes → 25 minutes. Triage and prompt assembly completed; agent exchange abbreviated; Q and O blocks likely skipped; X capstone mentioned but not expected to be used.
-- **Act 3 (Under the Hood):** 20–25 minutes → 10 minutes. Guided tour rather than detailed exposition; replication invitation preserved.
+- **Act 2 (The Companion):** 40–45 minutes → 25 minutes. Triage and prompt assembly completed; agent exchange abbreviated; reflection kept brief.
+- **Act 3 (Under the Hood):** 20–25 minutes → 10 minutes. The four slides become a guided tour rather than detailed exposition; the closing message is preserved.
 
 What is lost: depth of conceptual engagement, depth of agent exchange, reflective time. The artifact still works; live delivery becomes more transactional.
 
@@ -396,6 +413,7 @@ Word count: ~135. No em dashes, no contrastive constructions, no badge claim.
 
 ## Change log
 
+- **v0.4 (2026-05-16):** Bookkeeping pass after the first feedback round; architecture unchanged. HANDOFF_03A: Step 1 redesigned to card-click selection (§7.1); Q and O blocks removed from the reflection screen (§7.5); the X-block capstone screen removed, its reopen button moved to the confirmation panel (§7.6); framework vocabulary removed from the Companion's user-facing surfaces (§6.2, §6.3, §6.4, Act 2); VT orange Home button added; Review screen given a two-column layout; prompt template opening line revised to "instructor of a [student_level] course" (§7.7). HANDOFF_03B: Under the Hood implemented as a four-slide viewer mirroring the Framework spoke, replacing the planned prose stub (§5.2, §5.3, §6.6). HANDOFF_03C: homepage header centered over the panel row, description paragraph widened to panel-row width, Under the Hood slides constrained by height so navigation stays visible. Agent instruction body finalized as AGENT_DEFINITION.md v1.3, compressed to ChatGPT's 8000-character limit, deployed to the live GPT and verified (§7.8). Eight conceptual contributions reserved for the eventual paper rather than rendered on the public Under the Hood page (§6.6). Outreach email sent to Jason Talaei with Dean Sarker cc'd. Imagemap enhancement logged as a deferred open item (§11).
 - **v0.3 (2026-05-14):** Major content design lock after three rounds of external review. Seven Step 1 categories with revised names (§7.1). All 42 Step 2 items locked (encoded in config.json). Step 3 schema revised: class size restored, teaching context replaces institution type (§7.3). All 42 Step 4 materials trees designed (encoded in config.json). Prompt template names seven-section schema inline (§7.7). Eight conceptual contributions identified for Under the Hood methodology section (§3). "Building learning artifacts" dropped from Step 1; artifact-building surfaces as Step 2 items in multiple categories. "Cases, examples, and applications" renamed to "Cases, scenarios, and applied examples." "Teaching technical content" renamed to "Teaching IS concepts, methods, and technologies." "Doctoral training and supervision" → "Doctoral training, supervision, and mentoring." New category 6: "Research methods, theory, and evidence." Boundary statements added to three ambiguous categories.
 - **v0.2 (2026-05-13):** Hub-and-spoke architecture (§5). Title locked. Three doors named. Public-surface neutrality (§6.5). Skill badge dropped (§6.10). The Companion no longer iframe-embedded (§6.9). Onur sole author on v1 surfaces (§6.6). Collapsible 45-minute variant (§12). GPT URL wired (§6.7). Google Form credentials verified (§6.8). AMCIS program submission text drafted (Appendix A). Open questions from v0.1 resolved.
 - **v0.1 (2026-05-13):** Initial draft. Three-act arc settled. Voluntary block engagement throughout. Light visual accents. Under-the-hood page positioned as publication seed. Public ChatGPT Custom GPT for the agent. Google Forms data capture extended for Q/O responses. Step 1 categories revised for IS-dominant-with-breadth audience.
